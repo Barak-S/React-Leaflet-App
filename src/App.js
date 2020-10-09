@@ -52,11 +52,11 @@ class App extends React.Component {
 
       return (
         <div>
-          <h2 style={{textAlign:"center"}}>NYC Skatepak Directory</h2>
+          <h2 style={{textAlign:"center"}}>NYC Skatepark Directory</h2>
           <Container fluid>
             <Row>
-              <Col xs={12} sm={12} md={9} lg={9}>
-                <Card>
+              <Col className="Map" xs={12} sm={12} md={9} lg={9}>
+                <Card style={{marginBottom: 22}}>
                   <Map center={this.state.center} zoom={this.state.zoom}>
                     <TileLayer
                       url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -87,10 +87,10 @@ class App extends React.Component {
                   </Map>
                 </Card>
               </Col>
-              <Col>
+              {/* <Col>
                   <Card style={{height: "100vh", textAlign: "center"}}>
                   </Card>
-              </Col>
+              </Col> */}
             </Row>
           </Container>
         </div>
