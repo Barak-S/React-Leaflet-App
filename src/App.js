@@ -26,7 +26,9 @@ class App extends React.Component {
 
   state={
     parks: [],
-    selectedPark: {}
+    selectedPark: {},
+    zoom: 11,
+    center: [40.7580 , -73.9855]
   }
 
   componentDidMount(){
@@ -40,7 +42,9 @@ class App extends React.Component {
 
   setPark=(park)=>{
     this.setState({
-      selectedPark: park
+      selectedPark: park,
+      zoom: 15,
+      center: [park.polygon.coordinates[0][0][1] , park.polygon.coordinates[0][0][0]]
     })
   }
 
@@ -52,7 +56,7 @@ class App extends React.Component {
           <Container fluid>
             <Row>
               <Col xs={12} sm={12} md={9} lg={9}>
-                <Map center={[40.7580 , -73.9855]} zoom={11}>
+                <Map center={this.state.center} zoom={this.state.zoom}>
                   <TileLayer
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                     attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
@@ -70,7 +74,7 @@ class App extends React.Component {
                   { this.state.selectedPark.name && (
                     <Popup
                       position={[this.state.selectedPark.polygon.coordinates[0][0][1] , this.state.selectedPark.polygon.coordinates[0][0][0]]}
-                      onClose={()=>this.setState({ selectedPark: {} })}
+                      onClose={()=>this.setState({ selectedPark: {}, zoom: 11, center: [40.7580 , -73.9855] })}
                     >
                       <div>
                         <h3>{this.state.selectedPark.name}</h3>
