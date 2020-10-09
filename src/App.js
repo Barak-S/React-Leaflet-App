@@ -27,8 +27,8 @@ class App extends React.Component {
   state={
     parks: [],
     selectedPark: {},
-    zoom: 11,
-    center: [40.7580 , -73.9855]
+    zoom: 10.5,
+    center: [40.7395 , -73.9027]
   }
 
   componentDidMount(){
@@ -75,7 +75,7 @@ class App extends React.Component {
                     { this.state.selectedPark.name && (
                       <Popup
                         position={[this.state.selectedPark.polygon.coordinates[0][0][1] , this.state.selectedPark.polygon.coordinates[0][0][0]]}
-                        onClose={()=>this.setState({ selectedPark: {}, zoom: 11, center: [40.7580 , -73.9855] })}
+                        onClose={()=>this.setState({ selectedPark: {}, zoom: 10.5, center: [40.7395 , -73.9027] })}
                       >
                         <div>
                           <h3>{this.state.selectedPark.name}</h3>
