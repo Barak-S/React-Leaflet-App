@@ -56,34 +56,36 @@ class App extends React.Component {
           <Container fluid>
             <Row>
               <Col xs={12} sm={12} md={9} lg={9}>
-                <Map center={this.state.center} zoom={this.state.zoom}>
-                  <TileLayer
-                    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                    attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-                  />
-                  {this.state.parks.map(park=>{
-                    return(
-                      <Marker
-                        key={park.name}
-                        position={[park.polygon.coordinates[0][0][1] , park.polygon.coordinates[0][0][0]]}
-                        onClick={()=>this.setPark(park)}
-                        icon={ skateboard }
-                      />
-                    )
-                  })}
-                  { this.state.selectedPark.name && (
-                    <Popup
-                      position={[this.state.selectedPark.polygon.coordinates[0][0][1] , this.state.selectedPark.polygon.coordinates[0][0][0]]}
-                      onClose={()=>this.setState({ selectedPark: {}, zoom: 11, center: [40.7580 , -73.9855] })}
-                    >
-                      <div>
-                        <h3>{this.state.selectedPark.name}</h3>
-                        <p>{this.state.selectedPark.status}</p>
-                      </div>
+                <Card>
+                  <Map center={this.state.center} zoom={this.state.zoom}>
+                    <TileLayer
+                      url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                      attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+                    />
+                    {this.state.parks.map(park=>{
+                      return(
+                        <Marker
+                          key={park.name}
+                          position={[park.polygon.coordinates[0][0][1] , park.polygon.coordinates[0][0][0]]}
+                          onClick={()=>this.setPark(park)}
+                          icon={ skateboard }
+                        />
+                      )
+                    })}
+                    { this.state.selectedPark.name && (
+                      <Popup
+                        position={[this.state.selectedPark.polygon.coordinates[0][0][1] , this.state.selectedPark.polygon.coordinates[0][0][0]]}
+                        onClose={()=>this.setState({ selectedPark: {}, zoom: 11, center: [40.7580 , -73.9855] })}
+                      >
+                        <div>
+                          <h3>{this.state.selectedPark.name}</h3>
+                          <p>{this.state.selectedPark.status}</p>
+                        </div>
 
-                    </Popup>
-                  )}
-                </Map>
+                      </Popup>
+                    )}
+                  </Map>
+                </Card>
               </Col>
               <Col>
                   <Card style={{height: "100vh", textAlign: "center"}}>
