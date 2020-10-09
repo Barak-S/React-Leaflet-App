@@ -18,7 +18,8 @@ L.Icon.Default.mergeOptions({
 class App extends React.Component {
 
   state={
-    parks: []
+    parks: [],
+    selectedPark: {}
   }
 
   componentDidMount(){
@@ -28,6 +29,12 @@ class App extends React.Component {
     .then(data=>this.setState({
       parks: data
     }))
+  }
+
+  setPark=(park)=>{
+    this.setState({
+      selectedPark: park
+    })
   }
 
   render(){
@@ -43,10 +50,24 @@ class App extends React.Component {
             {this.state.parks.map(park=>{
               return(
                 <Marker
+                  key={park.name}
                   position={[park.polygon.coordinates[0][0][1] , park.polygon.coordinates[0][0][0]]}
+                  onClick={()=>this.setPark(park)}
                 />
               )
             })}
+            { this.state.selectedPark.name && (
+              <Popup
+                position={[this.state.selectedPark.polygon.coordinates[0][0][1] , this.state.selectedPark.polygon.coordinates[0][0][0]]}
+                onClose={()=>this.setState({ selectedPark: {} })}
+              >
+                <div>
+                  <h3>{this.state.selectedPark.name}</h3>
+                  <p>{this.state.selectedPark.status}</p>
+                </div>
+
+              </Popup>
+            )}
           </Map>
         </div>
       );
