@@ -15,6 +15,11 @@ L.Icon.Default.mergeOptions({
     shadowUrl: require('leaflet/dist/images/marker-shadow.png')
 });
 
+const skateboard = new Icon({
+  iconUrl: '../skateboard.svg',
+  iconSize: [25,25]
+})
+
 class App extends React.Component {
 
   state={
@@ -41,7 +46,7 @@ class App extends React.Component {
 
       return (
         <div className="App">
-          <p>React-Leaflet App</p>
+          <h2 style={{textAlign:"center"}}>NYC Skatepak Directory</h2>
           <Map center={[40.7580 , -73.9855]} zoom={11}>
             <TileLayer
               url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -53,6 +58,7 @@ class App extends React.Component {
                   key={park.name}
                   position={[park.polygon.coordinates[0][0][1] , park.polygon.coordinates[0][0][0]]}
                   onClick={()=>this.setPark(park)}
+                  icon={ skateboard }
                 />
               )
             })}
