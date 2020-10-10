@@ -42,11 +42,11 @@ class Signup extends React.Component{
           })
           .then(resp=>resp.json())
           .then(data=>console.log(data))
-          .then(this.resetForm())
+        //   .then(this.resetForm())
     }
 
     render(){
-
+        const { errors } = this.state;
         return (
             <Row>
                 <Col xs={12} sm={12} md={4} lg={4} className="AlignCenter">
@@ -55,11 +55,11 @@ class Signup extends React.Component{
                             <h3>Sign Up</h3>
                             <Form.Group>
                                 <Form.Label>Name</Form.Label>
-                                <Form.Control name="name" placeholder="Enter Name" onChange={(e)=>this.handleChange(e)} />
+                                <Form.Control name="name" placeholder="Enter Name" error={errors.name} value={this.state.name} onChange={(e)=>this.handleChange(e)} />
                             </Form.Group>
                             <Form.Group controlId="formBasicEmail">
                                 <Form.Label>Email address</Form.Label>
-                                <Form.Control type="email" name="email" placeholder="Enter email" onChange={(e)=>this.handleChange(e)} />
+                                <Form.Control type="email" name="email" error={errors.email} placeholder="Enter email" value={this.state.email} onChange={(e)=>this.handleChange(e)} />
                                 <Form.Text className="text-muted">
                                 We'll never share your email with anyone else.
                                 </Form.Text>
@@ -67,11 +67,11 @@ class Signup extends React.Component{
 
                             <Form.Group controlId="formBasicPassword">
                                 <Form.Label>Password</Form.Label>
-                                <Form.Control type="password" name="password" placeholder="Password" onChange={(e)=>this.handleChange(e)} />
+                                <Form.Control type="password" name="password" error={errors.password} placeholder="Password" value={this.state.password} onChange={(e)=>this.handleChange(e)} />
                             </Form.Group>
                             <Form.Group controlId="formBasicPassword">
                                 <Form.Label>Confirm Password</Form.Label>
-                                <Form.Control type="password" name="password2" placeholder="Password" onChange={(e)=>this.handleChange(e)} />
+                                <Form.Control type="password" name="password2" error={errors.password2} placeholder="Password" value={this.state.password2} onChange={(e)=>this.handleChange(e)} />
                             </Form.Group>
                             <Form.Text className="text-muted" style={{paddingBottom: 15}}>Already have an account? <Link to="/login">Log In</Link></Form.Text>
                             <Button variant="primary" onClick={()=>this.handleSubmit(this.state)}>
