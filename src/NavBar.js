@@ -17,6 +17,9 @@ function NavBar() {
                 <Link to="/signup" style={{ textDecoration: 'none' }}>
                     <Nav.Link href="#link" style={{ color:"#000000", paddingTop: 12}}>Sign Up</Nav.Link>   
                 </Link>
+                <Link to="/login" style={{ textDecoration: 'none' }}>
+                    <Nav.Link href="#link" style={{ color:"#000000", paddingTop: 12}}>Log In</Nav.Link>   
+                </Link>
             </Nav>
             {/* <Form inline>
                 <FormControl type="text" placeholder="Search Skate Spots!" className="mr-sm-2" />
