@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Container, Row, Col, Card } from 'react-bootstrap';
+import { Container, Row, Col, Card, Form, Button, Navbar, Nav, FormControl } from 'react-bootstrap';
 
 import { Map, Marker, Popup, TileLayer } from 'react-leaflet';
 import  { Icon } from 'leaflet';
@@ -33,7 +33,6 @@ class App extends React.Component {
 
   componentDidMount(){
     fetch("https://data.cityofnewyork.us/resource/pvvr-75zk.json")
-    // .then(data=>data.JSON())
     .then(resp=>resp.json())
     .then(data=>this.setState({
       parks: data
@@ -43,8 +42,28 @@ class App extends React.Component {
   setPark=(park)=>{
     this.setState({
       selectedPark: park,
-      zoom: 15,
-      center: [park.polygon.coordinates[0][0][1] , park.polygon.coordinates[0][0][0]]
+      center: [park.polygon.coordinates[0][0][1] , park.polygon.coordinates[0][0][0]],
+      zoom: 15
+    })
+  }
+
+  // determineZoom(){
+  //   if(this.state.selectedPark.name){
+  //     this.setState({
+  //       zoom: 15
+  //     })
+  //   } else {
+  //     this.setState({
+  //       zoom: 10.5
+  //     })
+  //   }
+  // }
+
+  clearPark(){
+    this.setState({ 
+      selectedPark: {}, 
+      center: [40.7395 , -73.9027],
+      zoom: 10.5
     })
   }
 
@@ -52,7 +71,18 @@ class App extends React.Component {
 
       return (
         <div>
-          <h2 style={{textAlign:"center"}}>NYC Skatepark Directory</h2>
+          <Navbar collapseOnSelect expand="lg" bg="light" variant="light" style={{marginBottom: 19}}>
+            <Navbar.Brand href="#home">NYC Skatepark Directory</Navbar.Brand>
+            <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+            <Navbar.Collapse id="responsive-navbar-nav">
+              <Nav className="mr-auto">
+              </Nav>
+              <Form inline>
+                <FormControl type="text" placeholder="Search Skate Spots!" className="mr-sm-2" />
+                <Button variant="outline-primary">Search</Button>
+            </Form>
+            </Navbar.Collapse>
+          </Navbar>
           <Container fluid>
             <Row>
               <Col className="Map" xs={12} sm={12} md={9} lg={9}>
@@ -75,7 +105,7 @@ class App extends React.Component {
                     { this.state.selectedPark.name && (
                       <Popup
                         position={[this.state.selectedPark.polygon.coordinates[0][0][1] , this.state.selectedPark.polygon.coordinates[0][0][0]]}
-                        onClose={()=>this.setState({ selectedPark: {}, zoom: 10.5, center: [40.7395 , -73.9027] })}
+                        onClose={()=>this.clearPark()}
                       >
                         <div>
                           <h3>{this.state.selectedPark.name}</h3>
@@ -87,10 +117,31 @@ class App extends React.Component {
                   </Map>
                 </Card>
               </Col>
-              {/* <Col>
-                  <Card style={{height: "100vh", textAlign: "center"}}>
+              <Col>
+                  <Card style={{ padding: 15}}>
+                    <h3>Sign Up</h3>
+                    <Form>
+                      <Form.Group controlId="formBasicEmail">
+                        <Form.Label>Email address</Form.Label>
+                        <Form.Control type="email" placeholder="Enter email" />
+                        <Form.Text className="text-muted">
+                          We'll never share your email with anyone else.
+                        </Form.Text>
+                      </Form.Group>
+
+                      <Form.Group controlId="formBasicPassword">
+                        <Form.Label>Password</Form.Label>
+                        <Form.Control type="password" placeholder="Password" />
+                      </Form.Group>
+                      {/* <Form.Group controlId="formBasicCheckbox">
+                        <Form.Check type="checkbox" label="Check me out" />
+                      </Form.Group> */}
+                      <Button variant="primary" type="submit">
+                        Lets Go!
+                      </Button>
+                    </Form>
                   </Card>
-              </Col> */}
+              </Col>
             </Row>
           </Container>
         </div>
