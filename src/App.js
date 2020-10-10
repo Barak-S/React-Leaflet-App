@@ -118,7 +118,7 @@ class App extends React.Component {
                 </Card>
               </Col>
               <Col>
-                  <Card style={{ padding: 15}}>
+                  <Card style={{ padding: 15, marginBottom: 22}}>
                     <h3>Sign Up</h3>
                     <Form>
                       <Form.Group controlId="formBasicEmail">
