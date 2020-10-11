@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Container, Row, Col, Card, Form, Button, Navbar, Nav, FormControl } from 'react-bootstrap';
+import { Container, Row, Col, Card, Form, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
 import PropTypes from "prop-types";
@@ -123,7 +123,7 @@ class Login extends React.Component{
                                 </span>
                             </Form.Group>
                             <Form.Text className="text-muted" style={{ paddingBottom: 15, fontWeight: "600" }}>Dont have an account? <Link to="/signup">Sign Up</Link></Form.Text>
-                            <Button variant="dark" className="BoxShadow" onClick={(e)=>this.onSubmit(e)}>
+                            <Button style={{backgroundColor: "#FE5F55", borderColor: "#000000"}} className="BoxShadow" onClick={(e)=>this.onSubmit(e)}>
                                 Log In
                             </Button>
                         </Form>
