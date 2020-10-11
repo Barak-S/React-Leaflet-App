@@ -1,6 +1,11 @@
 import React, { Component } from 'react';
 import { Container, Row, Col, Card, Form, Button, Navbar, Nav, FormControl } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from "react-router-dom";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import { registerUser } from "./actions/authActions";
+
+import classnames from "classnames";
 
 class Signup extends React.Component{
 
@@ -16,34 +21,34 @@ class Signup extends React.Component{
         this.baseState = this.state 
     }
 
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.errors) {
+          this.setState({
+            errors: nextProps.errors
+          });
+        }
+      }
+
     handleChange(e){
         this.setState({
             [e.target.name] : e.target.value
         })
     }
 
-    resetForm = () => {
-        this.setState(this.baseState)
-    }
+    // resetForm = () => {
+    //     this.setState(this.baseState)
+    // }
 
-    handleSubmit(user){
-        fetch('/api/users/register',{
-            method: 'POST',
-            headers: {
-              'Accept': 'application/json',
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                name: user.name,
-                email: user.email,
-                password: user.password,
-                password2: user.password2
-            })
-          })
-          .then(resp=>resp.json())
-          .then(data=>console.log(data))
-        //   .then(this.resetForm())
-    }
+    onSubmit = e => {
+        e.preventDefault();
+        const newUser = {
+            name: this.state.name,
+            email: this.state.email,
+            password: this.state.password,
+            password2: this.state.password2
+        };
+        this.props.registerUser(newUser, this.props.history); 
+    };
 
     render(){
         const { errors } = this.state;
@@ -55,11 +60,33 @@ class Signup extends React.Component{
                             <h3>Sign Up</h3>
                             <Form.Group>
                                 <Form.Label>Name</Form.Label>
-                                <Form.Control name="name" placeholder="Enter Name" error={errors.name} value={this.state.name} onChange={(e)=>this.handleChange(e)} />
+                                <Form.Control 
+                                    name="name" 
+                                    placeholder="Enter Name" 
+                                    error={errors.name} 
+                                    value={this.state.name} 
+                                    onChange={(e)=>this.handleChange(e)} 
+                                    type="text"
+                                    className={classnames("", {
+                                        invalid: errors.name
+                                    })}
+                                />
+                                <span className="red-text">{errors.name}</span>
                             </Form.Group>
                             <Form.Group controlId="formBasicEmail">
                                 <Form.Label>Email address</Form.Label>
-                                <Form.Control type="email" name="email" error={errors.email} placeholder="Enter email" value={this.state.email} onChange={(e)=>this.handleChange(e)} />
+                                <Form.Control 
+                                    type="email" 
+                                    name="email" 
+                                    error={errors.email} 
+                                    placeholder="Enter email" 
+                                    value={this.state.email} 
+                                    onChange={(e)=>this.handleChange(e)}
+                                    className={classnames("", {
+                                        invalid: errors.email
+                                    })} 
+                                />
+                                <span className="red-text">{errors.email}</span>
                                 <Form.Text className="text-muted">
                                 We'll never share your email with anyone else.
                                 </Form.Text>
@@ -67,14 +94,36 @@ class Signup extends React.Component{
 
                             <Form.Group controlId="formBasicPassword">
                                 <Form.Label>Password</Form.Label>
-                                <Form.Control type="password" name="password" error={errors.password} placeholder="Password" value={this.state.password} onChange={(e)=>this.handleChange(e)} />
+                                <Form.Control 
+                                    type="password" 
+                                    name="password" 
+                                    error={errors.password} 
+                                    placeholder="Password" 
+                                    value={this.state.password} 
+                                    onChange={(e)=>this.handleChange(e)} 
+                                    className={classnames("", {
+                                        invalid: errors.password
+                                    })}
+                                />
+                                <span className="red-text">{errors.password}</span>
                             </Form.Group>
                             <Form.Group controlId="formBasicPassword">
                                 <Form.Label>Confirm Password</Form.Label>
-                                <Form.Control type="password" name="password2" error={errors.password2} placeholder="Password" value={this.state.password2} onChange={(e)=>this.handleChange(e)} />
+                                <Form.Control 
+                                    type="password" 
+                                    name="password2" 
+                                    error={errors.password2} 
+                                    placeholder="Password" 
+                                    value={this.state.password2} 
+                                    onChange={(e)=>this.handleChange(e)} 
+                                    className={classnames("", {
+                                        invalid: errors.password2
+                                    })}
+                                />
+                                <span className="red-text">{errors.password2}</span>
                             </Form.Group>
                             <Form.Text className="text-muted" style={{paddingBottom: 15}}>Already have an account? <Link to="/login">Log In</Link></Form.Text>
-                            <Button variant="primary" className="BoxShadow" onClick={()=>this.handleSubmit(this.state)}>
+                            <Button variant="primary" className="BoxShadow" onClick={(e)=>this.onSubmit(e)}>
                                 Register
                             </Button>
                         </Form>
@@ -85,4 +134,16 @@ class Signup extends React.Component{
     }
 }
 
-export default Signup;
+Signup.propTypes = {
+    registerUser: PropTypes.func.isRequired,
+    auth: PropTypes.object.isRequired,
+    errors: PropTypes.object.isRequired
+};
+const mapStateToProps = state => ({
+    auth: state.auth,
+    errors: state.errors
+});
+export default connect(
+    mapStateToProps,
+    { registerUser }
+)(withRouter(Signup));

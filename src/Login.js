@@ -2,6 +2,11 @@ import React, { Component } from 'react';
 import { Container, Row, Col, Card, Form, Button, Navbar, Nav, FormControl } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import { loginUser } from "./actions/authActions";
+import classnames from "classnames";
+
 class Login extends React.Component{
 
     constructor(props){
@@ -13,6 +18,17 @@ class Login extends React.Component{
             errors: {}
         }
         this.baseState = this.state 
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.auth.isAuthenticated) {
+            this.props.history.push("/"); // push user to dashboard when they login
+        }
+        if (nextProps.errors) {
+            this.setState({
+                errors: nextProps.errors
+            });
+        }
     }
 
     handleChange(e){
@@ -46,6 +62,15 @@ class Login extends React.Component{
         //   .then(this.resetForm())
     }
 
+    onSubmit = e => {
+        e.preventDefault();
+        const userData = {
+            email: this.state.email,
+            password: this.state.password
+        };
+        this.props.loginUser(userData); // since we handle the redirect within our component, we don't need to pass in this.props.history as a parameter
+      }
+
     render(){
         const { errors } = this.state;
         return (
@@ -54,20 +79,44 @@ class Login extends React.Component{
                     <Card className="form">
                         <Form style={{padding: 15}}>
                             <h3>Log In</h3>
-                            <Form.Group>
-                                <Form.Label>Name</Form.Label>
-                                <Form.Control name="name" error={errors.name} placeholder="Enter Name" value={this.state.name} onChange={(e)=>this.handleChange(e)} />
-                            </Form.Group>
                             <Form.Group controlId="formBasicEmail">
                                 <Form.Label>Email address</Form.Label>
-                                <Form.Control type="email" name="email" error={errors.email} placeholder="Enter email" value={this.state.email} onChange={(e)=>this.handleChange(e)} />
+                                <Form.Control 
+                                    type="email" 
+                                    name="email" 
+                                    error={errors.email} 
+                                    placeholder="Enter email" 
+                                    value={this.state.email} 
+                                    onChange={(e)=>this.handleChange(e)} 
+                                    className={classnames("", {
+                                        invalid: errors.email || errors.emailnotfound
+                                    })}
+                                />
+                                <span className="red-text">
+                                    {errors.email}
+                                    {errors.emailnotfound}
+                                </span>
                             </Form.Group>
                             <Form.Group controlId="formBasicPassword">
                                 <Form.Label>Password</Form.Label>
-                                <Form.Control type="password" name="password" error={errors.password} placeholder="Password" value={this.state.password} onChange={(e)=>this.handleChange(e)} />
+                                <Form.Control 
+                                    type="password" 
+                                    name="password" 
+                                    error={errors.password} 
+                                    placeholder="Password" 
+                                    value={this.state.password} 
+                                    onChange={(e)=>this.handleChange(e)} 
+                                    className={classnames("", {
+                                        invalid: errors.password || errors.passwordincorrect
+                                    })}
+                                />
+                                <span className="red-text">
+                                    {errors.password}
+                                    {errors.passwordincorrect}
+                                </span>
                             </Form.Group>
                             <Form.Text className="text-muted" style={{paddingBottom: 15}}>Dont have an account? <Link to="/signup">Sign Up</Link></Form.Text>
-                            <Button variant="primary" className="BoxShadow" onClick={()=>this.handleSubmit(this.state)}>
+                            <Button variant="primary" className="BoxShadow" onClick={(e)=>this.onSubmit(e)}>
                                 Log In
                             </Button>
                         </Form>
@@ -78,4 +127,16 @@ class Login extends React.Component{
     }
 }
 
-export default Login;
+Login.propTypes = {
+    loginUser: PropTypes.func.isRequired,
+    auth: PropTypes.object.isRequired,
+    errors: PropTypes.object.isRequired
+};
+const mapStateToProps = state => ({
+    auth: state.auth,
+    errors: state.errors
+});
+export default connect(
+    mapStateToProps,
+    { loginUser }
+)(Login);

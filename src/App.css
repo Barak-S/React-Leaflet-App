@@ -35,3 +35,7 @@
 .BoxShadow.navbar.navbar-expand-lg.navbar-light.bg-light{
   margin-bottom: 0px !important;
 }
+
+.red-text{
+  color: red;
+}

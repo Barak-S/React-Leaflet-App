@@ -13,9 +13,9 @@ function NavBar() {
                     </Link>
                 </Nav>
                 <Nav className="ml-auto">
-                    <Link to="/signup" style={{ textDecoration: 'none' }}>
+                    {/* <Link to="/signup" style={{ textDecoration: 'none' }}>
                         <Nav.Link href="#link" style={{ color:"#000000", paddingTop: 12}}>Sign Up</Nav.Link>   
-                    </Link>
+                    </Link> */}
                     <Link to="/login" style={{ textDecoration: 'none' }}>
                         <Nav.Link href="#link" style={{ color:"#000000", paddingTop: 12}}>Log In</Nav.Link>   
                     </Link>
