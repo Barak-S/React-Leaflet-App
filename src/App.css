@@ -39,3 +39,14 @@
 .red-text{
   color: red;
 }
+
+a.NavLinks.nav-link {
+  -webkit-transition: 0.3s ease-in-out;
+  transition: 0.3s ease-in-out;
+  margin-right: 12px;
+}
+
+a.NavLinks.nav-link:hover {
+  background-color: #FFE485;
+  border-radius: 10px;
+}

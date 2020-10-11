@@ -24,14 +24,14 @@ class NavBar extends React.Component {
                         <Navbar.Text style={{ color:"#000000", paddingTop: 8}}>
                             Signed in as: {this.props.auth.user.name} |
                         </Navbar.Text>
-                        <Link to="/">
-                            <Nav.Link href="#link" style={{ color:"#000000", paddingTop: 8}} onClick={()=>this.props.logoutUser()}>Log Out</Nav.Link>   
+                        <Link to="/" style={{ textDecoration: 'none' }}>
+                            <Nav.Link href="#link" className="NavLinks" style={{ color:"#000000", paddingTop: 8}} onClick={()=>this.props.logoutUser()}>Log Out</Nav.Link>   
                         </Link>
                     </Nav>
                         :
                     <Nav className="ml-auto">
-                        <Link to="/login">
-                            <Nav.Link href="#link" style={{ color:"#000000", paddingTop: 8}}>Log In</Nav.Link>   
+                        <Link to="/login" style={{ textDecoration: 'none' }}>
+                            <Nav.Link href="#link" className="NavLinks" style={{ color:"#000000", paddingTop: 8}}>Log In</Nav.Link>   
                         </Link>
                     </Nav>
                         }
