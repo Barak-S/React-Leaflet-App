@@ -9,6 +9,13 @@ import L from 'leaflet';
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 
+import LocationSearch from './LocationSearch'
+import PlacesAutocomplete, {
+  geocodeByAddress,
+  getLatLng,
+} from 'react-places-autocomplete';  
+
+
 delete L.Icon.Default.prototype._getIconUrl;
 
 L.Icon.Default.mergeOptions({
@@ -28,7 +35,8 @@ class SkateMap extends React.Component {
     parks: [],
     selectedPark: {},
     zoom: 10.5,
-    center: [40.7395 , -73.9027]
+    center: [40.7395 , -73.9027],
+    address: ""
   }
 
   componentDidMount(){
@@ -47,17 +55,15 @@ class SkateMap extends React.Component {
     })
   }
 
-  // determineZoom(){
-  //   if(this.state.selectedPark.name){
-  //     this.setState({
-  //       zoom: 15
-  //     })
-  //   } else {
-  //     this.setState({
-  //       zoom: 10.5
-  //     })
-  //   }
-  // }
+  handleAddressChange= (address) => {
+    this.setState({ address })
+  }
+
+  handleAddressSelect = (address) => {
+    geocodeByAddress(address)
+    .then(results => getLatLng(results[0]))
+    this.setState({ address})
+  }
 
   clearPark(){
     this.setState({ 
@@ -115,8 +121,13 @@ class SkateMap extends React.Component {
                         <div>
                           <h3 style={{textAlign: "center"}}>Add a skate spot to our map!</h3>
                           <Form.Group>
-                              <Form.Label>Address</Form.Label>
-                              <Form.Control placeholder="Address"></Form.Control>
+                              {/* <Form.Label>Address</Form.Label>
+                              <Form.Control placeholder="Address"></Form.Control> */}
+                              <LocationSearch
+                                address={this.state.address}
+                                handleAddressChange={this.handleAddressChange}
+                                handleAddressSelect={this.handleAddressSelect}
+                              />
                           </Form.Group>
                           <Form.Group>
                               <Form.Label>Description</Form.Label>
