@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container, Row, Col, Card, Form, Button, Navbar, Nav, FormControl } from 'react-bootstrap';
+import { Container, Row, Col, Card, Form, Button, Table } from 'react-bootstrap';
 import { Map, Marker, Popup, TileLayer } from 'react-leaflet';
 import  { Icon } from 'leaflet';
 import { render } from '@testing-library/react';
@@ -128,6 +128,15 @@ class SkateMap extends React.Component {
                                 handleAddressChange={this.handleAddressChange}
                                 handleAddressSelect={this.handleAddressSelect}
                               />
+                          </Form.Group>
+                          <Form.Group>
+                            <Form.Label>Features</Form.Label>
+                            <br/>
+                            <Form.Check inline label='Park' type={'checkbox'}/>
+                            <Form.Check inline label='Hand Rail' type={'checkbox'}/>
+                            <Form.Check inline label='Stairs' type={'checkbox'}/>
+                            <Form.Check inline label='Box' type={'checkbox'}/>
+                            <Form.Check inline label='Rail' type={'checkbox'}/>
                           </Form.Group>
                           <Form.Group>
                               <Form.Label>Description</Form.Label>

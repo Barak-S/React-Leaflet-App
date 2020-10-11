@@ -20,13 +20,11 @@ export default class LocationSearch extends React.Component {
         >
           {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
             <div>
-                  <InputGroup className="mb-3">
-                  <Form.Label style={{width: "100%", textAlign: "left"}}>Address</Form.Label>
-                      <FormControl placeholder= "Address" style={{ height: 36 }} {...getInputProps({
-                          autoComplete: "new-password"
-                      })}>
-                      </FormControl>
-                  </InputGroup>
+                <Form.Label style={{width: "100%", textAlign: "left"}}>Address</Form.Label>
+                <Form.Control placeholder= "Address" style={{ height: 36 }} {...getInputProps({
+                    autoComplete: "new-password"
+                })}>
+                </Form.Control>    
               <div style={{cursor: "pointer", fontSize: 15.5 }}>
                 {loading && <div>Loading...</div>}
                 {suggestions.map(suggestion => {

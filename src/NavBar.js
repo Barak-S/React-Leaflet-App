@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Container, Row, Col, Card, Form, Button, Navbar, Nav, FormControl } from 'react-bootstrap';
+import { Navbar, Nav, NavDropdown } from 'react-bootstrap';
 import { Link, withRouter } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
@@ -21,12 +21,20 @@ class NavBar extends React.Component {
                     </Nav>
                         { this.props.auth.isAuthenticated ? 
                     <Nav className="ml-auto">
-                        <Navbar.Text style={{ color:"#FFE485", paddingTop: 8, fontWeight: "600"}}>
-                            Signed in as: {this.props.auth.user.name}
+                        <Navbar.Text style={{ color:"#FFE485", fontWeight: "600"}}>
+                            Signed in as:
                         </Navbar.Text>
-                        <Link to="/" style={{ textDecoration: 'none' }}>
-                            <Nav.Link href="#link" className="NavLinks" style={{ color:"#000000", paddingTop: 8}} onClick={()=>this.props.logoutUser()}>Log Out</Nav.Link>   
-                        </Link>
+                        <NavDropdown title={this.props.auth.user.name} id="collasible-nav-dropdown">
+                            <NavDropdown.Item>My Spots</NavDropdown.Item>
+                            <NavDropdown.Item>Activity</NavDropdown.Item>
+                            <NavDropdown.Item>Profile</NavDropdown.Item>
+                            <NavDropdown.Divider />
+                            <NavDropdown.Item>
+                                <Link to="/" style={{ textDecoration: 'none' }}>
+                                    <Nav.Link href="#link" className="NavLinks" style={{ color:"#000000", paddingTop: 8}} onClick={()=>this.props.logoutUser()}>Log Out</Nav.Link>   
+                                </Link>
+                            </NavDropdown.Item>
+                        </NavDropdown>
                     </Nav>
                         :
                     <Nav className="ml-auto">
