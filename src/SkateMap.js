@@ -1,11 +1,13 @@
 import React from 'react';
-
 import { Container, Row, Col, Card, Form, Button, Navbar, Nav, FormControl } from 'react-bootstrap';
 import { Map, Marker, Popup, TileLayer } from 'react-leaflet';
 import  { Icon } from 'leaflet';
 import { render } from '@testing-library/react';
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
+
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
 
 delete L.Icon.Default.prototype._getIconUrl;
 
@@ -108,22 +110,31 @@ class SkateMap extends React.Component {
                 <FormControl type="text" placeholder="Search Skate Spots!" className="mr-sm-2" />
                 <Button variant="outline-primary">Search</Button>
               </Form> */}
-                  <Card style={{ marginBottom: 22 }} className="BoxShadow">
-                    <Form style={{padding: 15}}>
-                      <h3>Add a skate spot to our map!</h3>
-                      <Form.Group>
-                          <Form.Label>Address</Form.Label>
-                          <Form.Control placeholder="Address"></Form.Control>
-                      </Form.Group>
-                      <Form.Group>
-                          <Form.Label>Description</Form.Label>
-                          <Form.Control as="textarea" rows={3} placeholder="Desciption"/>
-                      </Form.Group>
-                      <Form.Group>
-                          <Form.File id="exampleFormControlFile1" label="Upload Image" />
-                      </Form.Group>
-                      <Button variant="primary" className="BoxShadow" onClick={()=>this.handleSubmit(this.state)}>Create Spot!</Button>
+                  <Card style={{ marginBottom: 22, padding: 12 }} className="BoxShadow">
+                    <Form >
+                        <div>
+                          <h3 style={{textAlign: "center"}}>Add a skate spot to our map!</h3>
+                          <Form.Group>
+                              <Form.Label>Address</Form.Label>
+                              <Form.Control placeholder="Address"></Form.Control>
+                          </Form.Group>
+                          <Form.Group>
+                              <Form.Label>Description</Form.Label>
+                              <Form.Control as="textarea" rows={3} placeholder="Desciption"/>
+                          </Form.Group>
+                          <Form.Group>
+                              <Form.File id="exampleFormControlFile1" label="Upload Image" />
+                          </Form.Group>
+                          <Button variant="primary" className="BoxShadow" onClick={()=>this.handleSubmit(this.state)}>Create Spot!</Button>
+                        </div>
                     </Form>
+                  </Card>
+                  <Card style={{ marginBottom: 22, padding: 12, minHeight: "25vh" }} className="BoxShadow">
+                    <h4 style={{textAlign: "center"}}>Park Details</h4>
+                    { this.state.selectedPark.name && <div>
+                      <h5>{this.state.selectedPark.name}</h5>
+                      <p>{this.state.selectedPark.status}</p>
+                    </div>}
                   </Card>
               </Col>
             </Row>
@@ -135,4 +146,15 @@ class SkateMap extends React.Component {
   }
   
 
-export default SkateMap;
+
+SkateMap.propTypes = {
+  auth: PropTypes.object.isRequired,
+  errors: PropTypes.object.isRequired
+};
+const mapStateToProps = state => ({
+  auth: state.auth,
+  errors: state.errors
+});
+export default connect(
+  mapStateToProps,
+)(SkateMap);

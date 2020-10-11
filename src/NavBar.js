@@ -8,33 +8,8 @@ import { logoutUser } from "./actions/authActions";
 
 class NavBar extends React.Component {
 
-    state={
-        LOGGED_IN: false
-    }
-
-    componentDidMount() {
-        // If logged in and user navigates to Login page, should redirect them to dashboard
-        if (this.props.auth.isAuthenticated) {
-            this.setState({
-                LOGGED_IN: true
-            })
-        } else {
-            this.setState({
-                LOGGED_IN: false
-            })
-        }
-    }
-
-    logOut=()=>{
-        if(this.state.LOGGED_IN === true){
-            this.setState({
-                LOGGED_IN: false
-            })
-            this.props.logoutUser()
-        }
-    }
-
     render(){
+
         return (
             <Navbar collapseOnSelect expand="lg" bg="light" variant="light" style={{ marginBottom: 19 }} className="BoxShadow">
                 <Navbar.Toggle aria-controls="responsive-navbar-nav" />
@@ -44,17 +19,22 @@ class NavBar extends React.Component {
                             <Nav.Link href="#link" style={{ color:"#000000", fontSize: 22}}>NYC Skatepark Directory</Nav.Link>
                         </Link>
                     </Nav>
+                        { this.props.auth.isAuthenticated ? 
                     <Nav className="ml-auto">
-                        { this.state.LOGGED_IN === true ?
-                        <Link to="/" style={{ textDecoration: 'none' }}>
-                            <Nav.Link href="#link" style={{ color:"#000000", paddingTop: 12}} onClick={()=>this.logOut()}>Log Out</Nav.Link>   
+                        <Navbar.Text style={{ color:"#000000", paddingTop: 8}}>
+                            Signed in as: {this.props.auth.user.name} |
+                        </Navbar.Text>
+                        <Link to="/">
+                            <Nav.Link href="#link" style={{ color:"#000000", paddingTop: 8}} onClick={()=>this.props.logoutUser()}>Log Out</Nav.Link>   
                         </Link>
-                        :
-                        <Link to="/login" style={{ textDecoration: 'none' }}>
-                            <Nav.Link href="#link" style={{ color:"#000000", paddingTop: 12}}>Log In</Nav.Link>   
-                        </Link>
-                        }
                     </Nav>
+                        :
+                    <Nav className="ml-auto">
+                        <Link to="/login">
+                            <Nav.Link href="#link" style={{ color:"#000000", paddingTop: 8}}>Log In</Nav.Link>   
+                        </Link>
+                    </Nav>
+                        }
                 </Navbar.Collapse>
             </Navbar>
         );
