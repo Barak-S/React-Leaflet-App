@@ -21,6 +21,13 @@ class Signup extends React.Component{
         this.baseState = this.state 
     }
 
+    componentDidMount() {
+        // If logged in and user navigates to Signup page, it should redirect them to dashboard.
+        if (this.props.auth.isAuthenticated) {
+          this.props.history.push("/");
+        }
+    }
+
     componentWillReceiveProps(nextProps) {
         if (nextProps.errors) {
           this.setState({
