@@ -68,7 +68,7 @@ class Login extends React.Component{
                             </Form.Group>
                             <Form.Text className="text-muted" style={{paddingBottom: 15}}>Dont have an account? <Link to="/signup">Sign Up</Link></Form.Text>
                             <Button variant="primary" className="BoxShadow" onClick={()=>this.handleSubmit(this.state)}>
-                                Lets Go!
+                                Log In
                             </Button>
                         </Form>
                     </Card>

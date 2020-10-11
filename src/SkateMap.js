@@ -104,6 +104,10 @@ class SkateMap extends React.Component {
                 </Card>
               </Col>
               <Col>
+              {/* <Form inline>
+                <FormControl type="text" placeholder="Search Skate Spots!" className="mr-sm-2" />
+                <Button variant="outline-primary">Search</Button>
+              </Form> */}
                   <Card style={{ marginBottom: 22 }} className="BoxShadow">
                     <Form style={{padding: 15}}>
                       <h3>Add a skate spot to our map!</h3>
