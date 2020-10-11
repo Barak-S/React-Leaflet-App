@@ -69,7 +69,7 @@ class SkateMap extends React.Component {
 
       return (
         <div>
-          <Container fluid>
+          <Container fluid style={{marginTop: 19}}>
             <Row>
               <Col className="AlignCenter" xs={12} sm={12} md={9} lg={9}>
                 <Card style={{marginBottom: 22}}>
@@ -104,14 +104,22 @@ class SkateMap extends React.Component {
                 </Card>
               </Col>
               <Col>
-                  <Card style={{ padding: 15, marginBottom: 22}} className="BoxShadow">
-                    { this.state.selectedPark.name && (
-                      <div>
-                        <h3>{this.state.selectedPark.name}</h3>
-                        <p>{this.state.selectedPark.propertyname}</p>
-                        <p>{this.state.selectedPark.status}</p>
-                      </div>
-                    )}
+                  <Card style={{ marginBottom: 22 }} className="BoxShadow">
+                    <Form style={{padding: 15}}>
+                      <h3>Add a skate spot to our map!</h3>
+                      <Form.Group>
+                          <Form.Label>Address</Form.Label>
+                          <Form.Control placeholder="Address"></Form.Control>
+                      </Form.Group>
+                      <Form.Group>
+                          <Form.Label>Description</Form.Label>
+                          <Form.Control as="textarea" rows={3} placeholder="Desciption"/>
+                      </Form.Group>
+                      <Form.Group>
+                          <Form.File id="exampleFormControlFile1" label="Upload Image" />
+                      </Form.Group>
+                      <Button variant="primary" className="BoxShadow" onClick={()=>this.handleSubmit(this.state)}>Create Spot!</Button>
+                    </Form>
                   </Card>
               </Col>
             </Row>

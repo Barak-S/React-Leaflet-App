@@ -40,16 +40,18 @@ class Login extends React.Component{
             })
           })
           .then(resp=>resp.json())
-          .then(data=>console.log(data))
+          .then(data=>{
+              console.log(data)
+            })
         //   .then(this.resetForm())
     }
 
     render(){
         const { errors } = this.state;
         return (
-            <Row>
+            <Row className="LogInSignUp" style={{height: "100vh"}}>
                 <Col xs={12} sm={12} md={4} lg={4} className="AlignCenter">
-                    <Card>
+                    <Card className="form">
                         <Form style={{padding: 15}}>
                             <h3>Log In</h3>
                             <Form.Group>
@@ -65,7 +67,7 @@ class Login extends React.Component{
                                 <Form.Control type="password" name="password" error={errors.password} placeholder="Password" value={this.state.password} onChange={(e)=>this.handleChange(e)} />
                             </Form.Group>
                             <Form.Text className="text-muted" style={{paddingBottom: 15}}>Dont have an account? <Link to="/signup">Sign Up</Link></Form.Text>
-                            <Button variant="primary" onClick={()=>this.handleSubmit(this.state)}>
+                            <Button variant="primary" className="BoxShadow" onClick={()=>this.handleSubmit(this.state)}>
                                 Lets Go!
                             </Button>
                         </Form>
