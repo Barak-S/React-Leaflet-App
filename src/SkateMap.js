@@ -76,7 +76,7 @@ class SkateMap extends React.Component {
   render(){
 
       return (
-        <div>
+        <div style={{minHeight: "100vh"}}>
           <Container fluid style={{marginTop: 19}}>
             <Row>
               <Col className="AlignCenter" xs={12} sm={12} md={9} lg={9}>
@@ -136,7 +136,7 @@ class SkateMap extends React.Component {
                           <Form.Group>
                               <Form.File id="exampleFormControlFile1" label="Upload Image" />
                           </Form.Group>
-                          <Button variant="primary" className="BoxShadow" onClick={()=>this.handleSubmit(this.state)}>Create Spot!</Button>
+                          <Button variant="dark" className="BoxShadow" onClick={()=>this.handleSubmit(this.state)}>Create Spot!</Button>
                         </div>
                     </Form>
                   </Card>

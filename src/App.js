@@ -14,6 +14,7 @@ import SkateMap from './SkateMap'
 import NavBar from './NavBar'
 import SignUp from './Signup'
 import LogIn from './Login'
+import Footer from './Footer'
 import PrivateRoute from "./private-route/PrivateRoute";
 
 // Check for token to keep user logged in
@@ -48,6 +49,7 @@ class App extends React.Component{
               <Route exact path= "/signup" render={(routerProps) => <SignUp {...routerProps} />}/>
               <Route exact path= "/login" render={(routerProps) => <LogIn {...routerProps} />}/>
             </Switch>
+            <Footer/>
           </div>
         </Router>
       </Provider>

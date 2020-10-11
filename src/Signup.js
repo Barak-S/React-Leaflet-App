@@ -94,7 +94,7 @@ class Signup extends React.Component{
                                     })} 
                                 />
                                 <span className="red-text">{errors.email}</span>
-                                <Form.Text className="text-muted">
+                                <Form.Text style={{ fontWeight: "600" }}className="text-muted">
                                 We'll never share your email with anyone else.
                                 </Form.Text>
                             </Form.Group>
@@ -129,8 +129,8 @@ class Signup extends React.Component{
                                 />
                                 <span className="red-text">{errors.password2}</span>
                             </Form.Group>
-                            <Form.Text className="text-muted" style={{paddingBottom: 15}}>Already have an account? <Link to="/login">Log In</Link></Form.Text>
-                            <Button variant="primary" className="BoxShadow" onClick={(e)=>this.onSubmit(e)}>
+                            <Form.Text className="text-muted" style={{paddingBottom: 15, fontWeight: "600" }}>Already have an account? <Link to="/login">Log In</Link></Form.Text>
+                            <Button variant="dark" className="BoxShadow" onClick={(e)=>this.onSubmit(e)}>
                                 Register
                             </Button>
                         </Form>

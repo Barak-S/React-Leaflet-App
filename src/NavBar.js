@@ -11,18 +11,18 @@ class NavBar extends React.Component {
     render(){
 
         return (
-            <Navbar collapseOnSelect expand="lg" bg="light" variant="light" style={{ marginBottom: 19 }} className="BoxShadow">
+            <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark" style={{ marginBottom: 19 }} className="BoxShadow">
                 <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                 <Navbar.Collapse id="responsive-navbar-nav">
                     <Nav className="mr-auto">
                         <Link to="/" style={{ textDecoration: 'none' }}>
-                            <Nav.Link href="#link" style={{ color:"#000000", fontSize: 22}}>NYC Skatepark Directory</Nav.Link>
+                            <Nav.Link href="#link" style={{ color: "#FFE485", fontSize: 22, fontWeight: "600"}}>NYC Skatepark Directory</Nav.Link>
                         </Link>
                     </Nav>
                         { this.props.auth.isAuthenticated ? 
                     <Nav className="ml-auto">
-                        <Navbar.Text style={{ color:"#000000", paddingTop: 8}}>
-                            Signed in as: {this.props.auth.user.name} |
+                        <Navbar.Text style={{ color:"#FFE485", paddingTop: 8, fontWeight: "600"}}>
+                            Signed in as: {this.props.auth.user.name}
                         </Navbar.Text>
                         <Link to="/" style={{ textDecoration: 'none' }}>
                             <Nav.Link href="#link" className="NavLinks" style={{ color:"#000000", paddingTop: 8}} onClick={()=>this.props.logoutUser()}>Log Out</Nav.Link>   
@@ -31,7 +31,7 @@ class NavBar extends React.Component {
                         :
                     <Nav className="ml-auto">
                         <Link to="/login" style={{ textDecoration: 'none' }}>
-                            <Nav.Link href="#link" className="NavLinks" style={{ color:"#000000", paddingTop: 8}}>Log In</Nav.Link>   
+                            <Nav.Link href="#link" className="NavLinks" style={{ color:"#000000", paddingTop: 8  }}>Log In</Nav.Link>   
                         </Link>
                     </Nav>
                         }

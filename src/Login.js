@@ -122,8 +122,8 @@ class Login extends React.Component{
                                     {errors.passwordincorrect}
                                 </span>
                             </Form.Group>
-                            <Form.Text className="text-muted" style={{paddingBottom: 15}}>Dont have an account? <Link to="/signup">Sign Up</Link></Form.Text>
-                            <Button variant="primary" className="BoxShadow" onClick={(e)=>this.onSubmit(e)}>
+                            <Form.Text className="text-muted" style={{ paddingBottom: 15, fontWeight: "600" }}>Dont have an account? <Link to="/signup">Sign Up</Link></Form.Text>
+                            <Button variant="dark" className="BoxShadow" onClick={(e)=>this.onSubmit(e)}>
                                 Log In
                             </Button>
                         </Form>
