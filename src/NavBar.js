@@ -21,17 +21,17 @@ class NavBar extends React.Component {
                     </Nav>
                         { this.props.auth.isAuthenticated ? 
                     <Nav className="ml-auto">
-                        <Navbar.Text style={{ color:"#FFE485", fontWeight: "600"}}>
+                        <Navbar.Text style={{ color:"#FFE485", fontWeight: "600" }}>
                             Signed in as:
                         </Navbar.Text>
-                        <NavDropdown title={this.props.auth.user.name} id="collasible-nav-dropdown">
+                        <NavDropdown title={<span style={{ color:"#FFE485", fontWeight: "600" }}>{this.props.auth.user.name}</span>} id="collasible-nav-dropdown">
                             <NavDropdown.Item>My Spots</NavDropdown.Item>
                             <NavDropdown.Item>Activity</NavDropdown.Item>
                             <NavDropdown.Item>Profile</NavDropdown.Item>
-                            <NavDropdown.Divider />
+                            <NavDropdown.Divider/>
                             <NavDropdown.Item>
                                 <Link to="/" style={{ textDecoration: 'none' }}>
-                                    <Nav.Link href="#link" className="NavLinks" style={{ color:"#000000", paddingTop: 8}} onClick={()=>this.props.logoutUser()}>Log Out</Nav.Link>   
+                                    <Nav.Link className="NavLinks" style={{ color:"#000000", paddingTop: 8}} onClick={()=>this.props.logoutUser()}>Log Out</Nav.Link>   
                                 </Link>
                             </NavDropdown.Item>
                         </NavDropdown>
