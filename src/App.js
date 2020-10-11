@@ -7,9 +7,13 @@ import NavBar from './NavBar'
 import SignUp from './Signup'
 import LogIn from './Login'
 
+import { Provider } from "react-redux";
+import store from "./store";
+
 function App(){
 
   return (
+    <Provider store={store}>
       <Router>
         <NavBar/>
         <div className="App">
@@ -20,6 +24,7 @@ function App(){
           </Switch>
         </div>
       </Router>
+    </Provider>
   );
 
 }
