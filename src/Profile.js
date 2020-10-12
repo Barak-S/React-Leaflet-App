@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
-import { Container, Row, Col, Card, Form, Button } from 'react-bootstrap';
+import { Container, Row, Col, Card, Form, Button, Nav } from 'react-bootstrap';
 import PropTypes from "prop-types";
 import { connect } from "react-redux"
 
 class Profile extends Component {
     render() {
         return (
-            <div style={{minHeight: "90vh", textAlign: "center", color: "#FFE485", marginTop: 25, marginBottom: 35}}>
-                <h6>Profile</h6>
-                <h3>{this.props.auth.user.name}</h3>
-                <Row>
+            <div style={{minHeight: "90vh", textAlign: "center", color: "#FFE485", marginBottom: 35}}>
+                {/* <h6>Profile</h6>
+                <h3>{this.props.auth.user.name}</h3> */}
+                {/* <Row>
                     <Col xs={12} sm={12} md={4} lg={4} className="AlignCenter">
                     <Card className="form" style={{color: "#000000"}}>
                         <Form style={{padding: 15}}>
@@ -28,7 +28,7 @@ class Profile extends Component {
                                     //     invalid: errors.name
                                     // })}
                                 />
-                                {/* <span className="red-text">{errors.name}</span> */}
+                                <span className="red-text">{errors.name}</span>
                             </Form.Group>
                             <Form.Group controlId="formBasicPassword">
                                 <Form.Label>New Password</Form.Label>
@@ -43,7 +43,7 @@ class Profile extends Component {
                                     //     invalid: errors.password
                                     // })}
                                 />
-                                {/* <span className="red-text">{errors.password}</span> */}
+                                <span className="red-text">{errors.password}</span>
                             </Form.Group>
                             <Form.Group controlId="formBasicPassword">
                                 <Form.Label>Confirm New Password</Form.Label>
@@ -58,7 +58,7 @@ class Profile extends Component {
                                     //     invalid: errors.password2
                                     // })}
                                 />
-                                {/* <span className="red-text">{errors.password2}</span> */}
+                                <span className="red-text">{errors.password2}</span>
                             </Form.Group>
                             <Button style={{backgroundColor: "#FE5F55", borderColor: "#000000"}} className="BoxShadow" onClick={(e)=>this.onSubmit(e)}>
                                 Save
@@ -66,7 +66,39 @@ class Profile extends Component {
                         </Form>
                     </Card>
                     </Col>
+                </Row> */}
+
+                <Container fluid>
+                <Row>
+                    <Col xs={2} id="sidebar-wrapper">      
+                            <>
+                        <Nav className="col-md-12 d-none d-md-block bg-light sidebar"
+                        activeKey="/home"
+                        onSelect={selectedKey => alert(`selected ${selectedKey}`)}
+                        >
+                            <div className="sidebar-sticky"></div>
+                            <Nav.Item>
+                                <Nav.Link href="/home">Edit Profile</Nav.Link>
+                            </Nav.Item>
+                            <Nav.Item>
+                                <Nav.Link eventKey="link-1">Favorites</Nav.Link>
+                            </Nav.Item>
+                            <Nav.Item>
+                                <Nav.Link eventKey="link-2">Link</Nav.Link>
+                            </Nav.Item>
+                        </Nav>
+
+                    </>
+                      
+                    </Col>
+                    <Col  xs={10} id="page-content-wrapper">
+                        <h6>Profile</h6>
+                        <h3>{this.props.auth.user.name}</h3>
+
+                    </Col> 
                 </Row>
+
+            </Container>
 
             </div>
         );
