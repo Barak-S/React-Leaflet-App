@@ -76,7 +76,7 @@ class SkateMap extends React.Component {
   render(){
 
       return (
-        <div style={{minHeight: "100vh"}}>
+        <div>
           <Container fluid style={{marginTop: 19}}>
             <Row>
               <Col className="AlignCenter" xs={12} sm={12} md={9} lg={9}>
