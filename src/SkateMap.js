@@ -61,7 +61,12 @@ class SkateMap extends React.Component {
     .then(data=>this.setState({
       parks: data
     }))
-    // this.getCurentLocation()
+    navigator.geolocation.getCurrentPosition(location => {
+      this.setState({
+        currentLocation: [location.coords.latitude, location.coords.longitude]
+      })
+    });
+    
   }
 
   setPark=(park)=>{
@@ -175,39 +180,9 @@ class SkateMap extends React.Component {
     })
   }
 
-  // getCurentLocation(){
-  //   if (navigator.geolocation) {
-  //     navigator.geolocation.getCurrentPosition(this.getCoordinates, this.handleLocationError);
-  //   } else {
-  //     alert("Please Allow Location.");
-  //   }
-  // }
-
-  // getCoordinates(position){
-  //   this.setState({
-  //     currentLocation: position
-  //   },()=>console.log(this.state.currentLocation))
-  // }
-
-  handleLocationError(error) {
-    switch(error.code) {
-      case error.PERMISSION_DENIED:
-        alert("User denied the request for Geolocation.")
-        break;
-      case error.POSITION_UNAVAILABLE:
-        alert("Location information is unavailable.")
-        break;
-      case error.TIMEOUT:
-        alert("The request to get user location timed out.")
-        break;
-      case error.UNKNOWN_ERROR:
-        alert("An unknown error occurred.")
-        break;
-    }
-  }
-
 
   render(){
+    console.log([this.state.currentLocation[0], this.state.currentLocation[1]])
 
       return (
         <div style={{minHeight: "100vh"}}>
@@ -230,6 +205,13 @@ class SkateMap extends React.Component {
                         />
                       )
                     })}
+                    { this.state.currentLocation[1] &&
+                      <Marker
+                        key="currentLocation"
+                        position={[this.state.currentLocation[0], this.state.currentLocation[1]]}
+                        
+                      /> 
+                    }
                     { this.state.selectedPark.name && (
                       <Popup
                         position={[this.state.selectedPark.location.coordinates[0] , this.state.selectedPark.location.coordinates[1]]}
