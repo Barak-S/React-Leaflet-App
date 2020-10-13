@@ -49,9 +49,9 @@ class App extends React.Component{
               <Route exact path= "/" render={(routerProps) => <SkateMap {...routerProps} />}/>
               <Route exact path= "/signup" render={(routerProps) => <SignUp {...routerProps} />}/>
               <Route exact path= "/login" render={(routerProps) => <LogIn {...routerProps} />}/>
-              <Route exact path= "/myspots" render={(routerProps) => <MySpots {...routerProps} />}/>
               <Switch>
                 <PrivateRoute exact path="/profile" component={Profile} />
+                {/* <Route exact path= "/myspots" render={(routerProps) => <MySpots {...routerProps} />}/> */}
               </Switch>
             <Footer/>
           </div>

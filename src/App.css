@@ -55,16 +55,15 @@ a.NavLinks.nav-link {
   transition: 0.3s ease-in-out;
   margin-right: 12px;
   background-color: #FFE485;
-  border-radius: 10px;
+  border-radius: 8px;
   text-align: center;
   margin-left: 12px;
 }
 
 a.NavLinks.nav-link:hover {
-  background-color: #FE5F55;
-  border-radius: 10px;
+  background-color: #ED5145;
+  border-radius: 8px;
 }
-
 
 .sidebar {
   position: fixed;

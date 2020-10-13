@@ -36,11 +36,22 @@ class SkateMap extends React.Component {
     selectedPark: {},
     zoom: 10.5,
     center: [40.7395 , -73.9027],
-    address: ""
+    address: "",
+    description: "",
+    features: [
+      {id: 1, value: "Park", isChecked: false},
+      {id: 2, value: "Hand Rail", isChecked: false},
+      {id: 3, value: "Stairs", isChecked: false},
+      {id: 4, value: "Box", isChecked: false},
+      {id: 5, value: "Rail", isChecked: false},
+    ],
+    coordinates: []
+    
   }
 
   componentDidMount(){
-    fetch("https://data.cityofnewyork.us/resource/pvvr-75zk.json")
+    // fetch("https://data.cityofnewyork.us/resource/pvvr-75zk.json")
+    fetch("/api/skatespots")
     .then(resp=>resp.json())
     .then(data=>this.setState({
       parks: data
@@ -50,19 +61,42 @@ class SkateMap extends React.Component {
   setPark=(park)=>{
     this.setState({
       selectedPark: park,
-      center: [park.polygon.coordinates[0][0][1] , park.polygon.coordinates[0][0][0]],
+      center: [park.location.coordinates[0] , park.location.coordinates[1]],
       zoom: 15
     })
   }
 
-  handleAddressChange= (address) => {
+  handleAddressChange=(address)=> {
     this.setState({ address })
+  }
+
+  handleDescriptionChange=(e)=>{
+    this.setState({
+      description: e.target.value
+    })
+  }
+
+  handleCheckbox=(key, status)=>{
+    let features = [...this.state.features]
+    let selected = features.find(park=>park.value === key)
+    selected.isChecked = !status
+    this.setState({
+      features
+    })
   }
 
   handleAddressSelect = (address) => {
     geocodeByAddress(address)
     .then(results => getLatLng(results[0]))
-    this.setState({ address})
+    .then( coords =>{
+      // this.setState(prevState=>{
+      //   let location = { ...prevState.location}
+      //   location.coordinates = [coords.lat, coords.lng ]
+      // }, ()=>console.log(this.state.location))
+        this.setState({
+          coordinates: [coords.lat, coords.lng ]
+        })
+    })
   }
 
   clearPark(){
@@ -71,6 +105,25 @@ class SkateMap extends React.Component {
       center: [40.7395 , -73.9027],
       zoom: 10.5
     })
+  }
+
+  createSpot=()=>{
+    let trueFeatures = []
+
+    this.state.features.forEach(feature=>{
+      if(feature.isChecked){
+        trueFeatures.push(feature)
+      }
+    })
+    
+    let newSpot = {
+      location: {
+        coordinates: this.state.coordinates
+      },
+      description: this.state.description,
+      features: trueFeatures
+    }
+    console.log(newSpot)
   }
 
   render(){
@@ -90,7 +143,7 @@ class SkateMap extends React.Component {
                       return(
                         <Marker
                           key={park.name}
-                          position={[park.polygon.coordinates[0][0][1] , park.polygon.coordinates[0][0][0]]}
+                          position={[park.location.coordinates[0] , park.location.coordinates[1]]}
                           onClick={()=>this.setPark(park)}
                           icon={ skateboard }
                         />
@@ -98,12 +151,12 @@ class SkateMap extends React.Component {
                     })}
                     { this.state.selectedPark.name && (
                       <Popup
-                        position={[this.state.selectedPark.polygon.coordinates[0][0][1] , this.state.selectedPark.polygon.coordinates[0][0][0]]}
+                        position={[this.state.selectedPark.location.coordinates[0] , this.state.selectedPark.location.coordinates[1]]}
                         onClose={()=>this.clearPark()}
                       >
                         <div>
                           <h3>{this.state.selectedPark.name}</h3>
-                          <p>{this.state.selectedPark.status}</p>
+                          <p>{this.state.selectedPark.description}</p>
                         </div>
 
                       </Popup>
@@ -112,17 +165,15 @@ class SkateMap extends React.Component {
                 </Card>
               </Col>
               <Col>
-              {/* <Form inline>
-                <FormControl type="text" placeholder="Search Skate Spots!" className="mr-sm-2" />
-                <Button variant="outline-primary">Search</Button>
-              </Form> */}
+              <Form inline style={{marginBottom: 8.5}}>
+                <Form.Control type="text" placeholder="Search Skate Spots!" className="mr-sm-2" />
+                <Button style={{backgroundColor: "#ED5145", borderColor: "#000000" , borderWidth: 0.25, borderRadius: 6, fontWeight: "600"}}>Search</Button>
+              </Form>
                   <Card style={{ marginBottom: 22, padding: 12 }} className="BoxShadow">
                     <Form >
                         <div>
                           <h3 style={{textAlign: "center"}}>Add a skate spot to our map!</h3>
                           <Form.Group>
-                              {/* <Form.Label>Address</Form.Label>
-                              <Form.Control placeholder="Address"></Form.Control> */}
                               <LocationSearch
                                 address={this.state.address}
                                 handleAddressChange={this.handleAddressChange}
@@ -132,20 +183,16 @@ class SkateMap extends React.Component {
                           <Form.Group>
                             <Form.Label>Features</Form.Label>
                             <br/>
-                            <Form.Check inline label='Park' type={'checkbox'}/>
-                            <Form.Check inline label='Hand Rail' type={'checkbox'}/>
-                            <Form.Check inline label='Stairs' type={'checkbox'}/>
-                            <Form.Check inline label='Box' type={'checkbox'}/>
-                            <Form.Check inline label='Rail' type={'checkbox'}/>
+                            { this.state.features.map((check)=><Form.Check inline label={check.value} type={'checkbox'} isChecked={check.isChecked} onChange={()=>this.handleCheckbox(check.value, check.isChecked)}/>)}
                           </Form.Group>
                           <Form.Group>
                               <Form.Label>Description</Form.Label>
-                              <Form.Control as="textarea" rows={3} placeholder="Desciption"/>
+                              <Form.Control as="textarea" rows={3} name="description" value={this.state.description} placeholder="Desciption" onChange={(e)=>this.handleDescriptionChange(e)}/>
                           </Form.Group>
                           <Form.Group>
                               <Form.File id="exampleFormControlFile1" label="Upload Image" />
                           </Form.Group>
-                          <Button variant="dark" className="BoxShadow" onClick={()=>this.handleSubmit(this.state)}>Create Spot!</Button>
+                          <Button variant="dark" className="BoxShadow" onClick={()=>this.createSpot()}>Create Spot!</Button>
                         </div>
                     </Form>
                   </Card>
@@ -153,7 +200,7 @@ class SkateMap extends React.Component {
                     <h4 style={{textAlign: "center"}}>Park Details</h4>
                     { this.state.selectedPark.name && <div>
                       <h5>{this.state.selectedPark.name}</h5>
-                      <p>{this.state.selectedPark.status}</p>
+                      <p>{this.state.selectedPark.description}</p>
                     </div>}
                   </Card>
               </Col>
