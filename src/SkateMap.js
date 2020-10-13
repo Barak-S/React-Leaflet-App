@@ -28,14 +28,20 @@ const skateboard = new Icon({
   iconUrl: '../skateboard.svg',
   iconSize: [25,25]
 })
+const currentLocation = new Icon({
+  iconUrl: '../currentLocation.svg',
+  iconSize: [37,37]
+})
 
 class SkateMap extends React.Component {
+
+  defaultCenter = [40.7395 , -73.9027] 
 
   state={
     parks: [],
     selectedPark: {},
-    zoom: 9.5,
-    center: [40.7395 , -73.9027],
+    zoom: 10,
+    center: this.defaultCenter,
     name: "",
     address: "",
     description: "",
@@ -63,13 +69,14 @@ class SkateMap extends React.Component {
     }))
     navigator.geolocation.getCurrentPosition(location => {
       this.setState({
-        currentLocation: [location.coords.latitude, location.coords.longitude]
+        currentLocation: [location.coords.latitude, location.coords.longitude],
+        center: [location.coords.latitude, location.coords.longitude]
       })
     });
-    
   }
 
   setPark=(park)=>{
+    console.log(park)
     this.setState({
       selectedPark: park,
       center: [park.location.coordinates[0] , park.location.coordinates[1]],
@@ -116,8 +123,8 @@ class SkateMap extends React.Component {
   clearPark(){
     this.setState({ 
       selectedPark: {}, 
-      center: [40.7395 , -73.9027],
-      zoom: 10.5
+      center: this.state.currentLocation,
+      zoom: 10
     })
   }
 
@@ -182,7 +189,6 @@ class SkateMap extends React.Component {
 
 
   render(){
-    console.log([this.state.currentLocation[0], this.state.currentLocation[1]])
 
       return (
         <div style={{minHeight: "100vh"}}>
@@ -190,7 +196,7 @@ class SkateMap extends React.Component {
             <Row>
               <Col className="AlignCenter" xs={12} sm={12} md={9} lg={9}>
                 <Card style={{marginBottom: 22}}>
-                  <Map center={this.state.center} zoom={this.state.zoom} className="BoxShadow">
+                  <Map center={ this.state.center } zoom={this.state.zoom} className="BoxShadow">
                     <TileLayer
                       url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                       attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
@@ -209,7 +215,6 @@ class SkateMap extends React.Component {
                       <Marker
                         key="currentLocation"
                         position={[this.state.currentLocation[0], this.state.currentLocation[1]]}
-                        
                       /> 
                     }
                     { this.state.selectedPark.name && (
