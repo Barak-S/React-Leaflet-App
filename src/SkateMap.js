@@ -97,8 +97,9 @@ class SkateMap extends React.Component {
     .then(results => getLatLng(results[0]))
     .then( coords =>{
         this.setState({
-          coordinates: [coords.lat, coords.lng ]
-        })
+          coordinates: [coords.lat, coords.lng ],
+          address
+        },()=>console.log(this.state))
     })
   }
 
@@ -111,29 +112,58 @@ class SkateMap extends React.Component {
   }
 
   createSpot=()=>{
-    let trueFeatures = []
 
-    this.state.features.forEach(feature=>{
-      if(feature.isChecked){
-        trueFeatures.push(feature)
+    if (this.props.auth.isAuthenticated === true ){
+      let trueFeatures = []
+  
+      this.state.features.forEach(feature=>{
+        if(feature.isChecked){
+          trueFeatures.push(feature)
+        }
+      })
+      
+      let newSpot = {
+        location: {
+          coordinates: this.state.coordinates
+        },
+        name: this.state.name,
+        description: this.state.description,
+        features: trueFeatures
       }
-    })
-    
-    let newSpot = {
-      location: {
-        coordinates: this.state.coordinates
-      },
-      name: this.state.name,
-      description: this.state.description,
-      features: trueFeatures
+      fetch('/api/skatespots/create',{
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ newSpot })
+      }).then(resp=>resp.json())
+      .then(newPark=>this.addNewSpotToMap(newPark))
+
+    } else {
+      console.log("Please Log In")
     }
-    fetch('/api/skatespots/create',{
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ newSpot })
+
+  }
+
+  addNewSpotToMap=(newSpot)=>{
+    let parks = [...this.state.parks]
+    parks.push(newSpot)
+    this.setState({
+      parks: parks,
+      center: [newSpot.location.coordinates[0] , newSpot.location.coordinates[1]],
+      zoom: 15,
+      selectedPark: newSpot,
+      name: "",
+      address: "",
+      description: "",
+      features: [
+        {id: 1, value: "Park", isChecked: false},
+        {id: 2, value: "Hand Rail", isChecked: false},
+        {id: 3, value: "Stairs", isChecked: false},
+        {id: 4, value: "Box", isChecked: false},
+        {id: 5, value: "Rail", isChecked: false},
+      ]
     })
   }
 
