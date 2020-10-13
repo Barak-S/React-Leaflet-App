@@ -36,6 +36,7 @@ class SkateMap extends React.Component {
     selectedPark: {},
     zoom: 10.5,
     center: [40.7395 , -73.9027],
+    name: "",
     address: "",
     description: "",
     features: [
@@ -76,6 +77,12 @@ class SkateMap extends React.Component {
     })
   }
 
+  handleNameChange=(e)=>{
+    this.setState({
+      name: e.target.value
+    })
+  }
+
   handleCheckbox=(key, status)=>{
     let features = [...this.state.features]
     let selected = features.find(park=>park.value === key)
@@ -89,10 +96,6 @@ class SkateMap extends React.Component {
     geocodeByAddress(address)
     .then(results => getLatLng(results[0]))
     .then( coords =>{
-      // this.setState(prevState=>{
-      //   let location = { ...prevState.location}
-      //   location.coordinates = [coords.lat, coords.lng ]
-      // }, ()=>console.log(this.state.location))
         this.setState({
           coordinates: [coords.lat, coords.lng ]
         })
@@ -120,11 +123,20 @@ class SkateMap extends React.Component {
       location: {
         coordinates: this.state.coordinates
       },
+      name: this.state.name,
       description: this.state.description,
       features: trueFeatures
     }
-    console.log(newSpot)
+    fetch('/api/skatespots/create',{
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ newSpot })
+    })
   }
+
 
   render(){
 
@@ -173,6 +185,10 @@ class SkateMap extends React.Component {
                     <Form >
                         <div>
                           <h3 style={{textAlign: "center"}}>Add a skate spot to our map!</h3>
+                          <Form.Group>
+                              <Form.Label>Name</Form.Label>
+                              <Form.Control name="name" value={this.state.name} placeholder="Name" onChange={(e)=>this.handleNameChange(e)}/>
+                          </Form.Group>
                           <Form.Group>
                               <LocationSearch
                                 address={this.state.address}
