@@ -34,7 +34,7 @@ class SkateMap extends React.Component {
   state={
     parks: [],
     selectedPark: {},
-    zoom: 10.5,
+    zoom: 9.5,
     center: [40.7395 , -73.9027],
     name: "",
     address: "",
@@ -44,9 +44,13 @@ class SkateMap extends React.Component {
       {id: 2, value: "Hand Rail", isChecked: false},
       {id: 3, value: "Stairs", isChecked: false},
       {id: 4, value: "Box", isChecked: false},
-      {id: 5, value: "Rail", isChecked: false},
+      {id: 5, value: "Ledge", isChecked: false},
+      {id: 6, value: "Rail", isChecked: false},
+      {id: 7, value: "Quarter Pipe", isChecked: false},
+      {id: 8, value: "Half Pipe", isChecked: false},
     ],
-    coordinates: []
+    coordinates: [],
+    currentLocation: []
     
   }
 
@@ -57,6 +61,7 @@ class SkateMap extends React.Component {
     .then(data=>this.setState({
       parks: data
     }))
+    // this.getCurentLocation()
   }
 
   setPark=(park)=>{
@@ -162,9 +167,43 @@ class SkateMap extends React.Component {
         {id: 2, value: "Hand Rail", isChecked: false},
         {id: 3, value: "Stairs", isChecked: false},
         {id: 4, value: "Box", isChecked: false},
-        {id: 5, value: "Rail", isChecked: false},
+        {id: 5, value: "Ledge", isChecked: false},
+        {id: 6, value: "Rail", isChecked: false},
+        {id: 7, value: "Quarter Pipe", isChecked: false},
+        {id: 8, value: "Half Pipe", isChecked: false},
       ]
     })
+  }
+
+  // getCurentLocation(){
+  //   if (navigator.geolocation) {
+  //     navigator.geolocation.getCurrentPosition(this.getCoordinates, this.handleLocationError);
+  //   } else {
+  //     alert("Please Allow Location.");
+  //   }
+  // }
+
+  // getCoordinates(position){
+  //   this.setState({
+  //     currentLocation: position
+  //   },()=>console.log(this.state.currentLocation))
+  // }
+
+  handleLocationError(error) {
+    switch(error.code) {
+      case error.PERMISSION_DENIED:
+        alert("User denied the request for Geolocation.")
+        break;
+      case error.POSITION_UNAVAILABLE:
+        alert("Location information is unavailable.")
+        break;
+      case error.TIMEOUT:
+        alert("The request to get user location timed out.")
+        break;
+      case error.UNKNOWN_ERROR:
+        alert("An unknown error occurred.")
+        break;
+    }
   }
 
 
