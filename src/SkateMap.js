@@ -39,7 +39,9 @@ class SkateMap extends React.Component {
   defaultCenter = [40.7395 , -73.9027] 
 
   state={
+    search: "",
     parks: [],
+    filteredParks: [],
     selectedPark: {},
     zoom: 10,
     center: this.defaultCenter,
@@ -66,7 +68,8 @@ class SkateMap extends React.Component {
     fetch("/api/skatespots")
     .then(resp=>resp.json())
     .then(data=>this.setState({
-      parks: data
+      parks: data,
+      filteredParks: data
     }))
     navigator.geolocation.getCurrentPosition(location => {
       this.setState({
@@ -188,6 +191,18 @@ class SkateMap extends React.Component {
     })
   }
 
+  handleSearch=(e)=>{
+    this.setState({
+        search: e.target.value
+    },()=>this.filterParks())
+  } 
+
+  filterParks(){
+    this.setState({
+      filteredParks: this.state.parks.filter(c=>c.name.toLowerCase().includes(this.state.search.toLowerCase()))
+    })
+  }
+
 
   render(){
 
@@ -235,7 +250,9 @@ class SkateMap extends React.Component {
               </Col>
               <Col>
                 <ParkContainer
-                  parks={this.state.parks}
+                  parks={this.state.filteredParks}
+                  search={this.state.search}
+                  handleSearch={this.handleSearch}
                   setPark={this.setPark}
                 />
                 <Card style={{ marginBottom: 22, padding: 12 }} className="BoxShadow">
