@@ -96,7 +96,5 @@ a.NavLinks.nav-link:hover {
 
 .ParkCol{
   height: 400px;
-  flex: 1;
-  background: #aaa;
   overflow-y: scroll;
 }
