@@ -21,6 +21,7 @@ class ParkContainer extends Component {
                                 <ParkCard
                                     key={park._id}
                                     park={park}
+                                    setPark={this.props.setPark}
                                 />
                             )
                         })}

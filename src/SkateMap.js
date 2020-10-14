@@ -116,7 +116,7 @@ class SkateMap extends React.Component {
         this.setState({
           coordinates: [coords.lat, coords.lng ],
           address
-        },()=>console.log(this.state))
+        })
     })
   }
 
@@ -144,6 +144,7 @@ class SkateMap extends React.Component {
           coordinates: this.state.coordinates
         },
         name: this.state.name,
+        address: this.state.address,
         description: this.state.description,
         features: trueFeatures
       }
@@ -235,6 +236,7 @@ class SkateMap extends React.Component {
               <Col>
                 <ParkContainer
                   parks={this.state.parks}
+                  setPark={this.setPark}
                 />
                 <Card style={{ marginBottom: 22, padding: 12 }} className="BoxShadow">
                   <Form >
