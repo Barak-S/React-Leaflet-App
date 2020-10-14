@@ -1,6 +1,7 @@
 import React from 'react';
 import { Container, Row, Col, Card, Form, Button, Table } from 'react-bootstrap';
 import { Map, Marker, Popup, TileLayer } from 'react-leaflet';
+import ParkContainer from './ParkContainer' 
 import  { Icon } from 'leaflet';
 import { render } from '@testing-library/react';
 import 'leaflet/dist/leaflet.css';
@@ -76,7 +77,6 @@ class SkateMap extends React.Component {
   }
 
   setPark=(park)=>{
-    console.log(park)
     this.setState({
       selectedPark: park,
       center: [park.location.coordinates[0] , park.location.coordinates[1]],
@@ -191,7 +191,7 @@ class SkateMap extends React.Component {
   render(){
 
       return (
-        <div style={{minHeight: "100vh"}}>
+        <div style={{minHeight: "100vh", marginLeft: 15, marginRight:15}}>
           <Container fluid style={{marginTop: 19}}>
             <Row>
               <Col className="AlignCenter" xs={12} sm={12} md={9} lg={9}>
@@ -233,48 +233,40 @@ class SkateMap extends React.Component {
                 </Card>
               </Col>
               <Col>
-              <Form inline style={{marginBottom: 8.5}}>
-                <Form.Control type="text" placeholder="Search Skate Spots!" className="mr-sm-2" />
-                <Button style={{backgroundColor: "#ED5145", borderColor: "#000000" , borderWidth: 0.25, borderRadius: 6, fontWeight: "600"}}>Search</Button>
-              </Form>
-                  <Card style={{ marginBottom: 22, padding: 12 }} className="BoxShadow">
-                    <Form >
-                        <div>
-                          <h3 style={{textAlign: "center"}}>Add a skate spot to our map!</h3>
-                          <Form.Group>
-                              <Form.Label>Name</Form.Label>
-                              <Form.Control name="name" value={this.state.name} placeholder="Name" onChange={(e)=>this.handleNameChange(e)}/>
-                          </Form.Group>
-                          <Form.Group>
-                              <LocationSearch
-                                address={this.state.address}
-                                handleAddressChange={this.handleAddressChange}
-                                handleAddressSelect={this.handleAddressSelect}
-                              />
-                          </Form.Group>
-                          <Form.Group>
-                            <Form.Label>Features</Form.Label>
-                            <br/>
-                            { this.state.features.map((check)=><Form.Check inline label={check.value} type={'checkbox'} isChecked={check.isChecked} onChange={()=>this.handleCheckbox(check.value, check.isChecked)}/>)}
-                          </Form.Group>
-                          <Form.Group>
-                              <Form.Label>Description</Form.Label>
-                              <Form.Control as="textarea" rows={3} name="description" value={this.state.description} placeholder="Desciption" onChange={(e)=>this.handleDescriptionChange(e)}/>
-                          </Form.Group>
-                          <Form.Group>
-                              <Form.File id="exampleFormControlFile1" label="Upload Image" />
-                          </Form.Group>
-                          <Button variant="dark" className="BoxShadow" onClick={()=>this.createSpot()}>Create Spot!</Button>
-                        </div>
-                    </Form>
-                  </Card>
-                  <Card style={{ marginBottom: 22, padding: 12, minHeight: "25vh" }} className="BoxShadow">
-                    <h4 style={{textAlign: "center"}}>Park Details</h4>
-                    { this.state.selectedPark.name && <div>
-                      <h5>{this.state.selectedPark.name}</h5>
-                      <p>{this.state.selectedPark.description}</p>
-                    </div>}
-                  </Card>
+                <ParkContainer
+                  parks={this.state.parks}
+                />
+                <Card style={{ marginBottom: 22, padding: 12 }} className="BoxShadow">
+                  <Form >
+                      <div>
+                        <h3 style={{textAlign: "center"}}>Add a skate spot to our map!</h3>
+                        <Form.Group>
+                            <Form.Label>Name</Form.Label>
+                            <Form.Control name="name" value={this.state.name} placeholder="Name" onChange={(e)=>this.handleNameChange(e)}/>
+                        </Form.Group>
+                        <Form.Group>
+                            <LocationSearch
+                              address={this.state.address}
+                              handleAddressChange={this.handleAddressChange}
+                              handleAddressSelect={this.handleAddressSelect}
+                            />
+                        </Form.Group>
+                        <Form.Group>
+                          <Form.Label>Features</Form.Label>
+                          <br/>
+                          { this.state.features.map((check)=><Form.Check inline label={check.value} type={'checkbox'} isChecked={check.isChecked} onChange={()=>this.handleCheckbox(check.value, check.isChecked)}/>)}
+                        </Form.Group>
+                        <Form.Group>
+                            <Form.Label>Description</Form.Label>
+                            <Form.Control as="textarea" rows={3} name="description" value={this.state.description} placeholder="Desciption" onChange={(e)=>this.handleDescriptionChange(e)}/>
+                        </Form.Group>
+                        <Form.Group>
+                            <Form.File id="exampleFormControlFile1" label="Upload Image" />
+                        </Form.Group>
+                        <Button variant="dark" className="BoxShadow" onClick={()=>this.createSpot()}>Create Spot!</Button>
+                      </div>
+                  </Form>
+                </Card>
               </Col>
             </Row>
           </Container>
