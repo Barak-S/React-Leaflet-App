@@ -5,7 +5,6 @@ import ParkCard from './ParkCard'
 class ParkContainer extends Component {
 
     render() {
-        
         return (
             <Card style={{ marginBottom: 22, padding: 12, minHeight: "25vh" }} className="BoxShadow">
                 <Form inline style={{marginBottom: 8.5}}>
@@ -19,6 +18,7 @@ class ParkContainer extends Component {
                                     key={park._id}
                                     park={park}
                                     setPark={this.props.setPark}
+                                    currentLocation={this.props.currentLocation}
                                 />
                             )
                         })}

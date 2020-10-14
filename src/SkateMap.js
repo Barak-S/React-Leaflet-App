@@ -254,6 +254,7 @@ class SkateMap extends React.Component {
                   search={this.state.search}
                   handleSearch={this.handleSearch}
                   setPark={this.setPark}
+                  currentLocation={this.state.currentLocation}
                 />
                 <Card style={{ marginBottom: 22, padding: 12 }} className="BoxShadow">
                   <Form >
