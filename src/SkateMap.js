@@ -248,6 +248,13 @@ class SkateMap extends React.Component {
                     )}
                   </Map>
                 </Card>
+                  <div style={{ color: "#ffffff"}}>
+                    <p>Disclaimer: None of these spots are authorized places to skate. FWR is not responsible for your actions or what happens to you at any of these locations. You are trespassing on someone else’s property so if you’re confronted follow the rules and leave to avoid further conflict. Skate at your own risk.</p>
+                    <p>Things to consider:</p>
+                    <p>1. Spot names may be different than what you know them as</p>
+                    <p>2. Some places may not count as a “spot” to you but remember, kids just starting to skate might want to hit up that 5 stair or little ledge</p>
+                    <p>3. Double check pin locations before heading out</p>
+                  </div>
               </Col>
               <Col>
                 <ParkContainer
