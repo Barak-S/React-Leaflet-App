@@ -29,7 +29,7 @@ class ParkCard extends Component {
                     <div style={{paddingBottom: 8}}>
                         <p style={{ color: "#217AC9"}}>Spot Features:</p>
                         { this.mapFeatures() } 
-                        { this.props.currentLocation.length === 2 && <p style={{marginBottom: 3, color: "green"}}>Distance: {(getDistance({ latitude: this.props.currentLocation[0], longitude: this.props.currentLocation[1]}, { latitude:this.props.park.location.coordinates[0], longitude: this.props.park.location.coordinates[1]}) *0.000621371192).toFixed(1) } miles away</p>}
+                        { this.props.currentLocation.length === 2 && <p style={{marginBottom: 3, color: "green", fontWeight: "600"}}>Distance: {(getDistance({ latitude: this.props.currentLocation[0], longitude: this.props.currentLocation[1]}, { latitude:this.props.park.location.coordinates[0], longitude: this.props.park.location.coordinates[1]}) *0.000621371192).toFixed(1) } miles away</p>}
                     </div>}
                 </div>
             </Card>

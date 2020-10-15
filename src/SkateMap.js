@@ -172,6 +172,7 @@ class SkateMap extends React.Component {
     parks.push(newSpot)
     this.setState({
       parks: parks,
+      filteredParks: parks,
       center: [newSpot.location.coordinates[0] , newSpot.location.coordinates[1]],
       zoom: 15,
       selectedPark: newSpot,
@@ -207,7 +208,7 @@ class SkateMap extends React.Component {
   render(){
 
       return (
-        <div style={{minHeight: "100vh", marginLeft: 15, marginRight:15}}>
+        <div style={{minHeight: "100vh", marginLeft: 12.5, marginRight:12.5}}>
           <Container fluid style={{marginTop: 19}}>
             <Row>
               <Col className="AlignCenter" xs={12} sm={12} md={9} lg={9}>
