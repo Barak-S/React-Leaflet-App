@@ -74,8 +74,8 @@ class SkateMap extends React.Component {
     .then(resp=>resp.json())
     .then(data=>this.setState({
       parks: data,
-      filteredParks: data
-    }))
+      filteredParks: data})
+    )
     navigator.geolocation.getCurrentPosition(location => {
       this.setState({
         currentLocation: [location.coords.latitude, location.coords.longitude],

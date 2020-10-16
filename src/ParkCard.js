@@ -18,7 +18,6 @@ class ParkCard extends Component {
     } 
 
     render() {
-        // console.log(this.props.currentLocation.length === 2 && this.props.currentLocation )
         return (
             <Card style={{marginTop:5, textAlign: "left", cursor: "pointer"}} onClick={()=>this.props.setPark(this.props.park)}>
                 <div style={{paddingLeft: 8}}>
