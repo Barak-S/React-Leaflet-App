@@ -1,8 +1,9 @@
 import React from 'react';
 import { Container, Row, Col, Card, Form, Button, Table } from 'react-bootstrap';
-import { Map, Marker, Popup, TileLayer } from 'react-leaflet';
+import { Map, Marker, TileLayer } from 'react-leaflet';
 import ParkContainer from './ParkContainer' 
 import SkateMarker from './SkateMarker'
+import SkatePopup from './SkatePopup'
 import  { Icon } from 'leaflet';
 import { render } from '@testing-library/react';
 import { getDistance } from 'geolib';
@@ -98,7 +99,7 @@ class SkateMap extends React.Component {
   handleChange=(e)=>{
     this.setState({
       [e.target.name]: e.target.value
-    }, ()=>console.log(this.state.name, this.state.description))
+    })
   }
 
   handleDistanceFilter=(e)=>{
@@ -140,7 +141,7 @@ class SkateMap extends React.Component {
     })
   }
 
-  clearPark(){
+  clearPark=()=>{
     let center = [];
     if (this.state.currentLocation.length === 2){
       center = this.state.currentLocation
@@ -169,7 +170,8 @@ class SkateMap extends React.Component {
         name: this.state.name,
         address: this.state.address,
         description: this.state.description,
-        features: trueFeatures
+        features: trueFeatures,
+        postedBy: this.props.auth.user.id
       }
       fetch('/api/skatespots/create',{
         method: 'POST',
@@ -225,9 +227,7 @@ class SkateMap extends React.Component {
     })
   }
 
-
   render(){
-
       return (
         <div style={{minHeight: "100vh", marginLeft: 12.5, marginRight:12.5}}>
           <Container fluid style={{marginTop: 19}}>
@@ -256,17 +256,11 @@ class SkateMap extends React.Component {
                       )
                     })}
                     { this.state.selectedPark.name && (
-                      <Popup
+                      <SkatePopup
+                        park={this.state.selectedPark}
                         position={[this.state.selectedPark.location.coordinates[0] , this.state.selectedPark.location.coordinates[1]]}
-                        onClose={()=>this.clearPark()}
-                      >
-                        <div>
-                          <h3>{this.state.selectedPark.name}</h3>
-                          <p>{this.state.selectedPark.description}</p>
-                          <p style={{fontWeight: "600"}}><img src="../likeButton.png" style={{height: 22, width:22}}/>{' '}{`${this.state.selectedPark.likes !== undefined ? this.state.selectedPark.likes : 0} Likes`}</p>
-                        </div>
-
-                      </Popup>
+                        clearPark={this.clearPark}
+                      />
                     )}
                   </Map>
                 </Card>

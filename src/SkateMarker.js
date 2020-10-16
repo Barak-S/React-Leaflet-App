@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Marker, Popup } from 'react-leaflet';
+import { Marker } from 'react-leaflet';
 import  { Icon } from 'leaflet';
 
 const skateboard = new Icon({
