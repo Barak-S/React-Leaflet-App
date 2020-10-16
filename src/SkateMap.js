@@ -171,7 +171,9 @@ class SkateMap extends React.Component {
         address: this.state.address,
         description: this.state.description,
         features: trueFeatures,
-        postedBy: this.props.auth.user.id
+        postedBy: this.props.auth.user.id,
+        likes: 0,
+        comments: []
       }
       fetch('/api/skatespots/create',{
         method: 'POST',

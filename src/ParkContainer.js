@@ -7,9 +7,11 @@ import { getDistance } from 'geolib';
 class ParkContainer extends Component {
 
     sortLowtoHigh(parks){
-        parks.sort((a,b)=>{
-            return getDistance({ latitude: this.props.currentLocation[0], longitude: this.props.currentLocation[1]}, { latitude: a.location.coordinates[0], longitude: a.location.coordinates[1]}) - getDistance({ latitude: this.props.currentLocation[0], longitude: this.props.currentLocation[1]}, { latitude: b.location.coordinates[0], longitude: b.location.coordinates[1]})
-        })
+        if (this.props.currentLocation.length === 2){
+            parks.sort((a,b)=>{
+                return getDistance({ latitude: this.props.currentLocation[0], longitude: this.props.currentLocation[1]}, { latitude: a.location.coordinates[0], longitude: a.location.coordinates[1]}) - getDistance({ latitude: this.props.currentLocation[0], longitude: this.props.currentLocation[1]}, { latitude: b.location.coordinates[0], longitude: b.location.coordinates[1]})
+            })
+        }
     }
 
     render() {
