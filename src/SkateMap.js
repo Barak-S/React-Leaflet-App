@@ -106,20 +106,22 @@ class SkateMap extends React.Component {
   }
 
   handleDistanceFilter=(e)=>{
-    let filteredParks = [];
-    this.setState({
-      distance: parseInt(e.target.value)
-    },()=>{
-      this.state.parks.map(park=>{
-        let distance = (getDistance({ latitude: this.state.currentLocation[0], longitude: this.state.currentLocation[1]}, { latitude: park.location.coordinates[0], longitude: park.location.coordinates[1]}) *0.000621371192).toFixed(1)
-        if (parseInt(distance) <= this.state.distance){
-          filteredParks.push(park)
-        }
-      })
+    if (this.state.currentLocation.length === 2){
+      let filteredParks = [];
       this.setState({
-        filteredParks
+        distance: parseInt(e.target.value)
+      },()=>{
+        this.state.parks.map(park=>{
+          let distance = (getDistance({ latitude: this.state.currentLocation[0], longitude: this.state.currentLocation[1]}, { latitude: park.location.coordinates[0], longitude: park.location.coordinates[1]}) *0.000621371192).toFixed(1)
+          if (parseInt(distance) <= this.state.distance){
+            filteredParks.push(park)
+          }
+        })
+        this.setState({
+          filteredParks
+        })
       })
-    })
+    }
   }
 
   handleCheckbox=(key, status)=>{
