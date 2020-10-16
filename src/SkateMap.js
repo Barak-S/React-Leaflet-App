@@ -2,6 +2,7 @@ import React from 'react';
 import { Container, Row, Col, Card, Form, Button, Table } from 'react-bootstrap';
 import { Map, Marker, Popup, TileLayer } from 'react-leaflet';
 import ParkContainer from './ParkContainer' 
+import SkateMarker from './SkateMarker'
 import  { Icon } from 'leaflet';
 import { render } from '@testing-library/react';
 import { getDistance } from 'geolib';
@@ -26,10 +27,6 @@ L.Icon.Default.mergeOptions({
     shadowUrl: require('leaflet/dist/images/marker-shadow.png')
 });
 
-const skateboard = new Icon({
-  iconUrl: '../skateboard.svg',
-  iconSize: [25,25]
-})
 const currentLocation = new Icon({
   iconUrl: '../currentLocation.svg',
   iconSize: [37,37]
@@ -38,8 +35,6 @@ const likeButton = new Icon({
   iconUrl: '../likeButton.png',
   iconSize: [37,37]
 })
-
-
 
 class SkateMap extends React.Component {
 
@@ -100,16 +95,10 @@ class SkateMap extends React.Component {
     this.setState({ address })
   }
 
-  handleDescriptionChange=(e)=>{
+  handleChange=(e)=>{
     this.setState({
-      description: e.target.value
-    })
-  }
-
-  handleNameChange=(e)=>{
-    this.setState({
-      name: e.target.value
-    })
+      [e.target.name]: e.target.value
+    }, ()=>console.log(this.state.name, this.state.description))
   }
 
   handleDistanceFilter=(e)=>{
@@ -167,14 +156,12 @@ class SkateMap extends React.Component {
 
   createSpot=()=>{
     if (this.props.auth.isAuthenticated === true ){
-      let trueFeatures = []
-  
+      let trueFeatures = [] 
       this.state.features.forEach(feature=>{
         if(feature.isChecked){
           trueFeatures.push(feature)
         }
-      })
-      
+      }) 
       let newSpot = {
         location: {
           coordinates: this.state.coordinates
@@ -193,7 +180,6 @@ class SkateMap extends React.Component {
         body: JSON.stringify({ newSpot })
       }).then(resp=>resp.json())
       .then(newPark=>this.addNewSpotToMap(newPark))
-
     } else {
       console.log("Please Log In")
     }
@@ -249,26 +235,26 @@ class SkateMap extends React.Component {
               <Col xs={12} sm={12} md={9} lg={9}>
                 <Card style={{marginBottom: 22}}>
                   <Map center={ this.state.center } zoom={this.state.zoom} animate={true} className="BoxShadow">
-                  <TileLayer
-                    attribution='&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="http://cartodb.com/attributions">CartoDB</a>'
-                    url='https://cartodb-basemaps-{s}.global.ssl.fastly.net/dark_all/{z}/{x}/{y}.png'
-                  />
-                    {this.state.parks.map(park=>{
-                      return(
-                        <Marker
-                          key={park.name}
-                          position={[park.location.coordinates[0] , park.location.coordinates[1]]}
-                          onClick={()=>this.setPark(park)}
-                          icon={ skateboard }
-                        />
-                      )
-                    })}
-                    { this.state.currentLocation[1] &&
+                    <TileLayer
+                      attribution='&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="http://cartodb.com/attributions">CartoDB</a>'
+                      url='https://cartodb-basemaps-{s}.global.ssl.fastly.net/dark_all/{z}/{x}/{y}.png'
+                    />
+                    { this.state.currentLocation.length === 2 &&
                       <Marker
                         key="currentLocation"
                         position={[this.state.currentLocation[0], this.state.currentLocation[1]]}
                       /> 
                     }
+                    {this.state.parks.map(park=>{
+                      return(
+                        <SkateMarker
+                          park={park}
+                          key={park._id}
+                          position={[park.location.coordinates[0] , park.location.coordinates[1]]}
+                          setPark={this.setPark}
+                        />
+                      )
+                    })}
                     { this.state.selectedPark.name && (
                       <Popup
                         position={[this.state.selectedPark.location.coordinates[0] , this.state.selectedPark.location.coordinates[1]]}
@@ -277,7 +263,7 @@ class SkateMap extends React.Component {
                         <div>
                           <h3>{this.state.selectedPark.name}</h3>
                           <p>{this.state.selectedPark.description}</p>
-                          <p style={{fontWeight: "600"}}><img src="../likeButton.png" style={{height: 22, width:22}}/>{' '}Likes</p>
+                          <p style={{fontWeight: "600"}}><img src="../likeButton.png" style={{height: 22, width:22}}/>{' '}{`${this.state.selectedPark.likes !== undefined ? this.state.selectedPark.likes : 0} Likes`}</p>
                         </div>
 
                       </Popup>
@@ -301,7 +287,7 @@ class SkateMap extends React.Component {
                         <h3 style={{textAlign: "center"}}>Add a skate spot to our map!</h3>
                         <Form.Group>
                             <Form.Label>Name</Form.Label>
-                            <Form.Control name="name" value={this.state.name} placeholder="Name" onChange={(e)=>this.handleNameChange(e)}/>
+                            <Form.Control name="name" value={this.state.name} placeholder="Name" onChange={(e)=>this.handleChange(e)}/>
                         </Form.Group>
                         <Form.Group>
                             <LocationSearch
@@ -317,7 +303,7 @@ class SkateMap extends React.Component {
                         </Form.Group>
                         <Form.Group>
                             <Form.Label>Description</Form.Label>
-                            <Form.Control as="textarea" rows={3} name="description" value={this.state.description} placeholder="Desciption" onChange={(e)=>this.handleDescriptionChange(e)}/>
+                            <Form.Control as="textarea" rows={3} name="description" value={this.state.description} placeholder="Desciption" onChange={(e)=>this.handleChange(e)}/>
                         </Form.Group>
                         <Form.Group>
                             <Form.File id="exampleFormControlFile1" label="Upload Image" />
