@@ -45,7 +45,7 @@ class SkateMap extends React.Component {
     parks: [],
     filteredParks: [],
     selectedPark: {},
-    zoom: 10,
+    zoom: 10.5,
     center: this.defaultCenter,
     name: "",
     address: "",
@@ -59,6 +59,8 @@ class SkateMap extends React.Component {
       {id: 6, value: "Rail", isChecked: false},
       {id: 7, value: "Quarter Pipe", isChecked: false},
       {id: 8, value: "Half Pipe", isChecked: false},
+      {id: 9, value: "Bowl", isChecked: false},
+      {id: 9, value: "Ramp", isChecked: false},
     ],
     coordinates: [],
     currentLocation: []
@@ -154,7 +156,7 @@ class SkateMap extends React.Component {
     this.setState({ 
       selectedPark: {}, 
       center: center,
-      zoom: 10
+      zoom: 10.5
     })
   }
 
@@ -214,6 +216,8 @@ class SkateMap extends React.Component {
         {id: 6, value: "Rail", isChecked: false},
         {id: 7, value: "Quarter Pipe", isChecked: false},
         {id: 8, value: "Half Pipe", isChecked: false},
+        {id: 9, value: "Bowl", isChecked: false},
+        {id: 9, value: "Ramp", isChecked: false},  
       ]
     })
   }
@@ -237,7 +241,6 @@ class SkateMap extends React.Component {
         <div style={{minHeight: "100vh", marginLeft: 12.5, marginRight:12.5}}>
           <Container fluid style={{marginTop: 19}}>
             <Row>
-
               <Col xs={12} sm={12} md={9} lg={9}>
                 <Card style={{marginBottom: 22}}>
                   <Map center={ this.state.center } zoom={this.state.zoom} className="BoxShadow">
@@ -319,16 +322,15 @@ class SkateMap extends React.Component {
                 </Card>
               </Col>
             </Row>
-              <Col className="AlignCenter" xs={12} sm={12} md={9} lg={9}>
-                <div style={{ color: "#ffffff"}}>
-                  <p>Disclaimer: None of these spots are authorized places to skate. NYC Skatepark Directory is not responsible for your actions or what happens to you at any of these locations. If you are trespassing on someone else’s property, always be aware that you can be confronted. Follow the rules and leave to avoid further conflict. Skate at your own risk.</p>
-                  <p>Things to consider:</p>
-                  <p>1. Spot names may be different than what you know them as</p>
-                  <p>2. Some places may not count as a “spot” to you but remember, kids just starting to skate might want to hit up that 5 stair or little ledge</p>
-                  <p>3. Double check pin locations before heading out</p>
+              <Col className="AlignCenter" xs={12} sm={12} md={10} lg={10}>
+                <div style={{ color: "#ffffff", paddingBottom: 17}}>
+                  <p><strong>Disclaimer: </strong>None of these spots are authorized places to skate. NYC Skatepark Directory is not responsible for your actions or what happens to you at any of these locations. If you are trespassing on someone else’s property, always be aware that you can be confronted. Follow the rules and leave to avoid further conflict. Skate at your own risk.</p>
+                  <p><strong>Things to consider:</strong></p>
+                  <p><strong>1. </strong>Spot names may be different than what you know them as</p>
+                  <p><strong>2. </strong>Some places may not count as a “spot” to you but remember, kids just starting to skate might want to hit up that 5 stair or little ledge</p>
+                  <p><strong>3. </strong><strong></strong>Double check pin locations before heading out</p>
                 </div>
-              </Col>
-            
+              </Col>          
           </Container>
         </div>
       );
