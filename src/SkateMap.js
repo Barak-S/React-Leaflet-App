@@ -4,6 +4,7 @@ import { Map, Marker, Popup, TileLayer } from 'react-leaflet';
 import ParkContainer from './ParkContainer' 
 import  { Icon } from 'leaflet';
 import { render } from '@testing-library/react';
+import { getDistance } from 'geolib';
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
 
@@ -40,6 +41,7 @@ class SkateMap extends React.Component {
 
   state={
     search: "",
+    distance: "",
     parks: [],
     filteredParks: [],
     selectedPark: {},
@@ -103,6 +105,23 @@ class SkateMap extends React.Component {
     })
   }
 
+  handleDistanceFilter=(e)=>{
+    let filteredParks = [];
+    this.setState({
+      distance: parseInt(e.target.value)
+    },()=>{
+      this.state.parks.map(park=>{
+        let distance = (getDistance({ latitude: this.state.currentLocation[0], longitude: this.state.currentLocation[1]}, { latitude: park.location.coordinates[0], longitude: park.location.coordinates[1]}) *0.000621371192).toFixed(1)
+        if (parseInt(distance) <= this.state.distance){
+          filteredParks.push(park)
+        }
+      })
+      this.setState({
+        filteredParks
+      })
+    })
+  }
+
   handleCheckbox=(key, status)=>{
     let features = [...this.state.features]
     let selected = features.find(park=>park.value === key)
@@ -138,7 +157,6 @@ class SkateMap extends React.Component {
   }
 
   createSpot=()=>{
-
     if (this.props.auth.isAuthenticated === true ){
       let trueFeatures = []
   
@@ -263,6 +281,8 @@ class SkateMap extends React.Component {
                   handleSearch={this.handleSearch}
                   setPark={this.setPark}
                   currentLocation={this.state.currentLocation}
+                  distance={this.state.distance}
+                  handleDistanceFilter={this.handleDistanceFilter}
                 />
                 <Card style={{ marginBottom: 22, padding: 12 }} className="BoxShadow">
                   <Form >
