@@ -34,6 +34,12 @@ const currentLocation = new Icon({
   iconUrl: '../currentLocation.svg',
   iconSize: [37,37]
 })
+const likeButton = new Icon({
+  iconUrl: '../likeButton.png',
+  iconSize: [37,37]
+})
+
+
 
 class SkateMap extends React.Component {
 
@@ -68,7 +74,6 @@ class SkateMap extends React.Component {
   }
 
   componentDidMount(){
-    // fetch("https://data.cityofnewyork.us/resource/pvvr-75zk.json")
     fetch("/api/skatespots")
     .then(resp=>resp.json())
     .then(data=>this.setState({
@@ -243,11 +248,11 @@ class SkateMap extends React.Component {
             <Row>
               <Col xs={12} sm={12} md={9} lg={9}>
                 <Card style={{marginBottom: 22}}>
-                  <Map center={ this.state.center } zoom={this.state.zoom} className="BoxShadow">
-                    <TileLayer
-                      url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                      attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-                    />
+                  <Map center={ this.state.center } zoom={this.state.zoom} animate={true} className="BoxShadow">
+                  <TileLayer
+                    attribution='&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="http://cartodb.com/attributions">CartoDB</a>'
+                    url='https://cartodb-basemaps-{s}.global.ssl.fastly.net/dark_all/{z}/{x}/{y}.png'
+                  />
                     {this.state.parks.map(park=>{
                       return(
                         <Marker
@@ -272,6 +277,7 @@ class SkateMap extends React.Component {
                         <div>
                           <h3>{this.state.selectedPark.name}</h3>
                           <p>{this.state.selectedPark.description}</p>
+                          <p style={{fontWeight: "600"}}><img src="../likeButton.png" style={{height: 22, width:22}}/>{' '}Likes</p>
                         </div>
 
                       </Popup>

@@ -23,6 +23,12 @@
 .leaflet-container{
   width: 100%;
   height: 80vh;
+  animation: fadeInLeaflet 1s ease forwards 1s;
+  opacity: 0;
+}
+
+@keyframes fadeInLeaflet {
+  to {opacity: 1;}
 }
 
 .BoxShadow{
