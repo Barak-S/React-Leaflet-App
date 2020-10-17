@@ -251,7 +251,7 @@ class SkateMap extends React.Component {
                         position={[this.state.currentLocation[0], this.state.currentLocation[1]]}
                       /> 
                     }
-                    {this.state.parks.map(park=>{
+                    {this.state.filteredParks.map(park=>{
                       return(
                         <SkateMarker
                           park={park}
