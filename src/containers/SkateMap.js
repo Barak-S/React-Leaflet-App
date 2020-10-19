@@ -86,11 +86,11 @@ class SkateMap extends React.Component {
     this.props.fetchSkatespots()
   }
 
-  // componentWillReceiveProps(nextProps){
-  //   if(nextProps.newPark){
-  //     this.props.parks.unshift(nextProps.newPark)
-  //   }
-  // }
+  componentWillReceiveProps(nextProps){
+    if(nextProps.park){
+      this.props.parks.unshift(nextProps.park)
+    }
+  }
 
   setPark=(park)=>{
     this.setState({
