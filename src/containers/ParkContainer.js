@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Card, Form } from 'react-bootstrap';
-import ParkCard from './ParkCard'
+import ParkCard from '../components/ParkCard'
 import { getDistance } from 'geolib';
 
 

@@ -2,8 +2,8 @@ import React from 'react';
 import { Container, Row, Col, Card, Form, Button, Table } from 'react-bootstrap';
 import { Map, Marker, TileLayer } from 'react-leaflet';
 import ParkContainer from './ParkContainer' 
-import SkateMarker from './SkateMarker'
-import SkatePopup from './SkatePopup'
+import SkateMarker from '../components/SkateMarker'
+import SkatePopup from '../components/SkatePopup'
 import  { Icon } from 'leaflet';
 import { render } from '@testing-library/react';
 import { getDistance } from 'geolib';
@@ -12,8 +12,9 @@ import L from 'leaflet';
 
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
+import { fetchSkatespots } from '../actions/skatespotActions'
 
-import LocationSearch from './LocationSearch'
+import LocationSearch from '../components/LocationSearch'
 import PlacesAutocomplete, {
   geocodeByAddress,
   getLatLng,
@@ -70,18 +71,19 @@ class SkateMap extends React.Component {
   }
 
   componentDidMount(){
-    fetch("/api/skatespots")
-    .then(resp=>resp.json())
-    .then(data=>this.setState({
-      parks: data,
-      filteredParks: data})
-    )
+    // fetch("/api/skatespots")
+    // .then(resp=>resp.json())
+    // .then(data=>this.setState({
+    //   parks: data,
+    //   filteredParks: data})
+    // )
     navigator.geolocation.getCurrentPosition(location => {
       this.setState({
         currentLocation: [location.coords.latitude, location.coords.longitude],
         center: [location.coords.latitude, location.coords.longitude]
       })
     });
+    this.props.fetchSkatespots()
   }
 
   setPark=(park)=>{
@@ -108,7 +110,7 @@ class SkateMap extends React.Component {
       this.setState({
         distance: parseInt(e.target.value)
       },()=>{
-        this.state.parks.map(park=>{
+        this.props.parks.map(park=>{
           let distance = (getDistance({ latitude: this.state.currentLocation[0], longitude: this.state.currentLocation[1]}, { latitude: park.location.coordinates[0], longitude: park.location.coordinates[1]}) *0.000621371192).toFixed(1)
           if (parseInt(distance) <= this.state.distance){
             filteredParks.push(park)
@@ -225,7 +227,7 @@ class SkateMap extends React.Component {
 
   filterParks(){
     this.setState({
-      filteredParks: this.state.parks.filter(c=>c.name.toLowerCase().includes(this.state.search.toLowerCase()))
+      filteredParks: this.props.parks.filter(c=>c.name.toLowerCase().includes(this.state.search.toLowerCase()))
     })
   }
 
@@ -251,7 +253,7 @@ class SkateMap extends React.Component {
                         position={[this.state.currentLocation[0], this.state.currentLocation[1]]}
                       /> 
                     }
-                    {this.state.filteredParks.map(park=>{
+                    { this.props.parks.map(park=>{
                       return(
                         <SkateMarker
                           park={park}
@@ -273,7 +275,8 @@ class SkateMap extends React.Component {
               </Col>
               <Col xs={12} sm={12} md={3} lg={3}>
                 <ParkContainer
-                  parks={this.state.filteredParks}
+                  // parks={this.state.filteredParks}
+                  parks={this.props.parks}
                   search={this.state.search}
                   handleSearch={this.handleSearch}
                   setPark={this.setPark}
@@ -334,12 +337,15 @@ class SkateMap extends React.Component {
 
 SkateMap.propTypes = {
   auth: PropTypes.object.isRequired,
-  errors: PropTypes.object.isRequired
+  errors: PropTypes.object.isRequired,
+  fetchSkatespots: PropTypes.func.isRequired
+
 };
 const mapStateToProps = state => ({
   auth: state.auth,
-  errors: state.errors
+  parks: state.spots.parks,
+  // auth: state.auth.isAuthenticated
 });
 export default connect(
   mapStateToProps,
-)(SkateMap);
+  { fetchSkatespots })(SkateMap);

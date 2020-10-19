@@ -3,7 +3,7 @@ import { Navbar, Nav, NavDropdown } from 'react-bootstrap';
 import { Link, withRouter } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { logoutUser } from "./actions/authActions";
+import { logoutUser } from "../actions/authActions";
 
 
 class NavBar extends React.Component {

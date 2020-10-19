@@ -10,13 +10,13 @@ import { setCurrentUser, logoutUser } from "./actions/authActions";
 import { Provider } from "react-redux";
 import store from "./store";
 
-import SkateMap from './SkateMap'
-import NavBar from './NavBar'
-import SignUp from './Signup'
-import LogIn from './Login'
-import Footer from './Footer'
-import Profile from './Profile'
-import MySpots from './MySpots'
+import SkateMap from './containers/SkateMap'
+import NavBar from './containers/NavBar'
+import SignUp from './containers/Signup'
+import LogIn from './containers/Login'
+import Footer from './components/Footer'
+import Profile from './containers/Profile'
+import MySpots from './containers/MySpots'
 import PrivateRoute from "./private-route/PrivateRoute";
 
 // Check for token to keep user logged in
