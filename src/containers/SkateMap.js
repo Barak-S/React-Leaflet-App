@@ -12,7 +12,7 @@ import L from 'leaflet';
 
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { fetchSkatespots } from '../actions/skatespotActions'
+import { fetchSkatespots, createSkatespot } from '../actions/skatespotActions'
 
 import LocationSearch from '../components/LocationSearch'
 import PlacesAutocomplete, {
@@ -85,6 +85,12 @@ class SkateMap extends React.Component {
     });
     this.props.fetchSkatespots()
   }
+
+  // componentWillReceiveProps(nextProps){
+  //   if(nextProps.newPark){
+  //     this.props.parks.unshift(nextProps.newPark)
+  //   }
+  // }
 
   setPark=(park)=>{
     this.setState({
@@ -177,15 +183,16 @@ class SkateMap extends React.Component {
         likes: 0,
         comments: []
       }
-      fetch('/api/skatespots/create',{
-        method: 'POST',
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ newSpot })
-      }).then(resp=>resp.json())
-      .then(newPark=>this.addNewSpotToMap(newPark))
+      this.props.createSkatespot(newSpot)
+      // fetch('/api/skatespots/create',{
+      //   method: 'POST',
+      //   headers: {
+      //     'Accept': 'application/json',
+      //     'Content-Type': 'application/json'
+      //   },
+      //   body: JSON.stringify({ newSpot })
+      // }).then(resp=>resp.json())
+      // .then(newPark=>this.addNewSpotToMap(newPark))
     } else {
       console.log("Please Log In")
     }
@@ -337,15 +344,17 @@ class SkateMap extends React.Component {
 
 SkateMap.propTypes = {
   auth: PropTypes.object.isRequired,
-  errors: PropTypes.object.isRequired,
-  fetchSkatespots: PropTypes.func.isRequired
-
+  fetchSkatespots: PropTypes.func.isRequired,
+  createSkatespot: PropTypes.func.isRequired,
+  parks: PropTypes.array.isRequired,
+  newPark: PropTypes.object.isRequired
 };
 const mapStateToProps = state => ({
   auth: state.auth,
   parks: state.spots.parks,
+  park: state.spots.park
   // auth: state.auth.isAuthenticated
 });
 export default connect(
   mapStateToProps,
-  { fetchSkatespots })(SkateMap);
+  { fetchSkatespots, createSkatespot })(SkateMap);
