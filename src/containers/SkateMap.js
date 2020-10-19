@@ -45,7 +45,6 @@ class SkateMap extends React.Component {
   state={
     search: "",
     distance: "",
-    parks: [],
     filteredParks: [],
     selectedPark: {},
     zoom: 10.5,
@@ -67,16 +66,9 @@ class SkateMap extends React.Component {
     ],
     coordinates: [],
     currentLocation: []
-    
   }
 
   componentDidMount(){
-    // fetch("/api/skatespots")
-    // .then(resp=>resp.json())
-    // .then(data=>this.setState({
-    //   parks: data,
-    //   filteredParks: data})
-    // )
     navigator.geolocation.getCurrentPosition(location => {
       this.setState({
         currentLocation: [location.coords.latitude, location.coords.longitude],
@@ -184,47 +176,38 @@ class SkateMap extends React.Component {
         comments: []
       }
       this.props.createSkatespot(newSpot)
-      // fetch('/api/skatespots/create',{
-      //   method: 'POST',
-      //   headers: {
-      //     'Accept': 'application/json',
-      //     'Content-Type': 'application/json'
-      //   },
-      //   body: JSON.stringify({ newSpot })
-      // }).then(resp=>resp.json())
-      // .then(newPark=>this.addNewSpotToMap(newPark))
     } else {
       console.log("Please Log In")
     }
 
   }
 
-  addNewSpotToMap=(newSpot)=>{
-    let parks = [...this.state.parks]
-    parks.push(newSpot)
-    this.setState({
-      parks: parks,
-      filteredParks: parks,
-      center: [newSpot.location.coordinates[0] , newSpot.location.coordinates[1]],
-      zoom: 15,
-      selectedPark: newSpot,
-      name: "",
-      address: "",
-      description: "",
-      features: [
-        {id: 1, value: "Park", isChecked: false},
-        {id: 2, value: "Hand Rail", isChecked: false},
-        {id: 3, value: "Stairs", isChecked: false},
-        {id: 4, value: "Box", isChecked: false},
-        {id: 5, value: "Ledge", isChecked: false},
-        {id: 6, value: "Rail", isChecked: false},
-        {id: 7, value: "Quarter Pipe", isChecked: false},
-        {id: 8, value: "Half Pipe", isChecked: false},
-        {id: 9, value: "Bowl", isChecked: false},
-        {id: 9, value: "Ramp", isChecked: false},  
-      ]
-    })
-  }
+  // addNewSpotToMap=(newSpot)=>{
+  //   let parks = [...this.state.parks]
+  //   parks.push(newSpot)
+  //   this.setState({
+  //     parks: parks,
+  //     filteredParks: parks,
+  //     center: [newSpot.location.coordinates[0] , newSpot.location.coordinates[1]],
+  //     zoom: 15,
+  //     selectedPark: newSpot,
+  //     name: "",
+  //     address: "",
+  //     description: "",
+  //     features: [
+  //       {id: 1, value: "Park", isChecked: false},
+  //       {id: 2, value: "Hand Rail", isChecked: false},
+  //       {id: 3, value: "Stairs", isChecked: false},
+  //       {id: 4, value: "Box", isChecked: false},
+  //       {id: 5, value: "Ledge", isChecked: false},
+  //       {id: 6, value: "Rail", isChecked: false},
+  //       {id: 7, value: "Quarter Pipe", isChecked: false},
+  //       {id: 8, value: "Half Pipe", isChecked: false},
+  //       {id: 9, value: "Bowl", isChecked: false},
+  //       {id: 9, value: "Ramp", isChecked: false},  
+  //     ]
+  //   })
+  // }
 
   handleSearch=(e)=>{
     this.setState({
@@ -282,8 +265,8 @@ class SkateMap extends React.Component {
               </Col>
               <Col xs={12} sm={12} md={3} lg={3}>
                 <ParkContainer
-                  // parks={this.state.filteredParks}
-                  parks={this.props.parks}
+                  parks={this.state.filteredParks.length === 0 ? this.props.filteredParks : this.state.filteredParks}
+                  // parks={this.props.parks}
                   search={this.state.search}
                   handleSearch={this.handleSearch}
                   setPark={this.setPark}
@@ -352,8 +335,8 @@ SkateMap.propTypes = {
 const mapStateToProps = state => ({
   auth: state.auth,
   parks: state.spots.parks,
-  park: state.spots.park
-  // auth: state.auth.isAuthenticated
+  park: state.spots.park,
+  filteredParks: state.spots.filteredParks
 });
 export default connect(
   mapStateToProps,

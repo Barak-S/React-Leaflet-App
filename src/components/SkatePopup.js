@@ -30,7 +30,7 @@ class SkatePopup extends Component {
             }
         })
         .then(response => response.json())
-        .then(likes => this.setState({ likes: likes.likes + 1},()=>console.log(this.state.likes)))
+        .then(likes => this.setState({ likes: likes.likes + 1}))
     }
 
     render() {

@@ -1,14 +1,16 @@
-import { FETCH_SKATESPOTS, CREATE_SKATESPOT } from "../actions/types";
+import { FETCH_SKATESPOTS, CREATE_SKATESPOT, FILTER_SKATESPOTS } from "../actions/types";
 
 const initialState = {
-    parks: []
+    parks: [],
+    filteredParks: []
 };
 export default function(state = initialState, action) {
   switch (action.type) {
     case FETCH_SKATESPOTS:
       return {
           ...state, 
-          parks: action.payload
+          parks: action.payload,
+          filteredParks: action.payload
         };
     case CREATE_SKATESPOT:
       return {
