@@ -45,7 +45,7 @@ class SkateMap extends React.Component {
   state={
     search: "",
     distance: "",
-    filteredParks: [],
+    filteredParks: this.props.filteredParks,
     selectedPark: {},
     zoom: 10.5,
     center: this.defaultCenter,
@@ -243,7 +243,7 @@ class SkateMap extends React.Component {
                         position={[this.state.currentLocation[0], this.state.currentLocation[1]]}
                       /> 
                     }
-                    { this.props.parks.map(park=>{
+                    { (this.state.filteredParks.length === 0 ? this.props.filteredParks : this.state.filteredParks).map(park=>{
                       return(
                         <SkateMarker
                           park={park}
@@ -265,7 +265,7 @@ class SkateMap extends React.Component {
               </Col>
               <Col xs={12} sm={12} md={3} lg={3}>
                 <ParkContainer
-                  parks={this.state.filteredParks.length === 0 ? this.props.filteredParks : this.state.filteredParks}
+                  parks={ this.state.filteredParks }
                   // parks={this.props.parks}
                   search={this.state.search}
                   handleSearch={this.handleSearch}
