@@ -45,7 +45,7 @@ class SkateMap extends React.Component {
   state={
     search: "",
     distance: "",
-    filteredParks: this.props.filteredParks,
+    filteredParks: [],
     selectedPark: {},
     zoom: 10.5,
     center: this.defaultCenter,
@@ -103,10 +103,20 @@ class SkateMap extends React.Component {
   }
 
   handleDistanceFilter=(e)=>{
+    let num = parseInt(e.target.value)
     if (this.state.currentLocation.length === 2){
       let filteredParks = [];
+      let zoom;
+      if (num === 5){
+        zoom = 12.5
+      } else if (num === 10){
+        zoom = 11.5
+      } else if (num === 25){
+        zoom = 10.5
+      }
       this.setState({
-        distance: parseInt(e.target.value)
+        distance: num,
+        zoom: zoom
       },()=>{
         this.props.parks.map(park=>{
           let distance = (getDistance({ latitude: this.state.currentLocation[0], longitude: this.state.currentLocation[1]}, { latitude: park.location.coordinates[0], longitude: park.location.coordinates[1]}) *0.000621371192).toFixed(1)
@@ -243,7 +253,7 @@ class SkateMap extends React.Component {
                         position={[this.state.currentLocation[0], this.state.currentLocation[1]]}
                       /> 
                     }
-                    { (this.state.filteredParks.length === 0 ? this.props.filteredParks : this.state.filteredParks).map(park=>{
+                    { (this.state.filteredParks.length > 1 ? this.state.filteredParks : this.props.parks).map(park=>{
                       return(
                         <SkateMarker
                           park={park}
@@ -265,8 +275,7 @@ class SkateMap extends React.Component {
               </Col>
               <Col xs={12} sm={12} md={3} lg={3}>
                 <ParkContainer
-                  parks={ this.state.filteredParks }
-                  // parks={this.props.parks}
+                  parks={ this.state.filteredParks.length > 1 ? this.state.filteredParks : this.props.parks }
                   search={this.state.search}
                   handleSearch={this.handleSearch}
                   setPark={this.setPark}
@@ -332,11 +341,10 @@ SkateMap.propTypes = {
   parks: PropTypes.array.isRequired,
   newPark: PropTypes.object.isRequired
 };
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   auth: state.auth,
   parks: state.spots.parks,
   park: state.spots.park,
-  filteredParks: state.spots.filteredParks
 });
 export default connect(
   mapStateToProps,
