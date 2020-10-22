@@ -228,7 +228,7 @@ class SkateMap extends React.Component {
   filterParks(){
     this.setState({
       filteredParks: this.props.parks.filter(c=>c.name.toLowerCase().includes(this.state.search.toLowerCase()))
-    })
+    },()=>console.log(this.state.filteredParks))
   }
 
   render(){
@@ -253,7 +253,7 @@ class SkateMap extends React.Component {
                         position={[this.state.currentLocation[0], this.state.currentLocation[1]]}
                       /> 
                     }
-                    { (this.state.filteredParks.length > 1 ? this.state.filteredParks : this.props.parks).map(park=>{
+                    { (this.state.filteredParks.length > 0 ? this.state.filteredParks : this.props.parks).map(park=>{
                       return(
                         <SkateMarker
                           park={park}
@@ -275,7 +275,7 @@ class SkateMap extends React.Component {
               </Col>
               <Col xs={12} sm={12} md={3} lg={3}>
                 <ParkContainer
-                  parks={ this.state.filteredParks.length > 1 ? this.state.filteredParks : this.props.parks }
+                  parks={ this.state.filteredParks.length > 0 ? this.state.filteredParks : this.props.parks }
                   search={this.state.search}
                   handleSearch={this.handleSearch}
                   setPark={this.setPark}

@@ -44,8 +44,9 @@
 
 .LogInSignUp{
   background-image: url("./images/skateboard.png");
-  background-repeat: repeat-y;
-  background-repeat: repeat-x;
+  object-fit: cover;
+  /* background-repeat: repeat-y;
+  background-repeat: repeat-x; */
 }
 
 nav.BoxShadow.navbar.navbar-expand-lg.navbar-dark.bg-dark{
@@ -71,7 +72,7 @@ a.NavLinks.nav-link:hover {
   border-radius: 8px;
 }
 
-.sidebar {
+/* .sidebar {
   position: fixed;
   top: 0;
   bottom: 0;
@@ -103,4 +104,4 @@ a.NavLinks.nav-link:hover {
 .ParkCol{
   height: 400px;
   overflow-y: scroll;
-}
+} */
