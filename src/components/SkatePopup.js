@@ -17,7 +17,7 @@ class SkatePopup extends Component {
             fetch(`/api/users/${this.props.park.postedBy}`)
             .then(resp=>resp.json())
             .then(userName=> 
-                this.setState({ userName })
+                this.setState({ userName },()=>console.log(userName))
             )
         }
     }

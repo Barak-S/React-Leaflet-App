@@ -16,7 +16,6 @@ import SignUp from './containers/Signup'
 import LogIn from './containers/Login'
 import Footer from './components/Footer'
 import Profile from './containers/Profile'
-import MySpots from './containers/MySpots'
 import PrivateRoute from "./private-route/PrivateRoute";
 
 // Check for token to keep user logged in

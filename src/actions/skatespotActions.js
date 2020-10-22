@@ -1,6 +1,4 @@
 import { FETCH_SKATESPOTS, CREATE_SKATESPOT, FILTER_SKATESPOTS } from "./types";
-import { getDistance } from 'geolib';
-
 
 export const fetchSkatespots = () => dispatch => {
     fetch("/api/skatespots")

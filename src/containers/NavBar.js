@@ -25,8 +25,8 @@ class NavBar extends React.Component {
                             Signed in as:
                         </Navbar.Text>
                         <NavDropdown title={<span style={{ color:"#FFE485", fontWeight: "600" }}>{this.props.auth.user.name}</span>} id="collasible-nav-dropdown">
-                            <NavDropdown.Item href="/myspots">My Spots</NavDropdown.Item>
-                            <NavDropdown.Item>Activity</NavDropdown.Item>
+                            {/* <NavDropdown.Item href="/myspots">My Spots</NavDropdown.Item>
+                            <NavDropdown.Item>Activity</NavDropdown.Item> */}
                             <NavDropdown.Item href="/profile">Profile</NavDropdown.Item>
                             <NavDropdown.Divider/>
                             <NavDropdown.Item>

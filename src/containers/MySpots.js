@@ -5,14 +5,6 @@ import { connect } from "react-redux"
 
 class MySpots extends Component {
 
-    route(){
-        !this.props.auth.isAuthenticated && this.props.history.push("/login")
-    }
-
-    componentDidMount(){
-        this.route()
-    }
-
     render() {
         return (
             <div style={{minHeight: "90vh", textAlign: "center", color: "#FFE485", marginTop: 25, marginBottom: 35}}>

@@ -81,6 +81,26 @@ class SkateMap extends React.Component {
   componentWillReceiveProps(nextProps){
     if(nextProps.park){
       this.props.parks.unshift(nextProps.park)
+      this.setState({
+        center: [nextProps.park.location.coordinates[0] , nextProps.park.location.coordinates[1]],
+        zoom: 15,
+        selectedPark: nextProps.park,
+        name: "",
+        address: "",
+        description: "",
+        features: [
+          {id: 1, value: "Park", isChecked: false},
+          {id: 2, value: "Hand Rail", isChecked: false},
+          {id: 3, value: "Stairs", isChecked: false},
+          {id: 4, value: "Box", isChecked: false},
+          {id: 5, value: "Ledge", isChecked: false},
+          {id: 6, value: "Rail", isChecked: false},
+          {id: 7, value: "Quarter Pipe", isChecked: false},
+          {id: 8, value: "Half Pipe", isChecked: false},
+          {id: 9, value: "Bowl", isChecked: false},
+          {id: 9, value: "Ramp", isChecked: false},  
+        ]
+      })
     }
   }
 
@@ -192,33 +212,6 @@ class SkateMap extends React.Component {
 
   }
 
-  // addNewSpotToMap=(newSpot)=>{
-  //   let parks = [...this.state.parks]
-  //   parks.push(newSpot)
-  //   this.setState({
-  //     parks: parks,
-  //     filteredParks: parks,
-  //     center: [newSpot.location.coordinates[0] , newSpot.location.coordinates[1]],
-  //     zoom: 15,
-  //     selectedPark: newSpot,
-  //     name: "",
-  //     address: "",
-  //     description: "",
-  //     features: [
-  //       {id: 1, value: "Park", isChecked: false},
-  //       {id: 2, value: "Hand Rail", isChecked: false},
-  //       {id: 3, value: "Stairs", isChecked: false},
-  //       {id: 4, value: "Box", isChecked: false},
-  //       {id: 5, value: "Ledge", isChecked: false},
-  //       {id: 6, value: "Rail", isChecked: false},
-  //       {id: 7, value: "Quarter Pipe", isChecked: false},
-  //       {id: 8, value: "Half Pipe", isChecked: false},
-  //       {id: 9, value: "Bowl", isChecked: false},
-  //       {id: 9, value: "Ramp", isChecked: false},  
-  //     ]
-  //   })
-  // }
-
   handleSearch=(e)=>{
     this.setState({
         search: e.target.value
@@ -228,7 +221,7 @@ class SkateMap extends React.Component {
   filterParks(){
     this.setState({
       filteredParks: this.props.parks.filter(c=>c.name.toLowerCase().includes(this.state.search.toLowerCase()))
-    },()=>console.log(this.state.filteredParks))
+    })
   }
 
   render(){
