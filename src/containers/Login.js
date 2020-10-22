@@ -123,7 +123,7 @@ class Login extends React.Component{
                                 </span>
                             </Form.Group>
                             <Form.Text className="text-muted" style={{ paddingBottom: 15, fontWeight: "600" }}>Dont have an account? <Link to="/signup">Sign Up</Link></Form.Text>
-                            <Button style={{ backgroundColor: "#ED5145", borderColor: "#000000" , borderWidth: 0.25}} className="BoxShadow" onClick={(e)=>this.onSubmit(e)}>
+                            <Button style={{ backgroundColor: "#ED5145", border: "none"}} className="BoxShadow" onClick={(e)=>this.onSubmit(e)}>
                                 Log In
                             </Button>
                         </Form>

@@ -276,7 +276,7 @@ class SkateMap extends React.Component {
                   distance={this.state.distance}
                   handleDistanceFilter={this.handleDistanceFilter}
                 />
-                <Card style={{ marginBottom: 22, padding: 12 }} className="BoxShadow">
+                <Card style={{ marginBottom: 22, padding: 12, color: "#FFE485", backgroundColor: "#343A40" }} className="BoxShadow">
                   <Form >
                       <div>
                         <h3 style={{textAlign: "center"}}>Add a skate spot to our map!</h3>
@@ -303,7 +303,7 @@ class SkateMap extends React.Component {
                         <Form.Group>
                             <Form.File id="exampleFormControlFile1" label="Upload Image" />
                         </Form.Group>
-                        <Button variant="dark" className="BoxShadow" onClick={()=>this.createSpot()}>Create Spot!</Button>
+                        <Button style={{backgroundColor: "#ED5145", border: "none"}} className="BoxShadow" onClick={()=>this.createSpot()}>Create Spot!</Button>
                       </div>
                   </Form>
                 </Card>
