@@ -286,6 +286,7 @@ class SkateMap extends React.Component {
                         </Form.Group>
                         <Form.Group>
                             <LocationSearch
+                              currentLocation={this.state.currentLocation}
                               address={this.state.address}
                               handleAddressChange={this.handleAddressChange}
                               handleAddressSelect={this.handleAddressSelect}

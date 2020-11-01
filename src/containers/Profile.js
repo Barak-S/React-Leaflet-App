@@ -85,7 +85,7 @@ class Profile extends Component {
                         </Modal.Header>
                         <Modal.Body>This Skate Spot will permanently be removed.</Modal.Body>
                         <Modal.Footer>
-                        <Button variant="danger" onClick={()=>this.deleteLoan(park)}>
+                        <Button variant="danger" onClick={()=>this.deleteLoan()}>
                             Delete
                         </Button>
                         <Button variant="secondary" onClick={this.handleClose}>Close</Button>

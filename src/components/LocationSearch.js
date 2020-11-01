@@ -10,9 +10,9 @@ import { FormControl, InputGroup, Form } from 'react-bootstrap';
 export default class LocationSearch extends React.Component {
  
   render() {
+    console.log(this.props.currentLocation)
 
     return (
-
         <PlacesAutocomplete
           value={this.props.address}
           onChange={(e)=>this.props.handleAddressChange(e)}
@@ -26,10 +26,12 @@ export default class LocationSearch extends React.Component {
                 })}>
                 </Form.Control>    
               <div style={{cursor: "pointer", fontSize: 15.5 }}>
-                {loading && <div>Loading...</div>}
+                {loading && <div style={{backgroundColor: "#fff", color: "#333"}}>Loading...</div>}
+                {this.props.currentLocation.length ===  2 && <div style={{backgroundColor: "#fff", color: "#333"}}>{this.props.currentLocation}</div>}
                 {suggestions.map(suggestion => {
                   const style={
-                      backgroundColor: suggestion.active ? "#FFE485" : "#ffffff"
+                      backgroundColor: suggestion.active ? "#FFE485" : "#ffffff",
+                      color: "#333"
                   };
                   return(<div {...getSuggestionItemProps(suggestion, { style })} key={suggestion.description}>{suggestion.description }</div>)
                 })}
