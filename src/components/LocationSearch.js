@@ -27,7 +27,7 @@ export default class LocationSearch extends React.Component {
                 </Form.Control>    
               <div style={{cursor: "pointer", fontSize: 15.5 }}>
                 {loading && <div style={{backgroundColor: "#fff", color: "#333"}}>Loading...</div>}
-                {this.props.currentLocation.length ===  2 && <div style={{backgroundColor: "#fff", color: "#333"}}>{this.props.currentLocation}</div>}
+                {this.props.currentLocation.length ===  2 && <div style={{backgroundColor: "#fff", color: "#333"}}>Current Location</div>}
                 {suggestions.map(suggestion => {
                   const style={
                       backgroundColor: suggestion.active ? "#FFE485" : "#ffffff",
