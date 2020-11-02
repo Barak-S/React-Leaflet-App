@@ -19,7 +19,7 @@ class ParkCard extends Component {
 
     render() {
         return (
-            <Card style={{marginTop:5, textAlign: "left", cursor: "pointer"}} onClick={()=>this.props.setPark(this.props.park)}>
+            <Card style={{marginTop:5, textAlign: "left", cursor: "pointer"}} onClick={()=>{ this.props.setPark && this.props.setPark(this.props.park)}}>
                 <div style={{paddingLeft: 8}}>
                     <Card.Title style={{ textAlign: "center" }}>{this.props.park.name}</Card.Title>
                     { this.props.park.address && <h6>Address: {this.props.park.address}</h6>}
@@ -31,6 +31,13 @@ class ParkCard extends Component {
                         { this.props.currentLocation.length === 2 && <p style={{marginBottom: 3, color: "green", fontWeight: "600"}}>Distance: {(getDistance({ latitude: this.props.currentLocation[0], longitude: this.props.currentLocation[1]}, { latitude:this.props.park.location.coordinates[0], longitude: this.props.park.location.coordinates[1]}) *0.000621371192).toFixed(1) } miles away</p>}
                     </div>}
                 </div>
+                { this.props.deletePark && 
+                    <Col style={{textAlign: "center", paddingBottom: 8}}>
+                        <Button variant="danger" onClick={()=>this.props.deletePark(this.props.park)}>Delete</Button>
+                    </Col>
+                    
+                    
+                }
             </Card>
         );
     }
