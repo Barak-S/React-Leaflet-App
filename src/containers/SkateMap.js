@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container, Row, Col, Card, Form, Button, Table } from 'react-bootstrap';
+import { Container, Row, Col, Card, Form, Button } from 'react-bootstrap';
 import { Map, Marker, TileLayer } from 'react-leaflet';
 import ParkContainer from './ParkContainer' 
 import SkateMarker from '../components/SkateMarker'
@@ -233,11 +233,33 @@ class SkateMap extends React.Component {
 
   render(){
       return (
-        <div style={{minHeight: "100vh", marginLeft: 12.5, marginRight:12.5}}>
+        <div style={{margin: 12.5}}>
           <Container fluid style={{marginTop: 19}}>
             <Row>
               <Col xs={12} sm={12} md={9} lg={9}>
-                <Card style={{marginBottom: 22}}>
+                <Card style={{marginBottom: 22}} style={{backgroundColor: "#343A40", padding: 12}}>
+                <Form inline style={{marginBottom: 8.5}}>
+                  <Form.Control style={{ margin:3}} type="text" placeholder="Search Skate Spots!" onChange={(e)=>this.handleSearch(e)} />
+                  <Form.Control
+                      style={{ backgroundColor: "#ED5145", border: "none", margin:3}}
+                      as="select"
+                      onChange={(e)=>this.handleDistanceFilter(e)}
+                      custom
+                  >
+                      <option value="100">Distance</option>
+                      <option value="5">5 miles</option>
+                      <option value="10">10 miles</option>
+                      <option value="25">25 miles</option>
+                  </Form.Control>
+                  <Form.Check
+                      id="switch-1"
+                      type="switch"
+                      label="Dark Mode"
+                      checked={this.state.darkMode}
+                      onChange={this.toggleDarkMode}
+                      style={{color: "#fff", fontWeight: "600", marginLeft: 8}}
+                  />
+                </Form>
                   <Map center={ this.state.center } zoom={this.state.zoom} animate={true} className="BoxShadow">
                     { this.state.darkMode ?
                     <TileLayer
@@ -275,6 +297,13 @@ class SkateMap extends React.Component {
                     )}
                   </Map>
                 </Card>
+                <div style={{ color: "#ffffff", margin: 17}}>
+                  <p><strong>Disclaimer: </strong>None of these spots are authorized places to skate. NYC Skatepark Directory is not responsible for your actions or what happens to you at any of these locations. If you are trespassing on someone else’s property, always be aware that you can be confronted. Follow the rules and leave to avoid further conflict. Skate at your own risk.</p>
+                  <p><strong>Things to consider:</strong></p>
+                  <p><strong>1. </strong>Spot names may be different than what you know them as</p>
+                  <p><strong>2. </strong>Some places may not count as a “spot” to you but remember, kids just starting to skate might want to hit up that 5 stair or little ledge</p>
+                  <p><strong>3. </strong><strong></strong>Double check pin locations before heading out</p>
+                </div>
               </Col>
               <Col xs={12} sm={12} md={3} lg={3}>
                 <ParkContainer
@@ -321,16 +350,7 @@ class SkateMap extends React.Component {
                   </Form>
                 </Card>
               </Col>
-            </Row>
-              <Col className="AlignCenter" xs={12} sm={12} md={10} lg={10}>
-                <div style={{ color: "#ffffff", paddingBottom: 17}}>
-                  <p><strong>Disclaimer: </strong>None of these spots are authorized places to skate. NYC Skatepark Directory is not responsible for your actions or what happens to you at any of these locations. If you are trespassing on someone else’s property, always be aware that you can be confronted. Follow the rules and leave to avoid further conflict. Skate at your own risk.</p>
-                  <p><strong>Things to consider:</strong></p>
-                  <p><strong>1. </strong>Spot names may be different than what you know them as</p>
-                  <p><strong>2. </strong>Some places may not count as a “spot” to you but remember, kids just starting to skate might want to hit up that 5 stair or little ledge</p>
-                  <p><strong>3. </strong><strong></strong>Double check pin locations before heading out</p>
-                </div>
-              </Col>          
+            </Row>         
           </Container>
         </div>
       );
