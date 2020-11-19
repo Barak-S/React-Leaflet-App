@@ -43,6 +43,7 @@ class SkateMap extends React.Component {
   defaultCenter = [40.7395 , -73.9027] 
 
   state={
+    darkMode: false,
     search: "",
     distance: "",
     filteredParks: [],
@@ -66,6 +67,12 @@ class SkateMap extends React.Component {
     ],
     coordinates: [],
     currentLocation: []
+  }
+
+  toggleDarkMode = () => {
+    this.setState({
+        darkMode: !this.state.darkMode
+    })
   }
 
   componentDidMount(){
@@ -232,14 +239,17 @@ class SkateMap extends React.Component {
               <Col xs={12} sm={12} md={9} lg={9}>
                 <Card style={{marginBottom: 22}}>
                   <Map center={ this.state.center } zoom={this.state.zoom} animate={true} className="BoxShadow">
-                    {/* <TileLayer
+                    { this.state.darkMode ?
+                    <TileLayer
                       attribution='&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="http://cartodb.com/attributions">CartoDB</a>'
                       url='https://cartodb-basemaps-{s}.global.ssl.fastly.net/dark_all/{z}/{x}/{y}.png'
-                    /> */}
+                    />  
+                    :
                     <TileLayer
-                      url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                       attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+                      url="https://tiles.wmflabs.org/bw-mapnik/{z}/{x}/{y}.png"
                     />
+                    }
                     { this.state.currentLocation.length === 2 &&
                       <Marker
                         key="currentLocation"
@@ -275,6 +285,8 @@ class SkateMap extends React.Component {
                   currentLocation={this.state.currentLocation}
                   distance={this.state.distance}
                   handleDistanceFilter={this.handleDistanceFilter}
+                  darkMode={this.state.darkMode}
+                  toggleDarkMode={this.toggleDarkMode}
                 />
                 <Card style={{ marginBottom: 22, padding: 12, color: "#FFE485", backgroundColor: "#343A40" }} className="BoxShadow">
                   <Form >

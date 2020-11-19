@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import { Navbar, Nav, NavDropdown } from 'react-bootstrap';
+import React from 'react';
+import { Navbar, Nav, NavDropdown, Form } from 'react-bootstrap';
 import { Link, withRouter } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
@@ -25,8 +25,6 @@ class NavBar extends React.Component {
                             Signed in as:
                         </Navbar.Text>
                         <NavDropdown title={<span style={{ color:"#FFE485", fontWeight: "600" }}>{this.props.auth.user.name}</span>} id="collasible-nav-dropdown">
-                            {/* <NavDropdown.Item href="/myspots">My Spots</NavDropdown.Item>
-                            <NavDropdown.Item>Activity</NavDropdown.Item> */}
                             <NavDropdown.Item href="/profile">Profile</NavDropdown.Item>
                             <NavDropdown.Divider/>
                             <NavDropdown.Item>

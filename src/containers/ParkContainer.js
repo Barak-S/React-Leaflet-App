@@ -33,6 +33,14 @@ class ParkContainer extends Component {
                         <option value="10">10 miles</option>
                         <option value="25">25 miles</option>
                     </Form.Control>
+                    <Form.Check
+                        id="switch-1"
+                        type="switch"
+                        label="Dark Mode"
+                        checked={this.props.darkMode}
+                        onChange={this.props.toggleDarkMode}
+                        style={{color: "#fff"}}
+                    />
                 </Form>
                 <h4 style={{textAlign: "center", fontWeight: "600", color: "#FFE485"}}>Skate Spots Nearby</h4>
                     <div className="ParkCol">
