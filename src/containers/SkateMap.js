@@ -1,6 +1,7 @@
 import React from 'react';
 import { Container, Row, Col, Card, Form, Button } from 'react-bootstrap';
 import { Map, Marker, TileLayer } from 'react-leaflet';
+import { Link } from "react-router-dom";
 import ParkContainer from './ParkContainer' 
 import SkateMarker from '../components/SkateMarker'
 import SkatePopup from '../components/SkatePopup'
@@ -12,14 +13,7 @@ import L from 'leaflet';
 
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { fetchSkatespots, createSkatespot } from '../actions/skatespotActions'
-
-import LocationSearch from '../components/LocationSearch'
-import PlacesAutocomplete, {
-  geocodeByAddress,
-  getLatLng,
-} from 'react-places-autocomplete';  
-
+import { fetchSkatespots, createSkatespot } from '../actions/skatespotActions';
 
 delete L.Icon.Default.prototype._getIconUrl;
 
@@ -50,22 +44,6 @@ class SkateMap extends React.Component {
     selectedPark: {},
     zoom: 10.5,
     center: this.defaultCenter,
-    name: "",
-    address: "",
-    description: "",
-    features: [
-      {id: 1, value: "Park", isChecked: false},
-      {id: 2, value: "Hand Rail", isChecked: false},
-      {id: 3, value: "Stairs", isChecked: false},
-      {id: 4, value: "Box", isChecked: false},
-      {id: 5, value: "Ledge", isChecked: false},
-      {id: 6, value: "Rail", isChecked: false},
-      {id: 7, value: "Quarter Pipe", isChecked: false},
-      {id: 8, value: "Half Pipe", isChecked: false},
-      {id: 9, value: "Bowl", isChecked: false},
-      {id: 9, value: "Ramp", isChecked: false},
-    ],
-    coordinates: [],
     currentLocation: []
   }
 
@@ -119,16 +97,6 @@ class SkateMap extends React.Component {
     })
   }
 
-  // handleAddressChange=(address)=> {
-  //   this.setState({ address })
-  // }
-
-  // handleChange=(e)=>{
-  //   this.setState({
-  //     [e.target.name]: e.target.value
-  //   })
-  // }
-
   handleDistanceFilter=(e)=>{
     let num = parseInt(e.target.value)
     if (this.state.currentLocation.length === 2){
@@ -158,26 +126,6 @@ class SkateMap extends React.Component {
     }
   }
 
-  handleCheckbox=(key, status)=>{
-    let features = [...this.state.features]
-    let selected = features.find(park=>park.value === key)
-    selected.isChecked = !status
-    this.setState({
-      features
-    })
-  }
-
-  handleAddressSelect = (address) => {
-    geocodeByAddress(address)
-    .then(results => getLatLng(results[0]))
-    .then( coords =>{
-        this.setState({
-          coordinates: [coords.lat, coords.lng ],
-          address
-        })
-    })
-  }
-
   clearPark=()=>{
     let center = [];
     if (this.state.currentLocation.length === 2){
@@ -191,33 +139,6 @@ class SkateMap extends React.Component {
       zoom: 10.5
     })
   }
-
-  // createSpot=()=>{
-  //   if (this.props.auth.isAuthenticated === true ){
-  //     let trueFeatures = [] 
-  //     this.state.features.forEach(feature=>{
-  //       if(feature.isChecked){
-  //         trueFeatures.push(feature)
-  //       }
-  //     }) 
-  //     let newSpot = {
-  //       location: {
-  //         coordinates: this.state.coordinates
-  //       },
-  //       name: this.state.name,
-  //       address: this.state.address,
-  //       description: this.state.description,
-  //       features: trueFeatures,
-  //       postedBy: this.props.auth.user.id,
-  //       likes: 0,
-  //       comments: []
-  //     }
-  //     this.props.createSkatespot(newSpot)
-  //   } else {
-  //     console.log("Please Log In")
-  //   }
-
-  // }
 
   handleSearch=(e)=>{
     this.setState({
@@ -241,7 +162,7 @@ class SkateMap extends React.Component {
                 <Form inline style={{marginBottom: 8.5}}>
                   <Form.Control style={{ margin:3}} type="text" placeholder="Search Skate Spots!" onChange={(e)=>this.handleSearch(e)} />
                   <Form.Control
-                      style={{ backgroundColor: "#ED5145", border: "none", margin:3}}
+                      style={{ backgroundColor: "#ED5145", border: "none", margin:3, fontWeight: "600", color: "#fff"}}
                       as="select"
                       onChange={(e)=>this.handleDistanceFilter(e)}
                       custom
@@ -319,6 +240,11 @@ class SkateMap extends React.Component {
                   darkMode={this.state.darkMode}
                   toggleDarkMode={this.toggleDarkMode}
                 />
+                <div style={{textAlign: "center"}}>
+                  <Link to="/new">
+                    <Button style={{ backgroundColor: "#ED5145", border: "none", fontWeight: "600", color: "#fff" }}>ADD A SPOT TO OUR MAP!</Button>
+                  </Link>
+                </div>
               </Col>
             </Row>         
           </Container>

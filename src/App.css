@@ -28,11 +28,6 @@
   to {opacity: 1;}
 }
 
-.BoxShadow{
-  -webkit-box-shadow: 0 4px 2px -2px rgba(0, 0, 0, 0.2);
-  box-shadow: 0 4px 2px -2px rgba(0, 0, 0, 0.2);
-}
-
 .form{
   margin: 9px;
   -webkit-box-shadow: 0 4px 2px -2px rgba(0, 0, 0, 0.2);
@@ -41,8 +36,12 @@
 
 .LogInSignUp{
   background-image: url("./images/skateboard.png");
-  object-fit: contain;
   height: 100vh;
+}
+
+img.leaflet-marker-icon.leaflet-zoom-animated.leaflet-interactive:hover{
+  background-color: #ED5145;
+  border-radius: 50%;
 }
 
 nav.BoxShadow.navbar.navbar-expand-lg.navbar-dark.bg-dark{

@@ -5,6 +5,9 @@ import PlacesAutocomplete, {
   geocodeByAddress,
   getLatLng,
 } from 'react-places-autocomplete';
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import { createSkatespot } from '../actions/skatespotActions'
 
 
 class NewSpot extends Component {
@@ -25,7 +28,6 @@ class NewSpot extends Component {
           {id: 9, value: "Ramp", isChecked: false},
         ],
         coordinates: [],
-    
     }
 
     handleAddressChange=(address)=> {
@@ -79,13 +81,14 @@ class NewSpot extends Component {
             comments: []
           }
           this.props.createSkatespot(newSpot)
-        } else {
-          console.log("Please Log In")
-        }
-    
+          this.props.history.push('/')
+        } 
       }
 
     render() {
+
+        console.log(this.props.auth.isAuthenticated)
+
         return (
             <Col xs={12} sm={12} md={4} lg={4} className="AlignCenter">
             <Card style={{ margin:22, padding: 12, color: "#FFE485", backgroundColor: "#343A40" }}>
@@ -126,4 +129,19 @@ class NewSpot extends Component {
     }
 }
 
-export default NewSpot;
+NewSpot.propTypes = {
+    auth: PropTypes.object.isRequired,
+    fetchSkatespots: PropTypes.func.isRequired,
+    createSkatespot: PropTypes.func.isRequired,
+    parks: PropTypes.array.isRequired,
+    newPark: PropTypes.object.isRequired
+  };
+  const mapStateToProps = (state) => ({
+    auth: state.auth,
+    parks: state.spots.parks,
+    park: state.spots.park,
+  });
+  export default connect(
+    mapStateToProps,
+    { createSkatespot })(NewSpot);
+  

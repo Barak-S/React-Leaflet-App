@@ -7,17 +7,15 @@ const skateboard = new Icon({
     iconSize: [25,25]
   })
 
-class SkateMarker extends Component {
-    render() {
+function SkateMarker(props) {
         return (
             <Marker
-                key={this.props.park.name}
-                position={this.props.position}
-                onClick={()=>this.props.setPark(this.props.park)}
+                key={props.park.name}
+                position={props.position}
+                onClick={()=>props.setPark(props.park)}
                 icon={ skateboard }
             />
         );
-    }
 }
 
 export default SkateMarker;
