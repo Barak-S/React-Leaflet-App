@@ -12,7 +12,7 @@ class Profile extends Component {
     }
 
     componentDidMount(){
-        fetch(`/api/users/${this.props.auth.user.id}/myspots`)
+        fetch(`https://skate-spot-backend.herokuapp.com/api/users/${this.props.auth.user.id}/myspots`)
         .then(resp=>resp.json())
         .then(mySpots=>this.setState({ mySpots }))
     }
@@ -42,7 +42,7 @@ class Profile extends Component {
     }
 
     deletePark=(park)=>{
-        fetch(`/api/skatespots/${park._id}/delete`,{
+        fetch(`https://skate-spot-backend.herokuapp.com/api/skatespots/${park._id}/delete`,{
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ id: park._id })

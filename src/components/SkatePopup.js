@@ -8,13 +8,13 @@ class SkatePopup extends Component {
     }
 
     componentDidMount(){
-        fetch(`/api/skatespots/${this.props.park._id}`)
+        fetch(`https://skate-spot-backend.herokuapp.com/api/skatespots/${this.props.park._id}`)
         .then(resp=>resp.json())
         .then(park=>this.setState({
             likes: park.likes
         }))
         if (this.props.park.postedBy){
-            fetch(`/api/users/${this.props.park.postedBy}`)
+            fetch(`https://skate-spot-backend.herokuapp.com/api/users/${this.props.park.postedBy}`)
             .then(resp=>resp.json())
             .then(userName=> 
                 this.setState({ userName },()=>console.log(userName))
@@ -23,7 +23,7 @@ class SkatePopup extends Component {
     }
 
     increaseLike(id){
-        fetch(`/api/skatespots/${id}/like`,{
+        fetch(`https://skate-spot-backend.herokuapp.com/api/skatespots/${id}/like`,{
             method: 'PUT',
             headers: {
             "Content-type": "application/json"

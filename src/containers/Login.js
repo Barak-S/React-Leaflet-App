@@ -48,26 +48,26 @@ class Login extends React.Component{
         this.setState(this.baseState)
     }
 
-    handleSubmit(user){
-        fetch('/api/users/login',{
-            method: 'POST',
-            headers: {
-              'Accept': 'application/json',
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                name: user.name,
-                email: user.email,
-                password: user.password,
-                password2: user.password2
-            })
-          })
-          .then(resp=>resp.json())
-          .then(data=>{
-              console.log(data)
-            })
-        //   .then(this.resetForm())
-    }
+    // handleSubmit(user){
+    //     fetch('https://skate-spot-backend.herokuapp.com/api/users/login',{
+    //         method: 'POST',
+    //         headers: {
+    //           'Accept': 'application/json',
+    //           'Content-Type': 'application/json'
+    //         },
+    //         body: JSON.stringify({
+    //             name: user.name,
+    //             email: user.email,
+    //             password: user.password,
+    //             password2: user.password2
+    //         })
+    //       })
+    //       .then(resp=>resp.json())
+    //       .then(data=>{
+    //           console.log(data)
+    //         })
+    //     //   .then(this.resetForm())
+    // }
 
     onSubmit = e => {
         e.preventDefault();
