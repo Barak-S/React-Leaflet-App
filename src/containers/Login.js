@@ -81,7 +81,7 @@ class Login extends React.Component{
     render(){
         const { errors } = this.state;
         return (
-            <Row className="LogInSignUp" style={{height: "100vh"}}>
+            <Row className="LogInSignUp">
                 <Col xs={12} sm={12} md={4} lg={4} className="AlignCenter">
                     <Card className="form">
                         <Form style={{padding: 15}}>

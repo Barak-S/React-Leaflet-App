@@ -119,15 +119,15 @@ class SkateMap extends React.Component {
     })
   }
 
-  handleAddressChange=(address)=> {
-    this.setState({ address })
-  }
+  // handleAddressChange=(address)=> {
+  //   this.setState({ address })
+  // }
 
-  handleChange=(e)=>{
-    this.setState({
-      [e.target.name]: e.target.value
-    })
-  }
+  // handleChange=(e)=>{
+  //   this.setState({
+  //     [e.target.name]: e.target.value
+  //   })
+  // }
 
   handleDistanceFilter=(e)=>{
     let num = parseInt(e.target.value)
@@ -192,32 +192,32 @@ class SkateMap extends React.Component {
     })
   }
 
-  createSpot=()=>{
-    if (this.props.auth.isAuthenticated === true ){
-      let trueFeatures = [] 
-      this.state.features.forEach(feature=>{
-        if(feature.isChecked){
-          trueFeatures.push(feature)
-        }
-      }) 
-      let newSpot = {
-        location: {
-          coordinates: this.state.coordinates
-        },
-        name: this.state.name,
-        address: this.state.address,
-        description: this.state.description,
-        features: trueFeatures,
-        postedBy: this.props.auth.user.id,
-        likes: 0,
-        comments: []
-      }
-      this.props.createSkatespot(newSpot)
-    } else {
-      console.log("Please Log In")
-    }
+  // createSpot=()=>{
+  //   if (this.props.auth.isAuthenticated === true ){
+  //     let trueFeatures = [] 
+  //     this.state.features.forEach(feature=>{
+  //       if(feature.isChecked){
+  //         trueFeatures.push(feature)
+  //       }
+  //     }) 
+  //     let newSpot = {
+  //       location: {
+  //         coordinates: this.state.coordinates
+  //       },
+  //       name: this.state.name,
+  //       address: this.state.address,
+  //       description: this.state.description,
+  //       features: trueFeatures,
+  //       postedBy: this.props.auth.user.id,
+  //       likes: 0,
+  //       comments: []
+  //     }
+  //     this.props.createSkatespot(newSpot)
+  //   } else {
+  //     console.log("Please Log In")
+  //   }
 
-  }
+  // }
 
   handleSearch=(e)=>{
     this.setState({
@@ -233,11 +233,11 @@ class SkateMap extends React.Component {
 
   render(){
       return (
-        <div style={{margin: 12.5}}>
+        <div>
           <Container fluid style={{marginTop: 19}}>
-            <Row>
+            <Row style={{padding: 0, margin: 0}}>
               <Col xs={12} sm={12} md={9} lg={9}>
-                <Card style={{marginBottom: 22}} style={{backgroundColor: "#343A40", padding: 12}}>
+                <Card style={{marginBottom: 22}} style={{backgroundColor: "#343A40", padding: 12, marginBottom: 12}}>
                 <Form inline style={{marginBottom: 8.5}}>
                   <Form.Control style={{ margin:3}} type="text" placeholder="Search Skate Spots!" onChange={(e)=>this.handleSearch(e)} />
                   <Form.Control
@@ -260,7 +260,7 @@ class SkateMap extends React.Component {
                       style={{color: "#fff", fontWeight: "600", marginLeft: 8}}
                   />
                 </Form>
-                  <Map center={ this.state.center } zoom={this.state.zoom} animate={true} className="BoxShadow">
+                  <Map center={ this.state.center } zoom={this.state.zoom} animate={true}>
                     { this.state.darkMode ?
                     <TileLayer
                       attribution='&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="http://cartodb.com/attributions">CartoDB</a>'
@@ -297,7 +297,9 @@ class SkateMap extends React.Component {
                     )}
                   </Map>
                 </Card>
-                <div style={{ color: "#ffffff", margin: 17}}>
+              </Col>
+              <Col xs={{ order: 'last' }} sm={{ order: 'last' }} md={9} lg={9}>
+                <div style={{ color: "#ffffff", margin: 8}}>
                   <p><strong>Disclaimer: </strong>None of these spots are authorized places to skate. NYC Skatepark Directory is not responsible for your actions or what happens to you at any of these locations. If you are trespassing on someone else’s property, always be aware that you can be confronted. Follow the rules and leave to avoid further conflict. Skate at your own risk.</p>
                   <p><strong>Things to consider:</strong></p>
                   <p><strong>1. </strong>Spot names may be different than what you know them as</p>
@@ -317,38 +319,6 @@ class SkateMap extends React.Component {
                   darkMode={this.state.darkMode}
                   toggleDarkMode={this.toggleDarkMode}
                 />
-                <Card style={{ marginBottom: 22, padding: 12, color: "#FFE485", backgroundColor: "#343A40" }} className="BoxShadow">
-                  <Form >
-                      <div>
-                        <h3 style={{textAlign: "center"}}>Add a skate spot to our map!</h3>
-                        <Form.Group>
-                            <Form.Label>Name</Form.Label>
-                            <Form.Control name="name" value={this.state.name} placeholder="Name" onChange={(e)=>this.handleChange(e)}/>
-                        </Form.Group>
-                        <Form.Group>
-                            <LocationSearch
-                              currentLocation={this.state.currentLocation}
-                              address={this.state.address}
-                              handleAddressChange={this.handleAddressChange}
-                              handleAddressSelect={this.handleAddressSelect}
-                            />
-                        </Form.Group>
-                        <Form.Group>
-                          <Form.Label>Features</Form.Label>
-                          <br/>
-                          { this.state.features.map((check)=><Form.Check inline label={check.value} type={'checkbox'} isChecked={check.isChecked} onChange={()=>this.handleCheckbox(check.value, check.isChecked)}/>)}
-                        </Form.Group>
-                        <Form.Group>
-                            <Form.Label>Description</Form.Label>
-                            <Form.Control as="textarea" rows={3} name="description" value={this.state.description} placeholder="Desciption" onChange={(e)=>this.handleChange(e)}/>
-                        </Form.Group>
-                        <Form.Group>
-                            <Form.File id="exampleFormControlFile1" label="Upload Image" />
-                        </Form.Group>
-                        <Button style={{backgroundColor: "#ED5145", border: "none"}} className="BoxShadow" onClick={()=>this.createSpot()}>Create Spot!</Button>
-                      </div>
-                  </Form>
-                </Card>
               </Col>
             </Row>         
           </Container>

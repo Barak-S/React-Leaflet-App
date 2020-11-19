@@ -26,6 +26,7 @@ class NavBar extends React.Component {
                         </Navbar.Text>
                         <NavDropdown title={<span style={{ color:"#FFE485", fontWeight: "600" }}>{this.props.auth.user.name}</span>} id="collasible-nav-dropdown">
                             <NavDropdown.Item href="/profile">Profile</NavDropdown.Item>
+                            <NavDropdown.Item href="/new">Create Spot</NavDropdown.Item>
                             <NavDropdown.Divider/>
                             <NavDropdown.Item>
                                 <Link to="/" style={{ textDecoration: 'none' }}>

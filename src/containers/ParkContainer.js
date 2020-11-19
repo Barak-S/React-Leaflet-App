@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Card, Form } from 'react-bootstrap';
+import { Card } from 'react-bootstrap';
 import ParkCard from '../components/ParkCard'
 import { getDistance } from 'geolib';
 
@@ -17,9 +17,10 @@ class ParkContainer extends Component {
     render() {
         this.sortLowtoHigh(this.props.parks)
         return (
-            <Card style={{ marginBottom: 22, padding: 12, minHeight: "25vh", backgroundColor: "#343A40" }} className="BoxShadow">
-                <h4 style={{textAlign: "center", fontWeight: "600", color: "#FFE485"}}>Skate Spots Nearby</h4>
-                    <div className="ParkCol">
+            <Card style={{ marginBottom: 22, padding: 12, backgroundColor: "#343A40" }}>
+                <div className="ParkCol">
+                    <h4 style={{textAlign: "center", fontWeight: "600", color: "#FFE485"}}>Skate Spots Nearby</h4>
+                    <hr/>
                         {this.props.parks.map(park=>{
                             return(
                                 <ParkCard
@@ -30,7 +31,7 @@ class ParkContainer extends Component {
                                 />
                             )
                         })}
-                    </div>
+                </div>
             </Card>
         );
     }

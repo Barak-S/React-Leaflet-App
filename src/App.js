@@ -16,6 +16,7 @@ import SignUp from './containers/Signup'
 import LogIn from './containers/Login'
 import Footer from './components/Footer'
 import Profile from './containers/Profile'
+import NewSpot from './containers/NewSpot'
 import PrivateRoute from "./private-route/PrivateRoute";
 
 // Check for token to keep user logged in
@@ -50,10 +51,11 @@ class App extends React.Component{
               <Route exact path= "/login" render={(routerProps) => <LogIn {...routerProps} />}/>
               <Switch>
                 <PrivateRoute exact path="/profile" component={Profile} />
+                <PrivateRoute exact path="/new" component={NewSpot} />
                 {/* <Route exact path= "/myspots" render={(routerProps) => <MySpots {...routerProps} />}/> */}
               </Switch>
-            <Footer/>
           </div>
+          <Footer/>
         </Router>
       </Provider>
     );

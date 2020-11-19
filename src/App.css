@@ -10,6 +10,7 @@
 
 .body{
   min-height: 100vh;
+  background-color: #1F1F1F;
 }
 
 .AlignCenter{
@@ -40,9 +41,8 @@
 
 .LogInSignUp{
   background-image: url("./images/skateboard.png");
-  object-fit: cover;
-  /* background-repeat: repeat-y;
-  background-repeat: repeat-x; */
+  object-fit: contain;
+  height: 100vh;
 }
 
 nav.BoxShadow.navbar.navbar-expand-lg.navbar-dark.bg-dark{
@@ -69,6 +69,6 @@ a.NavLinks.nav-link:hover {
 }
 
 .ParkCol{
-  height: 400px;
+  height: 80vh;
   overflow-y: scroll;
 }
