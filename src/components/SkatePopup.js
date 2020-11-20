@@ -43,7 +43,7 @@ class SkatePopup extends Component {
                     <h3>{this.props.park.name}</h3>
                     <p>{this.props.park.description}</p>
                     <p style={{fontWeight: "600"}}><img src="../likeButton.png" style={{height: 22, width:22, cursor: "pointer"}} onClick={()=>this.increaseLike(this.props.park._id)}/>{' '}{`${this.state.likes !== undefined ? this.state.likes : 0} Likes`}</p>
-                    {this.props.park.postedBy !== undefined && <div><p style={{display: "inline"}}>Added by: </p><p style={{fontWeight: "600", display: "inline", color: "#217AC9"}}> {this.state.userName}</p></div>}
+                    {this.props.park.postedBy !== undefined && <div><hr/><p style={{display: "inline"}}>Added by: </p><p style={{fontWeight: "600", display: "inline", color: "#217AC9"}}> {this.state.userName}</p></div>}
                 </div>
             </Popup>
         );

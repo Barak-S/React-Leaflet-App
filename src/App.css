@@ -12,6 +12,8 @@
 }
 
 .body{
+  font-family: "Poppins", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+  Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   min-height: 100vh;
   background-color: #1F1F1F;
 }
@@ -57,6 +59,11 @@ nav.BoxShadow.navbar.navbar-expand-lg.navbar-dark.bg-dark{
 .red-text{
   color: #ED5145;
   font-weight: 600;
+}
+
+hr{
+  background-color: #ED5145;
+  opacity: 0.7;
 }
 
 div.NavLinks.nav-item {

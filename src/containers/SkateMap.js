@@ -191,6 +191,7 @@ class SkateMap extends React.Component {
                     <TileLayer
                       attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
                       url="https://tiles.wmflabs.org/bw-mapnik/{z}/{x}/{y}.png"
+                      // url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                     />
                     }
                     { this.state.currentLocation.length === 2 &&
@@ -242,7 +243,7 @@ class SkateMap extends React.Component {
                 />
                 <div style={{textAlign: "center"}}>
                   <Link to="/new">
-                    <Button style={{ backgroundColor: "#ED5145", border: "none", fontWeight: "600", color: "#fff" }}>ADD A SPOT TO OUR MAP!</Button>
+                    <Button style={{ backgroundColor: "#ED5145", border: "none", fontWeight: "600", color: "#fff", marginBottom: 10 }}>ADD A SPOT TO OUR MAP!</Button>
                   </Link>
                 </div>
               </Col>
