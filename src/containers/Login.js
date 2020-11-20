@@ -61,10 +61,10 @@ class Login extends React.Component{
     render(){
         const { errors } = this.state;
         return (
-            <Row className="LogInSignUp">
-                <Col xs={12} sm={12} md={4} lg={4} className="AlignCenter">
+            <div className="LogInSignUp">
+                <Col xs={12} sm={12} md={4} lg={4} style={{paddingTop:22}} className="AlignCenter">
                     <Card className="form">
-                        <Form style={{padding: 15}}>
+                        <Form style={{padding: 15 }}>
                             <h3>Log In</h3>
                             <Form.Group controlId="formBasicEmail">
                                 <Form.Label>Email address</Form.Label>
@@ -109,7 +109,7 @@ class Login extends React.Component{
                         </Form>
                     </Card>
                 </Col>
-            </Row>
+            </div>
         );
     }
 }
