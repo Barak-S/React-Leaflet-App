@@ -54,8 +54,8 @@ class Profile extends Component {
 
     render() {
         return (
-            <div style={{minHeight: "90vh", textAlign: "center", marginTop:22, paddingBottom: 20 }}>  
-                <div style={{color: "#FFE485"}}>
+            <div style={{ textAlign: "center", marginTop:22, paddingBottom: 45 }}>  
+                <div style={{color: "#ED5145"}}>
                     <h3>{this.props.auth.user.name}</h3>
                     <h6 style={{marginTop: 10}}>My Spots</h6>
                 </div> 
@@ -84,7 +84,7 @@ class Profile extends Component {
                         </Modal.Header>
                         <Modal.Body>This Skate Spot will permanently be removed.</Modal.Body>
                         <Modal.Footer>
-                        <Button variant="danger" onClick={()=>this.deleteLoan()}>
+                        <Button style={{backgroundColor: "#ED5145", border: 'none'}} onClick={()=>this.deleteLoan()}>
                             Delete
                         </Button>
                         <Button variant="secondary" onClick={this.handleClose}>Close</Button>

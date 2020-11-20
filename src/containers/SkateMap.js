@@ -155,10 +155,10 @@ class SkateMap extends React.Component {
   render(){
       return (
         <div>
-          <Container fluid style={{marginTop: 19}}>
+          <Container fluid style={{marginTop: 19, padding: 0}}>
             <Row style={{padding: 0, margin: 0}}>
               <Col xs={12} sm={12} md={9} lg={9}>
-                <Card style={{marginBottom: 22}} style={{backgroundColor: "#343A40", padding: 12, marginBottom: 12}}>
+                <Card style={{marginBottom: 22}} style={{backgroundColor: "#343A40", padding: 8, marginBottom: 12}}>
                 <Form inline style={{marginBottom: 8.5}}>
                   <Form.Control style={{ margin:3}} type="text" placeholder="Search Skate Spots!" onChange={(e)=>this.handleSearch(e)} />
                   <Form.Control
@@ -173,12 +173,12 @@ class SkateMap extends React.Component {
                       <option value="25">25 miles</option>
                   </Form.Control>
                   <Form.Check
-                      id="switch-1"
+                      id="switch"
                       type="switch"
                       label="Dark Mode"
                       checked={this.state.darkMode}
                       onChange={this.toggleDarkMode}
-                      style={{color: "#fff", fontWeight: "600", marginLeft: 8}}
+                      style={{color: "#fff", fontWeight: "600", marginLeft: 8 }}
                   />
                 </Form>
                   <Map center={ this.state.center } zoom={this.state.zoom} animate={true}>
@@ -220,7 +220,7 @@ class SkateMap extends React.Component {
                 </Card>
               </Col>
               <Col xs={{ order: 'last' }} sm={{ order: 'last' }} md={9} lg={9}>
-                <div style={{ color: "#ffffff", margin: 8}}>
+                <div style={{ color: "#ffffff", margin: 8, paddingBottom: 22}}>
                   <p><strong>Disclaimer: </strong>None of these spots are authorized places to skate. NYC Skatepark Directory is not responsible for your actions or what happens to you at any of these locations. If you are trespassing on someone else’s property, always be aware that you can be confronted. Follow the rules and leave to avoid further conflict. Skate at your own risk.</p>
                   <p><strong>Things to consider:</strong></p>
                   <p><strong>1. </strong>Spot names may be different than what you know them as</p>

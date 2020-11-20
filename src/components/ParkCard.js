@@ -26,14 +26,14 @@ class ParkCard extends Component {
                     <p style={{ color: "green", marginBottom: 5}}>{this.props.park.description.length > 100 ? this.props.park.description.slice(0, 99) + "..." : this.props.park.description }</p>
                     { this.props.park.features.length !== 0 &&
                     <div style={{paddingBottom: 8}}>
-                        <p style={{ color: "#217AC9"}}>Spot Features:</p>
+                        <p style={{ color: "#217AC9", fontWeight: '600'}}>Spot Features:</p>
                         { this.mapFeatures() } 
                         { this.props.currentLocation.length === 2 && <p style={{marginBottom: 3, color: "green", fontWeight: "600"}}>Distance: {(getDistance({ latitude: this.props.currentLocation[0], longitude: this.props.currentLocation[1]}, { latitude:this.props.park.location.coordinates[0], longitude: this.props.park.location.coordinates[1]}) *0.000621371192).toFixed(1) } miles away</p>}
                     </div>}
                 </div>
                 { this.props.deletePark && 
                     <Col style={{textAlign: "center", paddingBottom: 8}}>
-                        <Button variant="danger" onClick={()=>this.props.deletePark(this.props.park)}>Delete</Button>
+                        <Button style={{backgroundColor: "#ED5145", border: 'none'}} onClick={()=>this.props.deletePark(this.props.park)}>Delete</Button>
                     </Col>
                     
                     

@@ -130,7 +130,7 @@ class Signup extends React.Component{
                                 <span className="red-text">{errors.password2}</span>
                             </Form.Group>
                             <Form.Text className="text-muted" style={{paddingBottom: 15, fontWeight: "600" }}>Already have an account? <Link to="/login">Log In</Link></Form.Text>
-                            <Button style={{ backgroundColor: "#ED5145", border: "none" }} className="BoxShadow" onClick={(e)=>this.onSubmit(e)}>
+                            <Button className="continue-button" onClick={(e)=>this.onSubmit(e)}>
                                 Register
                             </Button>
                         </Form>

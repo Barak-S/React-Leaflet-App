@@ -19,7 +19,7 @@ class ParkContainer extends Component {
         return (
             <Card style={{ marginBottom: 22, padding: 12, backgroundColor: "#343A40" }}>
                 <div className="ParkCol">
-                    <h4 style={{textAlign: "center", fontWeight: "600", color: "#FFE485"}}>Skate Spots Nearby</h4>
+                    <h4 style={{textAlign: "center", fontWeight: "600", color: "#fff"}}>Skate Spots Nearby</h4>
                     <hr/>
                         {this.props.parks.map(park=>{
                             return(

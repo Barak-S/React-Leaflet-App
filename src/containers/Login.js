@@ -48,34 +48,14 @@ class Login extends React.Component{
         this.setState(this.baseState)
     }
 
-    // handleSubmit(user){
-    //     fetch('https://skate-spot-backend.herokuapp.com/api/users/login',{
-    //         method: 'POST',
-    //         headers: {
-    //           'Accept': 'application/json',
-    //           'Content-Type': 'application/json'
-    //         },
-    //         body: JSON.stringify({
-    //             name: user.name,
-    //             email: user.email,
-    //             password: user.password,
-    //             password2: user.password2
-    //         })
-    //       })
-    //       .then(resp=>resp.json())
-    //       .then(data=>{
-    //           console.log(data)
-    //         })
-    //     //   .then(this.resetForm())
-    // }
-
     onSubmit = e => {
         e.preventDefault();
         const userData = {
             email: this.state.email,
             password: this.state.password
         };
-        this.props.loginUser(userData); // since we handle the redirect within our component, we don't need to pass in this.props.history as a parameter
+        this.props.loginUser(userData); 
+        // since we handle the redirect within our component, we don't need to pass in this.props.history as a parameter
       }
 
     render(){
@@ -123,7 +103,7 @@ class Login extends React.Component{
                                 </span>
                             </Form.Group>
                             <Form.Text className="text-muted" style={{ paddingBottom: 15, fontWeight: "600" }}>Dont have an account? <Link to="/signup">Sign Up</Link></Form.Text>
-                            <Button style={{ backgroundColor: "#ED5145", border: "none"}} className="BoxShadow" onClick={(e)=>this.onSubmit(e)}>
+                            <Button className="continue-button" onClick={(e)=>this.onSubmit(e)}>
                                 Log In
                             </Button>
                         </Form>
