@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from "prop-types";
 import { connect } from "react-redux"
-import { Tabs, Tab, Col, Button, Modal } from 'react-bootstrap';
+import { Col, Button, Modal } from 'react-bootstrap';
 import ParkCard from '../components/ParkCard'
 
 
@@ -10,7 +10,8 @@ class MySpots extends Component {
 
     state={
         mySpots: [],
-        deleteModal: false
+        deleteModal: false,
+        setPark: {}
     }
 
     componentDidMount(){
@@ -43,32 +44,41 @@ class MySpots extends Component {
         this.setState({ deleteModal: !this.state.deleteModal })
     }
 
-    deletePark=(park)=>{
-        fetch(`https://skate-spot-backend.herokuapp.com/api/skatespots/${park._id}/delete`,{
+    setPark=(park)=>{
+        this.setState({
+            deleteModal: true,
+            setPark: park
+        })
+    }
+
+    deletePark=(parkID)=>{
+        fetch(`https://skate-spot-backend.herokuapp.com/api/skatespots/${parkID}/delete`,{
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ id: park._id })
+        body: JSON.stringify({ id: parkID })
         })
         .then(resp=>resp.json())
-        .then(deletedSpot => this.removeSpotfromState(deletedSpot._id))
+        .then(deletedSpot => {
+            this.removeSpotfromState(deletedSpot._id) 
+            this.setState({deleteModal: false}) 
+        })
     }
     
 
     render() {
         return (
-            <div style={{ textAlign: "center", marginTop:30, paddingBottom: 45 }}>  
-                <Col xs={12} sm={12} md={10} lg={10} className="AlignCenter">
+                <Col xs={12} sm={12} md={10} lg={10} className="AlignCenter" >
+                    <h3 style={{margin: 10, color: "#ED5145"}}>My Spots</h3>
                     {this.state.mySpots.map(park=>{
                         return(
                             <ParkCard
                                 key={park._id}
                                 park={park}
-                                deletePark={this.deletePark}
+                                deletePark={this.setPark}
                                 currentLocation={[]}
                             />
                         )
                     })}
-                </Col>
                 {this.state.deleteModal === true && 
                     <>
                     <Modal
@@ -82,7 +92,7 @@ class MySpots extends Component {
                         </Modal.Header>
                         <Modal.Body>This Skate Spot will permanently be removed.</Modal.Body>
                         <Modal.Footer>
-                        <Button style={{backgroundColor: "#ED5145", border: 'none'}} onClick={()=>this.deleteLoan()}>
+                        <Button style={{backgroundColor: "#ED5145", border: 'none'}} onClick={()=>this.deletePark(this.state.setPark)}>
                             Delete
                         </Button>
                         <Button variant="secondary" onClick={this.handleClose}>Close</Button>
@@ -90,7 +100,7 @@ class MySpots extends Component {
                     </Modal>
                     </>
                     }
-            </div>
+                </Col>
         );
     }
 }

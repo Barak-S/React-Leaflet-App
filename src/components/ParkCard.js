@@ -33,7 +33,7 @@ class ParkCard extends Component {
                 </div>
                 { this.props.deletePark && 
                     <Col style={{textAlign: "center", paddingBottom: 8}}>
-                        <Button style={{backgroundColor: "#ED5145", border: 'none'}} onClick={()=>this.props.deletePark(this.props.park)}>Delete</Button>
+                        <Button style={{backgroundColor: "#ED5145", border: 'none'}} onClick={()=>this.props.deletePark(this.props.park._id)}>Delete</Button>
                     </Col>
                     
                     

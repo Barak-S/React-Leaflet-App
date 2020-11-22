@@ -1,29 +1,26 @@
-import React, { Component } from 'react';
-import { Tabs, Tab, Col, Button, Modal } from 'react-bootstrap';
+import React from 'react';
+import { Tabs, Tab, Col } from 'react-bootstrap';
 import PropTypes from "prop-types";
 import { connect } from "react-redux"
-import ParkCard from '../components/ParkCard'
 import MySpots from './MySpots'
 
-class Profile extends Component {    
+function Profile(props){    
 
-    render() {
-        return (
-            <div style={{ textAlign: "center", marginTop:22, paddingBottom: 45 }}>  
-                <div style={{color: "#ED5145"}}>
-                    <h3>{this.props.auth.user.name}</h3>
-                </div> 
-                <Tabs defaultActiveKey="myspots" >
-                    <Tab eventKey="myspots" title="My Spots">
-                       <MySpots/> 
-                    </Tab>
-                    <Tab eventKey="account" title="Account">
-                        <p>edit profile</p>
-                    </Tab>
-                </Tabs>
-            </div>
-        );
-    }
+    return (
+        <Col xs={12} sm={12} md={10} mg={10} style={{ textAlign: "center", marginTop:22, paddingBottom: 45 }} className="AlignCenter">  
+            <div style={{color: "#ED5145"}}>
+                <h3>{props.auth.user.name}</h3>
+            </div> 
+            <Tabs defaultActiveKey="myspots" >
+                <Tab eventKey="myspots" title="My Spots">
+                    <MySpots/> 
+                </Tab>
+                <Tab eventKey="account" title="Account">
+                    <p>edit profile</p>
+                </Tab>
+            </Tabs>
+        </Col>
+    );
 }
 
 Profile.propTypes = {
