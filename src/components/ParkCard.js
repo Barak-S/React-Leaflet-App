@@ -19,7 +19,7 @@ class ParkCard extends Component {
 
     render() {
         return (
-            <Card style={{marginTop:5, textAlign: "left", cursor: "pointer"}} onClick={()=>{ this.props.setPark && this.props.setPark(this.props.park)}}>
+            <Card style={{marginTop:8, textAlign: "left", cursor: "pointer"}} onClick={()=>{ this.props.setPark && this.props.setPark(this.props.park)}}>
                 <div style={{paddingLeft: 8}}>
                     <Card.Title style={{ textAlign: "center" }}>{this.props.park.name}</Card.Title>
                     { this.props.park.address && <h6>Address: {this.props.park.address}</h6>}

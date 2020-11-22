@@ -104,3 +104,11 @@ button.continue-button:hover{
 /* label.custom-control-label::before{
   background-color: #ED5145;
 } */
+
+a.nav-item.nav-link{
+  color: #ED5145;
+  border: 1px solid #ED5145
+}
+a.nav-item.nav-link.active{
+  font-weight: 600;
+}
