@@ -3,6 +3,7 @@ import { Tabs, Tab, Col } from 'react-bootstrap';
 import PropTypes from "prop-types";
 import { connect } from "react-redux"
 import MySpots from './MySpots'
+import EditProfile from './EditProfile'
 
 function Profile(props){    
 
@@ -16,7 +17,7 @@ function Profile(props){
                     <MySpots/> 
                 </Tab>
                 <Tab eventKey="account" title="Account">
-                    <p>edit profile</p>
+                    <EditProfile/>
                 </Tab>
             </Tabs>
         </Col>

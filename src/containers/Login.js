@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Container, Row, Col, Card, Form, Button } from 'react-bootstrap';
+import { Col, Card, Form, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
 import PropTypes from "prop-types";

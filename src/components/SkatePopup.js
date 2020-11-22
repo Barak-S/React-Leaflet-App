@@ -17,7 +17,7 @@ class SkatePopup extends Component {
             fetch(`https://skate-spot-backend.herokuapp.com/api/users/${this.props.park.postedBy}`)
             .then(resp=>resp.json())
             .then(userName=> 
-                this.setState({ userName },()=>console.log(userName))
+                this.setState({ userName: userName.name })
             )
         }
     }

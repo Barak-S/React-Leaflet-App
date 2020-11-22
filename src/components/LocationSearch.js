@@ -4,7 +4,7 @@ import PlacesAutocomplete, {
   getLatLng,
 } from 'react-places-autocomplete';
 
-import { FormControl, InputGroup, Form } from 'react-bootstrap';
+import { Form } from 'react-bootstrap';
 
  
 export default class LocationSearch extends React.Component {

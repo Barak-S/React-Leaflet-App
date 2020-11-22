@@ -4,8 +4,6 @@ import { connect } from "react-redux"
 import { Col, Button, Modal } from 'react-bootstrap';
 import ParkCard from '../components/ParkCard'
 
-
-
 class MySpots extends Component {
 
     state={

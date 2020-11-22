@@ -5,8 +5,6 @@ import { Link } from "react-router-dom";
 import ParkContainer from './ParkContainer' 
 import SkateMarker from '../components/SkateMarker'
 import SkatePopup from '../components/SkatePopup'
-import  { Icon } from 'leaflet';
-import { render } from '@testing-library/react';
 import { getDistance } from 'geolib';
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
@@ -22,15 +20,6 @@ L.Icon.Default.mergeOptions({
     iconUrl: require('leaflet/dist/images/marker-icon.png'),
     shadowUrl: require('leaflet/dist/images/marker-shadow.png')
 });
-
-const currentLocation = new Icon({
-  iconUrl: '../currentLocation.svg',
-  iconSize: [37,37]
-})
-const likeButton = new Icon({
-  iconUrl: '../likeButton.png',
-  iconSize: [37,37]
-})
 
 class SkateMap extends React.Component {
 

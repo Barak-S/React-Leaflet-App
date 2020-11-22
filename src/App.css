@@ -49,7 +49,7 @@
 
 img.leaflet-marker-icon.leaflet-zoom-animated.leaflet-interactive:hover{
   background-color: #ED5145;
-  border-radius: 50%;
+  border-radius: 15%;
 }
 
 nav.BoxShadow.navbar.navbar-expand-lg.navbar-dark.bg-dark{
