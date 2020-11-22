@@ -5,7 +5,7 @@ import  { Icon } from 'leaflet';
 const skateboard = new Icon({
     iconUrl: '../skateboard.svg',
     iconSize: [25,25]
-  })
+})
 
 function SkateMarker(props) {
         return (

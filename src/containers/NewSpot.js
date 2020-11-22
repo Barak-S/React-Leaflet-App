@@ -8,10 +8,15 @@ import PlacesAutocomplete, {
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { createSkatespot } from '../actions/skatespotActions';
-import SkateMarker from '../components/SkateMarker'
+// import SkateMarker from '../components/SkateMarker'
 import { Map, Marker, TileLayer } from 'react-leaflet';
+import  { Icon } from 'leaflet';
 import L from 'leaflet';
 
+const skateboard = new Icon({
+  iconUrl: '../skateboard.svg',
+  iconSize: [25,25]
+})
 
 delete L.Icon.Default.prototype._getIconUrl;
 
@@ -87,7 +92,7 @@ class NewSpot extends Component {
     }) 
       let newSpot = {
         location: {
-          coordinates: this.state.coordinates
+          coordinates: this.state.center
         },
         name: this.state.name,
         address: this.state.address,
@@ -170,9 +175,10 @@ class NewSpot extends Component {
                   url="https://tiles.wmflabs.org/bw-mapnik/{z}/{x}/{y}.png"
                 />
                 }
-                {this.state.center !== [40.7395 , -73.9027] ? <Marker
-                  key="currentLocation"
-                  position={this.state.center}
+                {this.state.center !== this.defaultCenter ? 
+                <Marker
+                  position={ this.state.center }
+                  icon={ skateboard }
                 /> : null }
               </Map>
           </Card>
