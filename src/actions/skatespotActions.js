@@ -1,4 +1,4 @@
-import { FETCH_SKATESPOTS, CREATE_SKATESPOT, FILTER_SKATESPOTS } from "./types";
+import { FETCH_SKATESPOTS, CREATE_SKATESPOT, FILTER_SKATESPOTS, DELETE_SKATESPOT } from "./types";
 
 export const fetchSkatespots = () => dispatch => {
     fetch("https://skate-spot-backend.herokuapp.com/api/skatespots")
@@ -28,3 +28,10 @@ export const createSkatespot = newSpot => dispatch => {
     )
 }
 
+export const deleteSkatespot = parkID => dispatch => {
+    fetch(`https://skate-spot-backend.herokuapp.com/api/skatespots/${parkID}/delete`,{
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id: parkID })
+    })
+}

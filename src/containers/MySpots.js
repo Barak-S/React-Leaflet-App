@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux"
 import { Col, Button, Modal } from 'react-bootstrap';
 import ParkCard from '../components/ParkCard'
+import { deleteSkatespot } from '../actions/skatespotActions';
 
 class MySpots extends Component {
 
@@ -50,66 +51,60 @@ class MySpots extends Component {
     }
 
     deletePark=(parkID)=>{
-        fetch(`https://skate-spot-backend.herokuapp.com/api/skatespots/${parkID}/delete`,{
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ id: parkID })
-        })
-        .then(resp=>resp.json())
-        .then(deletedSpot => {
-            this.removeSpotfromState(deletedSpot._id) 
-            this.setState({deleteModal: false}) 
-        })
+        this.props.deleteSkatespot(parkID)
+        this.removeSpotfromState(parkID) 
+        this.setState({deleteModal: false}) 
     }
     
 
     render() {
         return (
-                <Col xs={12} sm={12} md={10} lg={10} className="AlignCenter" >
-                    <h3 style={{margin: 10, color: "#ED5145"}}>My Spots</h3>
-                    {this.state.mySpots.map(park=>{
-                        return(
-                            <ParkCard
-                                key={park._id}
-                                park={park}
-                                deletePark={this.setPark}
-                                currentLocation={[]}
-                            />
-                        )
-                    })}
-                {this.state.deleteModal === true && 
-                    <>
-                    <Modal
-                        show={this.state.deleteModal}
-                        onHide={this.handleClose}
-                        backdrop="static"
-                        keyboard={false}
-                    >
-                        <Modal.Header closeButton>
-                            <Modal.Title>Are you sure you want to delete?</Modal.Title>
-                        </Modal.Header>
-                        <Modal.Body>This Skate Spot will permanently be removed.</Modal.Body>
-                        <Modal.Footer>
-                        <Button style={{backgroundColor: "#ED5145", border: 'none'}} onClick={()=>this.deletePark(this.state.setPark)}>
-                            Delete
-                        </Button>
-                        <Button variant="secondary" onClick={this.handleClose}>Close</Button>
-                        </Modal.Footer>
-                    </Modal>
-                    </>
-                    }
-                </Col>
+            <Col xs={12} sm={12} md={10} lg={10} className="AlignCenter" >
+                <h3 style={{margin: 10, color: "#ED5145"}}>My Spots</h3>
+                {this.state.mySpots.map(park=>{
+                    return(
+                        <ParkCard
+                            key={park._id}
+                            park={park}
+                            deletePark={this.setPark}
+                            currentLocation={[]}
+                        />
+                    )
+                })}
+            {this.state.deleteModal === true && 
+                <>
+                <Modal
+                    show={this.state.deleteModal}
+                    onHide={this.handleClose}
+                    backdrop="static"
+                    keyboard={false}
+                >
+                    <Modal.Header closeButton>
+                        <Modal.Title>Are you sure you want to delete?</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>This Skate Spot will permanently be removed.</Modal.Body>
+                    <Modal.Footer>
+                    <Button style={{backgroundColor: "#ED5145", border: 'none'}} onClick={()=>this.deletePark(this.state.setPark)}>
+                        Delete
+                    </Button>
+                    <Button variant="secondary" onClick={this.handleClose}>Close</Button>
+                    </Modal.Footer>
+                </Modal>
+                </>
+                }
+            </Col>
         );
     }
 }
 
 MySpots.propTypes = {
     auth: PropTypes.object.isRequired,
-    errors: PropTypes.object.isRequired
+    errors: PropTypes.object.isRequired,
+    deleteSkatespot: PropTypes.func.isRequired,
 };
 const mapStateToProps = state => ({
     auth: state.auth,
 });
 export default connect(
     mapStateToProps,
-)(MySpots);
+{ deleteSkatespot })(MySpots);
