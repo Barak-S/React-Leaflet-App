@@ -8,7 +8,6 @@ import SkatePopup from '../components/SkatePopup'
 import { getDistance } from 'geolib';
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
-
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { fetchSkatespots, createSkatespot } from '../actions/skatespotActions';
