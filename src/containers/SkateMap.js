@@ -210,7 +210,7 @@ class SkateMap extends React.Component {
               </Col>
               <Col xs={{ order: 'last' }} sm={{ order: 'last' }} md={9} lg={9}>
                 <div style={{ color: "#ffffff", margin: 8, paddingBottom: 22}}>
-                  <p><strong>Disclaimer: </strong>None of these spots are authorized places to skate. NYC Skatepark Directory is not responsible for your actions or what happens to you at any of these locations. If you are trespassing on someone else’s property, always be aware that you can be confronted. Follow the rules and leave to avoid further conflict. Skate at your own risk.</p>
+                  <p><strong>Disclaimer: </strong>None of these spots are authorized places to skate. Sk8 Park Finder is not responsible for your actions or what happens to you at any of these locations. If you are trespassing on someone else’s property, always be aware that you can be confronted. Follow the rules and leave to avoid further conflict. Skate at your own risk.</p>
                   <p><strong>Things to consider:</strong></p>
                   <p><strong>1. </strong>Spot names may be different than what you know them as</p>
                   <p><strong>2. </strong>Some places may not count as a “spot” to you but remember, kids just starting to skate might want to hit up that 5 stair or little ledge</p>

@@ -16,7 +16,7 @@ class NavBar extends React.Component {
                 <Navbar.Collapse id="responsive-navbar-nav">
                     <Nav className="mr-auto">
                         <Link to="/" style={{ textDecoration: 'none' }}>
-                            <Nav.Link href="#link" style={{ color: "#ED5145", fontSize: 22, fontWeight: "600"}}>NYC Skatepark Directory</Nav.Link>
+                            <Nav.Link href="#link" style={{ color: "#ED5145", fontSize: 22, fontWeight: "600"}}>Sk8 Park Finder</Nav.Link>
                         </Link>
                     </Nav>
                         { this.props.auth.isAuthenticated ? 

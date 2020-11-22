@@ -112,3 +112,8 @@ a.nav-item.nav-link{
 a.nav-item.nav-link.active{
   font-weight: 600;
 }
+
+button.navbar-toggler.collapsed {
+  color: #ED5145;
+  border-color: #ED5145;
+}

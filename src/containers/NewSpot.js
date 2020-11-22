@@ -191,7 +191,6 @@ class NewSpot extends Component {
 
 NewSpot.propTypes = {
     auth: PropTypes.object.isRequired,
-    fetchSkatespots: PropTypes.func.isRequired,
     createSkatespot: PropTypes.func.isRequired,
     parks: PropTypes.array.isRequired,
     newPark: PropTypes.object.isRequired
