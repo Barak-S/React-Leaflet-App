@@ -96,9 +96,12 @@ class SkateMap extends React.Component {
         zoom = 11.5
       } else if (num === 25){
         zoom = 10.5
+      } else {
+        zoom = 5.5
       }
       this.setState({
         distance: num,
+        center: this.state.currentLocation,
         zoom: zoom
       },()=>{
         this.props.parks.map(park=>{
@@ -115,15 +118,8 @@ class SkateMap extends React.Component {
   }
 
   clearPark=()=>{
-    let center = [];
-    if (this.state.currentLocation.length === 2){
-      center = this.state.currentLocation
-    } else {
-      center = this.defaultCenter
-    }
     this.setState({ 
       selectedPark: {}, 
-      center: center,
       zoom: 10.5
     })
   }
@@ -155,7 +151,7 @@ class SkateMap extends React.Component {
                       onChange={(e)=>this.handleDistanceFilter(e)}
                       custom
                   >
-                      <option value="100">Distance</option>
+                      <option value="10000">Distance</option>
                       <option value="5">5 miles</option>
                       <option value="10">10 miles</option>
                       <option value="25">25 miles</option>
@@ -220,14 +216,8 @@ class SkateMap extends React.Component {
               <Col xs={12} sm={12} md={3} lg={3}>
                 <ParkContainer
                   parks={ this.state.filteredParks.length > 0 ? this.state.filteredParks : this.props.parks }
-                  search={this.state.search}
-                  handleSearch={this.handleSearch}
                   setPark={this.setPark}
                   currentLocation={this.state.currentLocation}
-                  distance={this.state.distance}
-                  handleDistanceFilter={this.handleDistanceFilter}
-                  darkMode={this.state.darkMode}
-                  toggleDarkMode={this.toggleDarkMode}
                 />
                 <div style={{textAlign: "center"}}>
                   <Link to="/new">
