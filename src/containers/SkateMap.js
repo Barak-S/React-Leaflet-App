@@ -182,6 +182,7 @@ class SkateMap extends React.Component {
                       <Marker
                         key="currentLocation"
                         position={[this.state.currentLocation[0], this.state.currentLocation[1]]}
+                        onClick={()=>this.setState({ center: this.state.currentLocation })}
                       /> 
                     }
                     { (this.state.filteredParks.length > 0 ? this.state.filteredParks : this.props.parks).map(park=>{
@@ -205,13 +206,18 @@ class SkateMap extends React.Component {
                 </Card>
               </Col>
               <Col xs={{ order: 'last' }} sm={{ order: 'last' }} md={9} lg={9}>
-                <div style={{ color: "#ffffff", margin: 8, paddingBottom: 22}}>
-                  <p><strong>Disclaimer: </strong>None of these spots are authorized places to skate. Sk8 Park Finder is not responsible for your actions or what happens to you at any of these locations. If you are trespassing on someone else’s property, always be aware that you can be confronted. Follow the rules and leave to avoid further conflict. Skate at your own risk.</p>
-                  <p><strong>Things to consider:</strong></p>
-                  <p><strong>1. </strong>Spot names may be different than what you know them as</p>
-                  <p><strong>2. </strong>Some places may not count as a “spot” to you but remember, kids just starting to skate might want to hit up that 5 stair or little ledge</p>
-                  <p><strong>3. </strong><strong></strong>Double check pin locations before heading out</p>
-                </div>
+                <Row style={{ color: "#ffffff", margin: 8, paddingBottom: 22}}>
+                  <Col xs={12} sm={12} md={3} lg={3}>
+                    <img src={require('../images/undraw_skateboard.svg')} style={{ marginTop: 20, marginBottom: 22, width: "100%" }}></img>
+                  </Col>
+                  <Col xs={12} sm={12} md={9} lg={9}>
+                    <p><strong>Disclaimer: </strong>None of these spots are authorized places to skate. Sk8 Park Finder is not responsible for your actions or what happens to you at any of these locations. If you are trespassing on someone else’s property, always be aware that you can be confronted. Follow the rules and leave to avoid further conflict. Skate at your own risk.</p>
+                    <p><strong>Things to consider:</strong></p>
+                    <p><strong>1. </strong>Spot names may be different than what you know them as</p>
+                    <p><strong>2. </strong>Some places may not count as a “spot” to you but remember, kids just starting to skate might want to hit up that 5 stair or little ledge</p>
+                    <p><strong>3. </strong><strong></strong>Double check pin locations before heading out</p>
+                  </Col>
+                </Row>
               </Col>
               <Col xs={12} sm={12} md={3} lg={3}>
                 <ParkContainer
