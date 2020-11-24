@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from "prop-types";
 import { connect } from "react-redux"
-import { Col, Form, Button, Card} from 'react-bootstrap';
+import { Col, Form, Button, Card, Alert } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import classnames from "classnames";
+import { verifyPassword } from "../actions/authActions";
+import axios from "axios";
 
 
 class EditProfile extends Component {
@@ -15,9 +17,15 @@ class EditProfile extends Component {
             email: "",
             oldPassword: "",
             newPassword: "",
-            errors: {}
+            errors: { alert: ""}
         }
         // this.baseState = this.state 
+    }
+
+    handleChange = e =>{
+        this.setState({
+            [e.target.name]: e.target.value
+        })
     }
 
     componentDidMount(){
@@ -26,18 +34,27 @@ class EditProfile extends Component {
         .then(user => this.setState({
             name: user.name,
             email: user.email,
-            password: user.password
         }))
     }
 
-    onSubmit(e){
-        console.log("saving")
+    onSubmit(){
+        let accountInfo = { 
+            email: this.state.email, 
+            newPassword: this.state.newPassword, 
+            oldPassword: this.state.oldPassword, 
+            id: this.props.auth.user.id 
+        }
+        axios.post("https://skate-spot-backend.herokuapp.com/api/users/verify", accountInfo)
+        .then(data => {
+            if (data.data.errors){
+                console.log(data.data.errors)
+                this.state.errors.alert = data.data.errors
+            } else {
+                console.log(data)
+                this.state.errors.alert = "success"
+            }
+        })
     }
-
-    // STEPS:
-    // email - verify email
-    // verify old password
-    // bcrypt new password 
 
     render() {
         const { errors } = this.state;
@@ -46,6 +63,9 @@ class EditProfile extends Component {
                 <h3 style={{margin: 10, color: "#ED5145"}}>Profile</h3>
                 <Card className="form">
                     <Form style={{padding: 15 }}>
+                        { errors.alert !== "" && <Alert key={'success'} variant={'success'}>
+                            { errors.alert }
+                        </Alert>}
                         <h3>Update Account Info</h3>
                         <Form.Group controlId="formBasicEmail">
                             <Form.Label>Name</Form.Label>
@@ -56,31 +76,12 @@ class EditProfile extends Component {
                                 placeholder="name" 
                                 value={this.state.name} 
                                 onChange={(e)=>this.handleChange(e)} 
-                                className={classnames("", {
-                                    invalid: errors.email || errors.emailnotfound
-                                })}
                             />
-                            <Form.Label>Email address</Form.Label>
-                            <Form.Control 
-                                type="email" 
-                                name="email" 
-                                error={errors.email} 
-                                placeholder="Enter email" 
-                                value={this.state.email} 
-                                onChange={(e)=>this.handleChange(e)} 
-                                className={classnames("", {
-                                    invalid: errors.email || errors.emailnotfound
-                                })}
-                            />
-                            <span className="red-text">
-                                {errors.email}
-                                {errors.emailnotfound}
-                            </span>
                         </Form.Group>
                         <Form.Group controlId="formBasicPassword">
                             <Form.Label>Old Password</Form.Label>
                             <Form.Control 
-                                type="oldPassword" 
+                                type="password" 
                                 name="oldPassword" 
                                 error={errors.oldPassword} 
                                 placeholder="Old Password" 
@@ -98,7 +99,7 @@ class EditProfile extends Component {
                         <Form.Group controlId="formBasicPassword">
                             <Form.Label>New Password</Form.Label>
                             <Form.Control 
-                                type="newPassword" 
+                                type="password" 
                                 name="newPassword" 
                                 error={errors.newPassword} 
                                 placeholder="New Password" 
@@ -114,7 +115,7 @@ class EditProfile extends Component {
                             </span>
                         </Form.Group>
                         <Form.Text className="text-muted" style={{ paddingBottom: 15, fontWeight: "600" }}>Dont have an account? <Link to="/signup">Sign Up</Link></Form.Text>
-                        <Button className="continue-button" onClick={(e)=>this.onSubmit(e)}>
+                        <Button className="continue-button" onClick={()=>this.onSubmit()}>
                             Save Info
                         </Button>
                     </Form>
@@ -132,5 +133,5 @@ const mapStateToProps = state => ({
     auth: state.auth,
 });
 export default connect(
-    mapStateToProps,
+    mapStateToProps, { verifyPassword }
 )(EditProfile);

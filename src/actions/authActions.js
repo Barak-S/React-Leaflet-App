@@ -41,6 +41,15 @@ export const loginUser = userData => dispatch => {
       })
     );
 };
+
+export const verifyPassword = userData => dispatch => {
+  axios
+    .post("https://skate-spot-backend.herokuapp.com/api/users/verify", userData)
+    .then(data => console.log(data))
+}
+
+
+
 // Set logged in user
 export const setCurrentUser = decoded => {
   return {
