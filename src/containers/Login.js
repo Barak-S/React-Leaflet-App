@@ -17,11 +17,10 @@ class Login extends React.Component{
             password: "",
             errors: {}
         }
-        this.baseState = this.state 
+        // this.baseState = this.state 
     }
 
     componentDidMount() {
-        // If logged in and user navigates to Login page, should redirect them to dashboard
         if (this.props.auth.isAuthenticated) {
           this.props.history.push("/");
         }
@@ -29,7 +28,7 @@ class Login extends React.Component{
 
     componentWillReceiveProps(nextProps) {
         if (nextProps.auth.isAuthenticated) {
-            this.props.history.push("/"); // push user to dashboard when they login
+            this.props.history.push("/"); 
         }
         if (nextProps.errors) {
             this.setState({
@@ -44,10 +43,6 @@ class Login extends React.Component{
         })
     }
 
-    resetForm = () => {
-        this.setState(this.baseState)
-    }
-
     onSubmit = e => {
         e.preventDefault();
         const userData = {
@@ -55,7 +50,6 @@ class Login extends React.Component{
             password: this.state.password
         };
         this.props.loginUser(userData); 
-        // since we handle the redirect within our component, we don't need to pass in this.props.history as a parameter
       }
 
     render(){
