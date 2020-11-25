@@ -46,7 +46,7 @@ class EditProfile extends Component {
             oldPassword: this.state.oldPassword, 
             id: this.props.auth.user.id 
         }
-        axios.post("http://localhost:5000/api/users/verify", accountInfo)
+        axios.post("https://skate-spot-backend.herokuapp.com/api/users/verify", accountInfo)
         .then(data => {
             if (data.data.newPassword || data.data.oldPassword){
                 this.setState({
